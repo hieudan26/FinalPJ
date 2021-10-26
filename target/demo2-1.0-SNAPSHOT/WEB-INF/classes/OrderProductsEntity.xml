@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Model.OrderProductsEntity">
+        <table name="order_products" schema="public" catalog="Web"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="-1"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="description">
+                <column name="description" nullable="false"/>
+            </basic>
+            <basic name="price">
+                <column name="price" precision="-1"/>
+            </basic>
+            <basic name="quantity">
+                <column name="quantity" precision="-1"/>
+            </basic>
+            <basic name="subtotal">
+                <column name="subtotal" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

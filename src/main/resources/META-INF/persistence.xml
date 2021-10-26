@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="default">
+        <mapping-file>AccountsEntity.xml</mapping-file>
+        <mapping-file>CategoriesEntity.xml</mapping-file>
+        <mapping-file>CcTransactionsEntity.xml</mapping-file>
+        <mapping-file>ColorsEntity.xml</mapping-file>
+        <mapping-file>OrderProductsEntity.xml</mapping-file>
+        <mapping-file>ProductStatusesEntity.xml</mapping-file>
+        <mapping-file>ProductTagsEntity.xml</mapping-file>
+        <mapping-file>ProductsEntity.xml</mapping-file>
+        <mapping-file>ProductsColorsEntity.xml</mapping-file>
+        <mapping-file>ReviewsEntity.xml</mapping-file>
+        <mapping-file>RolesEntity.xml</mapping-file>
+        <mapping-file>SalesOrdersEntity.xml</mapping-file>
+        <mapping-file>SessionsEntity.xml</mapping-file>
+        <mapping-file>TagsEntity.xml</mapping-file>
+        <mapping-file>UsersEntity.xml</mapping-file>
+
+        <class>Model.AccountsEntity</class>
+        <class>Model.CategoriesEntity</class>
+        <class>Model.CcTransactionsEntity</class>
+        <class>Model.ColorsEntity</class>
+        <class>Model.OrderProductsEntity</class>
+        <class>Model.ProductStatusesEntity</class>
+        <class>Model.ProductTagsEntity</class>
+        <class>Model.ProductsEntity</class>
+        <class>Model.ProductsColorsEntity</class>
+        <class>Model.ReviewsEntity</class>
+        <class>Model.RolesEntity</class>
+        <class>Model.SalesOrdersEntity</class>
+        <class>Model.SessionsEntity</class>
+        <class>Model.TagsEntity</class>
+        <class>Model.UsersEntity</class>
+        <properties>
+            <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/Web"/>
+            <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Web"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:postgresql://localhost:5432/Web"/>
+            <property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/Web"/>
+            <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Model.ProductsColorsEntity">
+        <table name="products_colors" schema="public" catalog="Web"/>
+        <id-class class="Model.ProductsColorsEntityPK"/>
+        <attributes>
+            <id name="productId">
+                <column name="product_id" precision="-1"/>
+            </id>
+            <id name="colorId">
+                <column name="color_id" precision="-1"/>
+            </id>
+        </attributes>
+    </entity>
+</entity-mappings>
