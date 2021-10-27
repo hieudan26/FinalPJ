@@ -27,7 +27,7 @@
                                 <div class="clear">
                                     <!-- submit -->
                                     <button id="mc-embedded-subscribe" class="button" type="button" name="subscribe"
-                                            value="" onclick="window.location.href='./404.jsp'"> Submit</button>
+                                            value="" onclick="window.location.href='error404.jsp'"> Submit</button>
                                 </div>
                             </div>
                         </form>

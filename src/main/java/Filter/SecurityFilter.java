@@ -81,6 +81,7 @@ public class SecurityFilter implements Filter {
         }
 
         chain.doFilter(wrapRequest, response);
+        return;
     }
 
     @Override

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Model.ProductTagsEntity">
+        <table name="product_tags" schema="public" catalog="Web"/>
+        <id-class class="Model.ProductTagsEntityPK"/>
+        <attributes>
+            <id name="productId">
+                <column name="product_id" precision="-1"/>
+            </id>
+            <id name="tagId">
+                <column name="tag_id" precision="-1"/>
+            </id>
+        </attributes>
+    </entity>
+</entity-mappings>
