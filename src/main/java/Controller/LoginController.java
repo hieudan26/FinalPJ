@@ -2,7 +2,7 @@ package Controller;
 
 import Business.LoginBusiness;
 import DTO.UserAccountDTO;
-import Utils.SessionUtils;
+import Utils.ApplicationUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,8 +16,18 @@ import java.io.IOException;
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
-        dispatcher.forward(req,resp);
+        UserAccountDTO user = ApplicationUtils.getLoginedUser(req);
+        if(user != null)
+        {
+            resp.sendRedirect(req.getContextPath() + "/myaccount");
+            return;
+        }
+        else
+        {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
+            dispatcher.forward(req,resp);
+        }
+
     }
 
     @Override
@@ -26,20 +36,20 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("password");
 
         UserAccountDTO userAccount = LoginBusiness.getUserLogin(userName,password);
-
         if (userAccount == null) {
             String errorMessage = "Invalid userName or Password";
-
-            req.setAttribute("errorMessage", errorMessage);
-
-            RequestDispatcher dispatcher //
-                    = req.getServletContext().getRequestDispatcher("/login.jsp");
-
-            dispatcher.forward(req, resp);
+            DirectEror(errorMessage,req,resp);
             return;
         }
 
-        SessionUtils.storeLoginedUser(req.getSession(), userAccount);
+        if(!LoginBusiness.checkActive(userName))
+        {
+            String errorMessage = "Your account haven't actived! Please Check Your mail!";
+            DirectEror(errorMessage,req,resp);
+            return;
+        }
+
+        ApplicationUtils.storeLoginedUser(req, userAccount);
         //
         int redirectId = -1;
         try {
@@ -48,12 +58,21 @@ public class LoginController extends HttpServlet {
             System.out.println("request don't have redirectId");
         }
 
-        String requestUri = SessionUtils.getRedirectAfterLoginUrl(req.getSession(), redirectId);
+
+        String requestUri = ApplicationUtils.getRedirectAfterLoginUrl(redirectId);
 
         if (requestUri != null) {
             resp.sendRedirect(requestUri);
         } else {
             resp.sendRedirect(req.getContextPath() + "/");
         }
+    }
+    public void DirectEror(String errorMessage,HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{
+        req.setAttribute("errorMessage", errorMessage);
+        System.out.println("Alo:"+errorMessage);
+        RequestDispatcher dispatcher //
+                = req.getServletContext().getRequestDispatcher("/login.jsp");
+        dispatcher.forward(req, resp);
+        return;
     }
 }

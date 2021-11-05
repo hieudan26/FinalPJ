@@ -4,6 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Set;
 
@@ -13,25 +14,27 @@ public class ProductsEntity {
     private int id;
     private String name;
     private String description;
-    private BigInteger regularPrice;
-    private BigInteger discountPrice;
+    private BigDecimal regularPrice;
+    private BigDecimal discountPrice;
     private Integer quantity;
     private String image;
-    private Set<ProductTagsEntity> productTagsEntities;
-    private  ProductStatusesEntity productStatusesEntity;
-    private  CategoriesEntity categoriesEntity;
-    private Set<ProductsColorsEntity> productsColorsEntities;
+    private Integer discount_percent;
+    private String information;
+    private Set<TagsEntity> tagsEntities;
+    private ProductStatusesEntity productStatusesEntity;
+    private CategoriesEntity categoriesEntity;
+    private Set<ColorsEntity> colorsEntities;
     private Set<ReviewsEntity> reviewsEntities;
 
 
     //One to Many Product-->product tag
     @Fetch(FetchMode.SELECT)
-    @OneToMany(mappedBy = "productsEntity",fetch = FetchType.LAZY)
-    public Set<ProductTagsEntity> getProductTagsEntities(){
-        return this.productTagsEntities;
+    @ManyToMany(mappedBy = "productsEntities",fetch = FetchType.EAGER)
+    public Set<TagsEntity> getTagsEntities(){
+        return this.tagsEntities;
     }
-    public void setProductTagsEntities(Set<ProductTagsEntity> productTagsEntities){
-        this.productTagsEntities = productTagsEntities;
+    public void setTagsEntities(Set<TagsEntity> tagsEntities){
+        this.tagsEntities = tagsEntities;
     }
 
     //Many to One Product-->product status
@@ -58,12 +61,12 @@ public class ProductsEntity {
 
     //one to many product-->product color
     @Fetch(FetchMode.SELECT)
-    @OneToMany(mappedBy = "pk.productsEntity",fetch = FetchType.LAZY)
-    public Set<ProductsColorsEntity> getProductsColorsEntities(){
-        return this.productsColorsEntities;
+    @ManyToMany(mappedBy = "productsEntities",fetch =FetchType.EAGER)
+    public Set<ColorsEntity> getColorsEntities(){
+        return this.colorsEntities;
     }
-    public void setProductsColorsEntities(Set<ProductsColorsEntity> productsColorsEntities){
-        this.productsColorsEntities = productsColorsEntities;
+    public void setColorsEntities(Set<ColorsEntity> colorsEntities){
+        this.colorsEntities = colorsEntities;
     }
 
     //one to many product-->review
@@ -112,21 +115,21 @@ public class ProductsEntity {
 
     @Basic
     @Column(name = "regular_price", nullable = true, precision = 0)
-    public BigInteger getRegularPrice() {
+    public BigDecimal getRegularPrice() {
         return regularPrice;
     }
 
-    public void setRegularPrice(BigInteger regularPrice) {
+    public void setRegularPrice(BigDecimal regularPrice) {
         this.regularPrice = regularPrice;
     }
 
     @Basic
     @Column(name = "discount_price", nullable = true, precision = 0)
-    public BigInteger getDiscountPrice() {
+    public BigDecimal getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigInteger discountPrice) {
+    public void setDiscountPrice(BigDecimal discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -150,6 +153,22 @@ public class ProductsEntity {
         this.image = image;
     }
 
+    @Basic
+    @Column(name = "discount_percent", nullable = false)
+    public  Integer getDiscount_percent() { return  discount_percent; }
+
+    public void setDiscount_percent(Integer discount_percent) { this.discount_percent = discount_percent; }
+
+    @Basic
+    @Column(name = "information", nullable = true, length = 255)
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -164,6 +183,7 @@ public class ProductsEntity {
         if (discountPrice != null ? !discountPrice.equals(that.discountPrice) : that.discountPrice != null)
             return false;
         if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
+        if (discount_percent != null ? !discount_percent.equals(that.discount_percent) : that.discount_percent != null) return false;
         return image != null ? image.equals(that.image) : that.image == null;
     }
 
@@ -176,6 +196,7 @@ public class ProductsEntity {
         result = 31 * result + (discountPrice != null ? discountPrice.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + (discount_percent != null ? discount_percent.hashCode() : 0);
         return result;
     }
 }

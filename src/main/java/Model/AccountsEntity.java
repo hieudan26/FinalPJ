@@ -1,5 +1,7 @@
 package Model;
 
+import org.hibernate.annotations.Generated;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +22,7 @@ public class AccountsEntity {
         this.rolesEntity= role;
     }
 
-    @OneToOne(mappedBy = "accountsEntity")
+    @OneToOne(mappedBy = "accountsEntity",fetch = FetchType.EAGER)
     public UsersEntity getUsersEntity() {
         return usersEntity;
     }
@@ -30,6 +32,7 @@ public class AccountsEntity {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

@@ -3,11 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-<welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>HomeController</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>Controller.HomeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/HomeController</url-pattern>
+    </servlet-mapping>
+
     <error-page>
         <error-code>404</error-code>
-        <location>/error404</location>
+        <location>/Error404Controller</location>
     </error-page>
+    <servlet>
+        <servlet-name>Error404Controller</servlet-name>
+        <servlet-class>Controller.Error404Controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Error404Controller</servlet-name>
+        <url-pattern>/Error404Controller</url-pattern>
+    </servlet-mapping>
 </web-app>

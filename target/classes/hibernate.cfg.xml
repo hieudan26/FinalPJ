@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.password">123</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Web</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="CURRENT_SESSION_CONTEXT_CLASS">thread</property>
+        <property name="HBM2DDL_AUTO">none</property>
+        <mapping class="Model.ColorsEntity" />
+        <mapping class="Model.ProductsEntity" />
+        <mapping class="Model.AccountsEntity"/>
+        <mapping class="Model.UsersEntity"/>
+        <mapping class="Model.RolesEntity"/>
+        <mapping class="Model.CategoriesEntity"/>
+        <mapping class="Model.CcTransactionsEntity"/>
+        <mapping class="Model.OrderProductsEntity"/>
+        <mapping class="Model.ReviewsEntity"/>
+        <mapping class="Model.SalesOrdersEntity"/>
+        <mapping class="Model.SessionsEntity"/>
+        <mapping class="Model.TagsEntity"/>
+        <mapping class="Model.ProductStatusesEntity"/>
+    </session-factory>
+</hibernate-configuration>

@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static Constant.WebConstant.ROLE_ADMIN;
+import static Constant.WebConstant.ROLE_USER;
+
 public class SecurityConfig {
 
-    public static final String ROLE_USER = "user";
-    public static final String ROLE_ADMIN = "admin";
+
 
     private static final Map<String, List<String>> mapConfig = new HashMap<String, List<String>>();
 
@@ -19,8 +21,8 @@ public class SecurityConfig {
     private static void init() {
         // Cấu hình cho vai trò "user".
         List<String> urlPatterns1 = new ArrayList<String>();
-        urlPatterns1.add("/home");
-        urlPatterns1.add("/account");
+        //urlPatterns1.add("/home");
+        //urlPatterns1.add("/account");
         mapConfig.put(ROLE_USER, urlPatterns1);
 
         // Cấu hình cho vai trò "admin".

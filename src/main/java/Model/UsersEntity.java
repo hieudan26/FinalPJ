@@ -1,5 +1,7 @@
 package Model;
 
+import org.hibernate.annotations.Generated;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,7 +13,7 @@ public class UsersEntity {
     private String firstName;
     private String lastName;
     private Boolean active;
-    private Integer accId;
+    private String address;
     private Set<ReviewsEntity> reviewsEntities;
     private Set<SalesOrdersEntity> salesOrdersEntities;
     private Set<ProductsEntity> productsEntities;
@@ -38,10 +40,8 @@ public class UsersEntity {
         this.salesOrdersEntities = salesOrdersEntities;
     }
 
-
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "acc_id",insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "acc_id",insertable = true, updatable = true)
     public AccountsEntity getAccountsEntity(){
         return this.accountsEntity;
     }
@@ -52,6 +52,7 @@ public class UsersEntity {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -102,13 +103,12 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "acc_id", nullable = true)
-    public Integer getAccId() {
-        return accId;
+    @Column(name = "address", nullable = true)
+    public String getAddress() {
+        return address;
     }
-
-    public void setAccId(Integer accId) {
-        this.accId = accId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class UsersEntity {
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (active != null ? !active.equals(that.active) : that.active != null) return false;
-        return accId != null ? accId.equals(that.accId) : that.accId == null;
+        return accountsEntity != null ? accountsEntity.equals(that.accountsEntity) : that.accountsEntity == null;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class UsersEntity {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (active != null ? active.hashCode() : 0);
-        result = 31 * result + (accId != null ? accId.hashCode() : 0);
+        result = 31 * result + (accountsEntity != null ? accountsEntity.hashCode() : 0);
         return result;
     }
 }

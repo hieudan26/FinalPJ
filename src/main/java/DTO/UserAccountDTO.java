@@ -7,6 +7,9 @@ import Model.UsersEntity;
 
 import java.util.*;
 
+import static Constant.WebConstant.ROLE_ADMIN;
+import static Constant.WebConstant.ROLE_USER;
+
 public class UserAccountDTO {
     private int id;
     private String email;
@@ -38,9 +41,10 @@ public class UserAccountDTO {
         this.roles = new HashSet<String>();
         if(role != null)
         {
-            this.roles.add(SecurityConfig.ROLE_USER);
-            if(role.getName() == "admin");
-        }       this.roles.add(SecurityConfig.ROLE_ADMIN);
+            this.roles.add(ROLE_USER);
+            if(role.getName() == "admin")
+                this.roles.add(ROLE_ADMIN);
+        }
 
     }
 
@@ -61,11 +65,11 @@ public class UserAccountDTO {
         this.email = email;
     }
 
-    public String getLasname() {
+    public String getLastname() {
         return lastname;
     }
 
-    public void setLasname(String lasname) {
+    public void setLastname(String lasname) {
         this.lastname = lasname;
     }
 

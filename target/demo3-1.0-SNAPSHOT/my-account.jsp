@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -33,7 +34,7 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
-
+    <link rel="stylesheet" href="assets/css/myaccout.css" />
 </head>
 
 <body>
@@ -41,145 +42,7 @@
 <!-- Header Area Start -->
 <jsp:include page="header.jsp" />
 <!-- Header Area End -->
-<div class="offcanvas-overlay"></div>
 
-<!-- OffCanvas Wishlist Start -->
-<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Wishlist</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$21.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$13.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$17.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons">
-                <a href="wishlist.jsp" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Wishlist End -->
-<!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Cart</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons mt-30px">
-                <a href="cart.jsp" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                <a href="checkout.jsp" class="btn btn-outline-dark current-btn">checkout</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Cart End -->
-
-<!-- OffCanvas Menu Start -->
-<div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
-    <button class="offcanvas-close"></button>
-
-    <div class="inner customScroll">
-
-        <div class="offcanvas-menu mb-4">
-            <ul>
-                <li><a href="#"><span class="menu-text">Home</span></a>
-                </li>
-                <li><a href="about.jsp">About</a></li>
-
-                <li><a href="shop-left-sidebar.jsp"><span class="menu-text">Shop</span></a>
-                </li>
-                <li><a href="coming-soon.jsp"><span class="menu-text">Blog</span></a>
-                </li>
-                <li><a href="contact.jsp">Contact Us</a></li>
-            </ul>
-        </div>
-        <!-- OffCanvas Menu End -->
-        <div class="offcanvas-social mt-auto">
-            <ul>
-                <li>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-google"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Menu End -->
 
 <!-- breadcrumb-area start -->
 <div class="breadcrumb-area">
@@ -198,7 +61,29 @@
     </div>
 </div>
 <!-- breadcrumb-area end -->
+<c:if test="${requestScope.isSuccess != null}">
+    <c:if test="${requestScope.isSuccess == false}">
+        <div class="alert danger-alert">
+            <h3>Update Failed</h3>
+            <a class="close">&times;</a>
+        </div>
+        <c:if test="${requestScope.message != null}">
+            <div class="alert danger-alert">
+                <h3><c:out  value="${requestScope.message}"/></h3>
+                <a class="close">&times;</a>
+            </div>
+            <script>
 
+            </script>
+        </c:if>
+    </c:if>
+    <c:if test="${requestScope.isSuccess == true}">
+        <div class="alert success-alert">
+            <h3>Update Successfully</h3>
+            <a class="close">&times;</a>
+        </div>
+    </c:if>
+</c:if>
 <!-- account area start -->
 <div class="account-dashboard pt-100px pb-100px">
     <div class="container">
@@ -207,12 +92,12 @@
                 <!-- Nav tabs -->
                 <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
                     <ul role="tablist" class="nav flex-column dashboard-list">
-                        <li><a href="#dashboard" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
-                        <li><a id="Orders" href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
-                        <li><a id="Address" href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
+                        <li><a href="#dashboard" id="dashbordtab" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
+                        <li><a id="Orderstab" href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
+                        <li><a id="Addresstab" href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
                         <li><a id="UpdateIn4" href="#update-information" data-bs-toggle="tab" class="nav-link">Update information</a></li>
                         <li><a id="changePassword" href="#change-password" data-bs-toggle="tab" class="nav-link">Change password</a></li>
-                        <li><a href="login.jsp" class="nav-link">logout</a></li>
+                        <li><a href="<c:url value='/logout'/>" class="nav-link">logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -266,15 +151,17 @@
                     <div class="tab-pane" id="address">
                         <p>The following addresses will be used on the checkout page by default.</p>
                         <h5 class="billing-address">Billing address</h5>
-                        <p class="mb-2"><strong>Michael M Hoskins</strong></p>
+                        <p class="mb-2"><strong> Welcome <c:out value="${sessionScope.loginedUser.getLastname()}"/>  <c:out value="${sessionScope.loginedUser.getFirstname()}"/></strong></p>
                         <address>
-                            <span class="mb-1 d-inline-block"><strong>City:</strong> Seattle</span>,
+                            <span class="mb-1 d-inline-block"><strong>Number:  </strong><c:out value="${requestScope.address.getNumber()}"/></span>
                             <br>
-                            <span class="mb-1 d-inline-block"><strong>State:</strong> Washington(WA)</span>,
+                            <span class="mb-1 d-inline-block"><strong>Street:  </strong> <c:out value="${requestScope.address.getStreet()}"/></span>
                             <br>
-                            <span class="mb-1 d-inline-block"><strong>ZIP:</strong> 98101</span>,
+                            <span class="mb-1 d-inline-block"><strong>Commune:  </strong> <c:out value="${requestScope.address.getCommune()}"/></span>
                             <br>
-                            <span><strong>Country:</strong> USA</span>
+                            <span class="mb-1 d-inline-block"><strong>District: </strong>  <c:out value="${requestScope.address.getDistrict()}"/></span>
+                            <br>
+                            <span class="mb-1 d-inline-block"><strong>Province:  </strong> <c:out value="${requestScope.address.getProvince()}"/></span>
                         </address>
                     </div>
                     <div class="tab-pane fade" id="update-information">
@@ -282,39 +169,35 @@
                         <div class="login">
                             <div class="login_form_container">
                                 <div class="account_login_form">
-                                    <form action="#">
-                                        <p>Already have an account? <a href="#" data-bs-toggle="modal"
-                                                                       data-bs-target="#loginActive">Log in instead!</a></p>
+                                    <form action="/myaccount" method="post">
                                         <div class="default-form-box mb-20">
                                             <label>First Name</label>
-                                            <input type="text" name="first-name">
+                                            <input required title="Wrong name We only accept character A-z and max 50 character" pattern="[A-Za-z\s]{1,50}" type="text" name="firstname" value="<c:out value="${sessionScope.loginedUser.getFirstname()}"/>">
                                         </div>
-                                        <div class="default-form-box mb-20">
+                                        <div class="default-form-box mb-20" >
                                             <label>Last Name</label>
-                                            <input type="text" name="last-name">
+                                            <input required title="Wrong name We only accept character A-z and max 50 character" pattern="[A-Za-z\s]{1,50}" type="text" name="lastname" value="<c:out value="${sessionScope.loginedUser.getLastname()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
-                                            <label>Email</label>
-                                            <input type="text" name="email-name">
+                                            <label>Number</label>
+                                            <input required title="Wrong Number We only accept character 0-9 and max 10 character" pattern="[0-9]{,10}" type="text" name="number" value="<c:out value="${requestScope.address.getNumber()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
-                                            <label>Phone number</label>
-                                            <input type="text" name="phone-number">
+                                            <label>Street</label>
+                                            <input required title="Wrong Street We only accept character A-z and 0-9 and max 50 character" pattern="[A-Za-z0-9\s]{1,50}" type="text" name="street" value="<c:out value="${requestScope.address.getStreet()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
-                                            <label>Address</label>
-                                            <input type="text" name="address">
+                                            <label>Commune</label>
+                                            <input required title="Wrong Commune We only accept character A-z and 0-9 and max 50 character" pattern="[A-Za-z0-9\s]{1,50}" type="text" name="commune" value="<c:out value="${requestScope.address.getCommune()}"/>">
                                         </div>
-                                        <label class="checkbox-default" for="offer">
-                                            <input type="checkbox" id="offer">
-                                            <span>Receive offers from our partners</span>
-                                        </label>
-                                        <label class="checkbox-default checkbox-default-more-text" for="newsletter">
-                                            <input type="checkbox" id="newsletter">
-                                            <span>Sign up for our newsletter<br><em>You may unsubscribe at any
-                                                        moment. For that purpose, please find our contact info in the
-                                                        legal notice.</em></span>
-                                        </label>
+                                        <div class="default-form-box mb-20">
+                                            <label>District</label>
+                                            <input required title="Wrong District We only accept character A-z and 0-9 and max 50 character"  pattern="[A-Za-z0-9\s]{3,50}" type="text" name="district" value="<c:out value="${requestScope.address.getDistrict()}"/>">
+                                        </div>
+                                        <div class="default-form-box mb-20">
+                                            <label>Province</label>
+                                            <input required title="Wrong Province We only accept character A-z and max 50 character" pattern="[A-Za-z\s]{3,50}" type="text" name="province" value="<c:out value="${requestScope.address.getProvince()}"/>">
+                                        </div>
                                         <div class="save_button mt-3">
                                             <button class="btn" type="submit">Save</button>
                                         </div>
@@ -328,24 +211,18 @@
                         <div class="login">
                             <div class="login_form_container">
                                 <div class="account_login_form">
-                                    <form action="#">
-                                        <p>Already have an account? <a href="#" data-bs-toggle="modal"
-                                                                       data-bs-target="#loginActive">Log in instead!</a></p>
-                                        <div class="default-form-box mb-20">
-                                            <label>Email</label>
-                                            <input type="text" name="email-name">
-                                        </div>
+                                    <form action="/updatepassword" method="post">
                                         <div class="default-form-box mb-20">
                                             <label>Current Password</label>
-                                            <input type="text" name="user-password">
+                                            <input required type="password" name="userpassword">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>New Password</label>
-                                            <input type="text" name="user-password-new">
+                                            <input maxlength="200" minlength="8" required type="password" name="userpasswordnew">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Retype New Password</label>
-                                            <input type="text" name="user-retype_password-new">
+                                            <input maxlength="200" minlength="8" required type="password" name="userretypepasswordnew">
                                         </div>
                                         <div class="save_button mt-3">
                                             <button class="btn" type="submit">Confirm</button>
@@ -405,6 +282,21 @@
 <script src="assets/js/plugins/jquery.zoom.min.js"></script>
 <script src="assets/js/plugins/venobox.min.js"></script>
 
+<c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/updatepassword'}">
+    <script type="text/javascript">
+        document.getElementById("dashboard").classList.remove("active");
+        document.getElementById("orders").classList.remove("active");
+        document.getElementById("address").classList.remove("active");
+        document.getElementById("update-information").classList.remove("active");
+        document.getElementById("change-password").classList.add("active");
+
+        document.getElementById("dashbordtab").classList.remove("active");
+        document.getElementById("Orderstab").classList.remove("active");
+        document.getElementById("Addresstab").classList.remove("active");
+        document.getElementById("UpdateIn4").classList.remove("active");
+        document.getElementById("changePassword").classList.add("active");
+    </script>
+</c:if>
 
 <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 <!-- <script src="assets/js/vendor/vendor.min.js"></script>
@@ -412,6 +304,6 @@
 
 <!-- Main Js -->
 <script src="assets/js/main.js"></script>
+<script src="assets/js/myaccount.js"></script>
 </body>
-
 </html>

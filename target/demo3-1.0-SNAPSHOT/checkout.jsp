@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -389,10 +390,13 @@
                             </div>
                             <div class="your-order-middle">
                                 <ul>
-                                    <li><span class="order-middle-left">Product Name X 1</span> <span
-                                            class="order-price">$100 </span></li>
-                                    <li><span class="order-middle-left">Product Name X 1</span> <span
-                                            class="order-price">$100 </span></li>
+                                    <c:forEach items="${lproduct}" var="l">
+                                        <li>
+                                            <span class="order-middle-left"> ${l.name} X ${l.quantity}</span>
+                                            <span class="order-price">${l.subtotal} </span>
+                                        </li>
+                                    </c:forEach>
+
                                 </ul>
                             </div>
                             <div class="your-order-bottom">
@@ -404,7 +408,7 @@
                             <div class="your-order-total">
                                 <ul>
                                     <li class="order-total">Total</li>
-                                    <li>$100</li>
+                                    <li>${sumtotal}</li>
                                 </ul>
                             </div>
                         </div>

@@ -1,7 +1,6 @@
 package Filter;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DTO.UserAccountDTO;
 import Request.UserRoleRequestWrapper;
-import Utils.SessionUtils;
+import Utils.ApplicationUtils;
 import Utils.SecurityUtils;
 
 @WebFilter("/*")
@@ -37,7 +36,7 @@ public class SecurityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         String servletPath = request.getServletPath();
-        UserAccountDTO loginedUser = SessionUtils.getLoginedUser(request.getSession());
+        UserAccountDTO loginedUser = ApplicationUtils.getLoginedUser(request);
 
         if (servletPath.equals("/login")) {
             chain.doFilter(request, response);
@@ -63,7 +62,7 @@ public class SecurityFilter implements Filter {
             if (loginedUser == null) {
                 String requestUri = request.getRequestURI();
                 // Lưu trữ trang hiện tại để redirect đến sau khi đăng nhập thành công.
-                int redirectId = SessionUtils.storeRedirectAfterLoginUrl(request.getSession(), requestUri);
+                int redirectId = ApplicationUtils.storeRedirectAfterLoginUrl(requestUri);
 
                 response.sendRedirect(wrapRequest.getContextPath() + "/login?redirectId=" + redirectId);
                 return;

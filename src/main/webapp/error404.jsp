@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -189,7 +190,7 @@
                 <h2 class="breadcrumb-title">404</h2>
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                    <li class="breadcrumb-item"><a href="<c:url value="/home" />">Home</a></li>
                     <li class="breadcrumb-item active">404</li>
                 </ul>
                 <!-- breadcrumb-list end -->
@@ -207,7 +208,7 @@
                 <div class="page-not-found text-center">
                     <h2>Oops!</h2>
                     <p>Sorry,Page Not Found.</p>
-                    <a href="index.jsp">Back To Home <i class="fa fa-home"></i></a>
+                    <a href="<c:url value="/home" />">Back To Home <i class="fa fa-home"></i></a>
                 </div>
             </div>
         </div>
@@ -216,7 +217,7 @@
 <!-- Blank area end -->
 
 <!-- Footer Area Start -->
-<jsp:include page="footer.jsp">
+<jsp:include page="footer.jsp" />
 <!-- Footer Area End -->
 
 <!-- Search Modal Start -->

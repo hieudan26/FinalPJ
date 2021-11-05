@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -33,7 +35,7 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css"/>
-
+    <link rel="stylesheet" href="assets/css/styleLogin.css"/>
 </head>
 
 <body>
@@ -219,12 +221,18 @@
                         </a>
                     </div>
                     <div class="tab-content">
+                        <c:if test ="${requestScope.errorMessage != null}">
+                            <div id="errorMessage" class="error-msg">
+                                <i class="fa fa-times-circle"></i>
+                                <c:out value="${requestScope.errorMessage}"/>
+                            </div>
+                        </c:if>
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
-                                        <input type="text" name="username" placeholder="Username" />
-                                        <input type="password" name="password" placeholder="Password" />
+                                    <form action="/login" method="post">
+                                        <input type="text" name="username" placeholder="Username" required/>
+                                        <input type="password" name="password" placeholder="Password" required/>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox" />
@@ -232,35 +240,21 @@
                                                 <!-- forgot-password.jsp -->
                                                 <a href="#" onclick="forgotPassword(event);">Forgot Password?</a>
                                             </div>
-                                            <script>
-                                                const forgotPassword = (event) => {
-                                                    event.preventDefault();
-                                                    document.getElementById("forgot-passwd").click();
-                                                    document.getElementById("forgot-passwd").style.display = 'block';
-                                                    // document.getElementById("lg").style.display = 'none';
-                                                    // document.getElementById("reg").style.display = 'none';
-                                                }
-
-                                                const lg_regClick = () => {
-                                                    if (document.getElementById("forgot-passwd").style.display === 'block') {
-                                                        document.getElementById("forgot-passwd").style.display = 'none';
-                                                    }
-                                                }
-                                            </script>
                                             <button type="submit"><span>Login</span></button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+<%--   EndLogin--%>
                         <div id="lg2" class="tab-pane">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
-                                        <input name="user-email" placeholder="Email" type="email" />
-                                        <input type="text" name="user-username" placeholder="Username" />
-                                        <input type="password" name="user-password" placeholder="Password" />
-                                        <input type="password" name="user-retype_password" placeholder="Retype password" />
+                                    <form action="/register" method="post">
+                                        <input name="email" placeholder="Email" type="email" required/>
+                                        <input type="text" name="username" placeholder="Username" required/>
+                                        <input id="password-register" type="password" name="password" placeholder="Password" required/>
+                                        <input id="repassword-register" type="password" name="retypepassword" placeholder="Retype password" required/>
                                         <div class="button-box" style="text-align: center;">
                                             <button type="submit"><span>Register</span></button>
                                         </div>
@@ -343,7 +337,21 @@
 <script src="assets/js/plugins/plugins.min.js"></script> -->
 
 <!-- Main Js -->
+
+<script src="assets/js/Loginscript.js"></script>
+
 <script src="assets/js/main.js"></script>
+
+
+<c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/register'}">
+    <script type="text/javascript">
+        document.getElementById("lg1").classList.remove("active");
+        document.getElementById("lg2").classList.add("active");
+        document.getElementById("lg").classList.remove("active");
+        document.getElementById("reg").classList.add("active");
+    </script>
+</c:if>
+
 </body>
 
 </html>

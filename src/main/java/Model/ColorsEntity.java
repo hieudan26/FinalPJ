@@ -8,20 +8,20 @@ import java.util.Set;
 public class ColorsEntity {
     private int id;
     private String name;
-    private Set<ProductsColorsEntity> productsColorsEntities;
+    private Set<ProductsEntity> productsEntities;
 
 
     //one to many color--> product color
-    @OneToMany(mappedBy = "pk.colorsEntity",fetch = FetchType.LAZY)
-    public Set<ProductsColorsEntity> getProductsColorsEntities(){
-        return this.productsColorsEntities;
+    @ManyToMany
+    @JoinTable(name = "products_colors",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id"))
+    public Set<ProductsEntity> getProductsEntities(){
+        return this.productsEntities;
     }
-    public void setProductsColorsEntities(Set<ProductsColorsEntity> productsColorsEntities){
-        this.productsColorsEntities= productsColorsEntities;
-
+    public void setProductsEntities(Set<ProductsEntity> productsEntities){
+        this.productsEntities= productsEntities;
     }
-
-
 
     @Id
     @Column(name = "id", nullable = false)

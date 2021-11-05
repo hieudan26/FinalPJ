@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Header Area Start -->
 <header>
     <div class="header-main sticky-nav ">
@@ -5,13 +6,13 @@
             <div class="row">
                 <div class="col-auto align-self-center">
                     <div class="header-logo">
-                        <a href="index.jsp"><img src="assets/images/logo/logo.png" alt="Site Logo" /></a>
+                        <a href="<c:url value="/home" />"><img src="assets/images/logo/logo.png" alt="Site Logo" /></a>
                     </div>
                 </div>
                 <div class="col align-self-center d-none d-lg-block">
                     <div class="main-menu">
                         <ul>
-                            <li class="dropdown"><a href="index.jsp">Home</a>
+                            <li class="dropdown"><a href="<c:url value="/home" />">Home</a>
                             </li>
                             <li><a href="about.jsp">About</a></li>
                             <li class="position-static"><a href="shop-left-sidebar.jsp">Shop</a>
@@ -36,7 +37,14 @@
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a class="dropdown-item" href="my-account.jsp">My account</a></li>
                                 <li><a class="dropdown-item" href="checkout.jsp">Checkout</a></li>
-                                <li><a class="dropdown-item" href="login.jsp">Sign in</a></li>
+                                <c:choose>
+                                    <c:when test="${sessionScope.loginedUser == null}">
+                                        <li><a class="dropdown-item" href="<c:url value='/login'/>">Sign in</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a class="dropdown-item" href="<c:url value='/logout'/>">Log out</a></li>
+                                    </c:otherwise>
+                                </c:choose>
                             </ul>
                         </div>
                         <!-- Single Wedge Start -->

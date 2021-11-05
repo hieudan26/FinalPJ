@@ -2851,7 +2851,14 @@ body.offcanvas-open {
   color: #eaaa85;
   font-weight: 400;
 }
+.product-details-content .stock .avallabillty .out-of-stock {
+  color: #eb3a7f;
+  font-weight: 400;
+}
 .product-details-content .stock .avallabillty .in-stock i {
+  margin: 0 5px;
+}
+.product-details-content .stock .avallabillty .out-of-stock i {
   margin: 0 5px;
 }
 .product-details-content .pro-details-list {
@@ -9266,10 +9273,19 @@ Pages - My Account
   }
 }
 
+/*Duong Duc Thang*/
 .modal-open .modal-2 {
   overflow-x: hidden !important;
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
 }
+
+@media only screen and (max-width: 1024px) {
+  .modal-open .modal-2 {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+}
+/*end*/
 
 @-webkit-keyframes menu-animation {
   0% {

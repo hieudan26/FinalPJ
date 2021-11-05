@@ -8,6 +8,7 @@ import java.util.Set;
 public class CategoriesEntity {
     private int id;
     private String name;
+    private String image;
     private Set<ProductsEntity> productsEntities;
 
     //one to many category-->product
@@ -40,6 +41,16 @@ public class CategoriesEntity {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "image", nullable = false, length = 255)
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,13 +59,16 @@ public class CategoriesEntity {
         CategoriesEntity that = (CategoriesEntity) o;
 
         if (id != that.id) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return image != null ? image.equals(that.image) : that.image == null;
+
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
         return result;
     }
 }
