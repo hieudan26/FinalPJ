@@ -70,5 +70,12 @@ E:/Study/Year3rd/Web/Git/FinalPJ/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-url>jdbc:postgresql://ec2-23-21-229-200.compute-1.amazonaws.com:5432/dfia69dvo71k9t</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="dfia69dvo71k9t@ec2-23-21-229-200.compute-1.amazonaws.com [2]" uuid="e5377b8b-de7c-4e25-9a27-611b4bc15ff5">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-23-21-229-200.compute-1.amazonaws.com:5432/dfia69dvo71k9t</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"products\"", schema = "public", catalog = "Web")
+@Table(name = "\"products\"", schema = "public")
 public class ProductsEntity {
     private int id;
     private String name;

@@ -14,8 +14,8 @@ public class ColorsEntity {
     //one to many color--> product color
     @ManyToMany
     @JoinTable(name = "products_colors",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "color_id"))
+            joinColumns = @JoinColumn(name = "color_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     public Set<ProductsEntity> getProductsEntities(){
         return this.productsEntities;
     }

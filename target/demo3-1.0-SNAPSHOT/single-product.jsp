@@ -54,7 +54,7 @@
                 <h2 class="breadcrumb-title">Single Product</h2>
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                    <li class="breadcrumb-item"><a href="<c:url value="/index" />">Home</a></li>
                     <li class="breadcrumb-item active">Product</li>
                 </ul>
                 <!-- breadcrumb-list end -->
@@ -398,7 +398,7 @@
                                     </a>
                                     <span class="badges">
                                     <span class="new">
-<%--                                            ${ProductTagDAO.getTagnamebyProductId(lp.id)}--%>
+
                                     </span>
                                 </span>
                                     <div class="actions">
@@ -406,7 +406,7 @@
                                                 class="pe-7s-like"></i></a>
                                         <!--Gui cai pid qua de hien len voi toggle la class,target la link-->
 
-                                        <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
+                                        <a onclick="onClickLoadData(${lp.getId()}, 2);" href="#" class="action quickview" data-link-action="quickview" title="Quick view"
                                            data-bs-toggle="modal" data-bs-target="#exampleModal"  >
                                             <i class="pe-7s-look"></i>
                                         </a>
@@ -481,144 +481,44 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
-                        <!-- Swiper -->
-                        <div class="swiper-container gallery-top">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/zoom-image/1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/zoom-image/2.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/zoom-image/3.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/zoom-image/4.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/zoom-image/5.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-container gallery-thumbs mt-20px">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/small-image/1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/small-image/2.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/small-image/3.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/small-image/4.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                         src="assets/images/product-image/small-image/5.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
-                        <div class="product-details-content quickview-content">
-                            <h2>?</h2>
-                            <div class="pricing-meta">
-                                <ul class="d-flex">
-                                    <li class="new-price">$20.90</li>
-                                    <li class="old-price">
-                                        <del>$30.90</del>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="pro-details-rating-wrap">
-                                <div class="rating-product">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <span class="read-review"><a class="reviews" href="#">${sumre}</a></span>
-                            </div>
-                            <div class="stock mt-30px">
-                                        <span class="avallabillty">Availability: <span class="in-stock"><i
-                                                class="fa fa-check"></i>In Stock</span></span>
-                            </div>
-                            <p class="mt-30px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
-                                nostrud exercitation ullamco laboris </p>
-                            <div class="pro-details-quality">
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text"name="qtybutton" value="1">
-                                </div>
-                                <div class="pro-details-cart">
-                                    <button class="add-cart">
-                                        Add To Cart
-                                    </button>
-                                </div>
-                                <div class="pro-details-compare-wishlist pro-details-wishlist ">
-                                    <a href="wishlist.jsp"><i class="pe-7s-like"></i></a>
-                                </div>
-                            </div>
-                            <div class="pro-details-categories-info pro-details-same-style d-flex">
-                                <span>Categories: </span>
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#">Handmade, </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Furniture, </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Decore</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="pro-details-social-info pro-details-same-style d-flex">
-                                <span>Share: </span>
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-google"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-youtube"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="payment-img">
-                                <a href="#"><img src="assets/images//icons/payment.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="modal">
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal end -->
+
+<script>
+    const onClickLoadData = (ID, flag) => {
+        //flag == 1 --> get data 1
+        //flag == 2 --> load modal
+        var URL = "<c:url value="/api-top8product" />";
+        if (flag == 2) {
+            URL = "<c:url value="/api-modal" />"
+        }
+
+        $.ajax({
+            url: URL,
+            type: "get",
+            data: {
+                ID: ID,
+                // action: (function() {
+                //     if (flag === 1) return "tab-data";
+                //     else return "modal";
+                // })
+            },
+            success: function (response) {
+                flag === 1 ? document.getElementById("tab-data").innerHTML = response
+                    : document.getElementById("modal").innerHTML = response;
+            },
+            error: function (xhr) {
+                alert("Loading data not success. Please comeback later <3")
+            }
+        })
+    }
+</script>
 
 <!-- Global Vendor, plugins JS -->
 

@@ -5,7 +5,7 @@ import org.hibernate.annotations.Generated;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "\"accounts\"", schema = "public", catalog = "Web")
+@Table(name = "\"accounts\"", schema = "public")
 public class AccountsEntity {
     private int id;
     private String username;

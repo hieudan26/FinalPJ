@@ -15,8 +15,8 @@ public class TagsEntity {
 
     @ManyToMany()
     @JoinTable(name = "product_tags",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     public Set<ProductsEntity> getProductsEntities(){
         return this.productsEntities;
     }
