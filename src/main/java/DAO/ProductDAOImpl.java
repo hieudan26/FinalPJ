@@ -11,6 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -154,11 +156,11 @@ public class ProductDAOImpl extends AbstractDAO<Integer, ProductsEntity> impleme
     {
         Transaction transaction = null;
         Session session =HibernateUtils.getSessionFactory().openSession();
-        int price= 0;
+        Integer price= 0;
         try{
 
             transaction = session.beginTransaction();
-            Query<Integer> productsEntityQuery=null;
+            Query<BigDecimal> productsEntityQuery=null;
             if(stt.equals("discount"))
             {
                 productsEntityQuery = session.createQuery("select p.discountPrice FROM ProductsEntity p where p.id=:pId");
@@ -168,7 +170,7 @@ public class ProductDAOImpl extends AbstractDAO<Integer, ProductsEntity> impleme
                 productsEntityQuery = session.createQuery("select p.regularPrice FROM ProductsEntity p where p.id=:pId");
             }
             productsEntityQuery.setParameter("pId",pID);
-            price=productsEntityQuery.getSingleResult();
+            price= (productsEntityQuery.getSingleResult()).intValue();
             transaction.commit();
 
         }catch (Exception e){
