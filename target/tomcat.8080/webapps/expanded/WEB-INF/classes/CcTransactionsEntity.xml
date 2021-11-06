@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="Model.CcTransactionsEntity">
+        <table name="cc_transactions" schema="public" catalog="Web"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="-1"/>
+            </id>
+            <basic name="transdate">
+                <column name="transdate" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="amount">
+                <column name="amount" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
