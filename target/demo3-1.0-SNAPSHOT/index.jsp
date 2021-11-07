@@ -902,9 +902,9 @@
 <!-- Global Vendor, plugins JS -->
 
 <!-- Vendor JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
 
+<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
 <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>

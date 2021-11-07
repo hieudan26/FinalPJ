@@ -1,11 +1,12 @@
 package DTO;
 
-import Model.*;
+import Model.ColorsEntity;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
-public class ProductDisplayApiDTO {
+public class SingleProductDTO {
     private int id;
     private String name;
     private String description;
@@ -14,22 +15,22 @@ public class ProductDisplayApiDTO {
     private Integer quantity;
     private String image;
     private Integer discount_percent;
-    private String information;
-    private Set<String> tagsName;
+    private InformationProductDTO information;
     private boolean productStatus;
+    private int categoryId;
     private String categoriesName;
-    private int categoriesId;
-    private Set<String> colorsName;
-    private int totalReviews;
+    private List<ColorDTO> colorDTOList;
+    private List<ReviewOfUserDTO> reviewOfUserDTOList;
     private int avgReview;
+    private int totalReview;
 
-    public ProductDisplayApiDTO() {
+    public SingleProductDTO() {
     }
 
-    public ProductDisplayApiDTO(int id, String name, String description, BigDecimal regularPrice, BigDecimal discountPrice,
-                                Integer quantity, String image, Integer discount_percent, String information,
-                                Set<String> tagsName, boolean productStatus, String categoriesName, int categoriesId, Set<String> colorsName,
-                                int totalReviews, int avgReview) {
+    public SingleProductDTO(int id, String name, String description, BigDecimal regularPrice,
+                            BigDecimal discountPrice, Integer quantity, String image, Integer discount_percent,
+                            InformationProductDTO information, boolean productStatus, int categoryId, String categoriesName, List<ColorDTO> colorDTOList,
+                            List<ReviewOfUserDTO> reviewOfUserDTOList, int avgReview, int totalReview) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,29 +40,29 @@ public class ProductDisplayApiDTO {
         this.image = image;
         this.discount_percent = discount_percent;
         this.information = information;
-        this.tagsName = tagsName;
         this.productStatus = productStatus;
+        this.categoryId = categoryId;
         this.categoriesName = categoriesName;
-        this.categoriesId = categoriesId;
-        this.colorsName = colorsName;
-        this.totalReviews = totalReviews;
+        this.colorDTOList = colorDTOList;
+        this.reviewOfUserDTOList = reviewOfUserDTOList;
         this.avgReview = avgReview;
+        this.totalReview = totalReview;
     }
 
-    public int getCategoriesId() {
-        return categoriesId;
+    public int getTotalReview() {
+        return totalReview;
     }
 
-    public void setCategoriesId(int categoriesId) {
-        this.categoriesId = categoriesId;
+    public void setTotalReview(int totalReview) {
+        this.totalReview = totalReview;
     }
 
-    public int getTotalReviews() {
-        return totalReviews;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setTotalReviews(int totalReviews) {
-        this.totalReviews = totalReviews;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public int getId() {
@@ -128,20 +129,12 @@ public class ProductDisplayApiDTO {
         this.discount_percent = discount_percent;
     }
 
-    public String getInformation() {
+    public InformationProductDTO getInformation() {
         return information;
     }
 
-    public void setInformation(String information) {
+    public void setInformation(InformationProductDTO information) {
         this.information = information;
-    }
-
-    public Set<String> getTagsName() {
-        return tagsName;
-    }
-
-    public void setTagsName(Set<String> tagsName) {
-        this.tagsName = tagsName;
     }
 
     public boolean isProductStatus() {
@@ -160,12 +153,20 @@ public class ProductDisplayApiDTO {
         this.categoriesName = categoriesName;
     }
 
-    public Set<String> getColorsName() {
-        return colorsName;
+    public List<ColorDTO> getColorDTOList() {
+        return colorDTOList;
     }
 
-    public void setColorsName(Set<String> colorsName) {
-        this.colorsName = colorsName;
+    public void setColorDTOList(List<ColorDTO> colorDTOList) {
+        this.colorDTOList = colorDTOList;
+    }
+
+    public List<ReviewOfUserDTO> getReviewOfUserDTOList() {
+        return reviewOfUserDTOList;
+    }
+
+    public void setReviewOfUserDTOList(List<ReviewOfUserDTO> reviewOfUserDTOList) {
+        this.reviewOfUserDTOList = reviewOfUserDTOList;
     }
 
     public int getAvgReview() {

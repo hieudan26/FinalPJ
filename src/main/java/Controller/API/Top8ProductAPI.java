@@ -153,9 +153,10 @@ public class Top8ProductAPI extends HttpServlet {
 
         int totalReviews = SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productId).size();
         int avgReview = SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(productId);
+        int categoryId = productsEntity.getCategoriesEntity().getId();
 
         productDisplayModalDTODTO = new ProductDisplayApiDTO(productId, name, description, regularPrice, discountPrice, quantity, image,
-                discout_percent, information, tagsName, status, category, colorsName, totalReviews, avgReview);
+                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview);
 
         return  productDisplayModalDTODTO;
     }

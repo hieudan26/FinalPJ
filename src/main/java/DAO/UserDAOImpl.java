@@ -11,35 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl extends AbstractDAO<Integer, UsersEntity> implements UserDAO {
-
     @Override
-    public UsersEntity getOneByEmail(String email){
-
+    public UsersEntity getOneByEmail(String email) {
+        //email is unique
         Transaction transaction = null;
-        Session session =HibernateUtils.getSessionFactory().openSession();
+        Session session = HibernateUtils.getSessionFactory().openSession();
         List<UsersEntity> usersEntityList = new ArrayList<>();
         try{
-
             transaction = session.beginTransaction();
             Query<UsersEntity> usersEntityQuery = session.createQuery("FROM UsersEntity user " +
                     "WHERE user.email =: email");
-            usersEntityQuery.setParameter("email",email);
+            usersEntityQuery.setParameter("email", email);
             transaction.commit();
             usersEntityList = usersEntityQuery.getResultList();
-
-
-        }catch (Exception e){
-
-            if (transaction != null){
-
+        }
+        catch (Exception e) {
+            if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-        }finally {
-
+        }
+        finally {
             session.close();
         }
-
         if(usersEntityList.size() == 0)
             return null;
         else

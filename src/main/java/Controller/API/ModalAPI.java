@@ -69,7 +69,7 @@ public class ModalAPI extends HttpServlet {
                     "                            </div>\n" +
                     "\n" +
                     "\n" +
-                    "                            <p class=\"mt-20px mb-0\">" + productDisplayModalDTO.getDescription() + "</p>\n" +
+                    "                            <p class=\"mt-20px mb-0\">" + productDisplayModalDTO.getDescription().split("\\.")[0]  + "</p>\n" +
                     "                            <div class=\"pro-details-quality\">\n" +
                     "                                <div class=\"pro-details-cart\">\n" +
                     "                                    <button class=\"add-cart\" onclick=\"window.location.href='singleproduct?productCode=" + productDisplayModalDTO.getId() + "'\">Detail</button>\n" +
@@ -82,7 +82,7 @@ public class ModalAPI extends HttpServlet {
                     "                                <span>Categories: </span>\n" +
                     "                                <ul class=\"d-flex\">\n" +
                     "                                    <li>\n" +
-                    "                                        <a href=\"#\">" + productDisplayModalDTO.getCategoriesName() + "</a>\n" +
+                    "                                        <a href=\"#" + productDisplayModalDTO.getCategoriesId() + "\">" + productDisplayModalDTO.getCategoriesName() + "</a>\n" +
                     "                                    </li>\n" +
                     "                                </ul>\n" +
                     "                            </div>\n" +
@@ -169,8 +169,10 @@ public class ModalAPI extends HttpServlet {
         int totalReviews = SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productId).size();
         int avgReview = SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(productId);
 
+        int categoryId = productsEntity.getCategoriesEntity().getId();
+
         productDisplayModalDTO = new ProductDisplayApiDTO(productId, name, description, regularPrice, discountPrice, quantity, image,
-                discout_percent, information, tagsName, status, category, colorsName, totalReviews, avgReview);
+                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview);
 
         return  productDisplayModalDTO;
     }

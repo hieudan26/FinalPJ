@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface ProductDAO extends GenericDAO<Integer, ProductsEntity>{
 
+    List<ProductsEntity> getTop8ProductByCategorytID_Except(int categoryID, int productID);
+
     ProductsEntity getProductbyID(int ID) ;
 
     //Get 8 product by id of category and sort by discount.
@@ -22,7 +24,6 @@ public interface ProductDAO extends GenericDAO<Integer, ProductsEntity>{
 
     String getCategoryNamebyProductId(int ID);
 
-    //lấy ra tat ca sản phẩm co trong category theo category id
     List<ProductsEntity> getProductbyCategorytName(String CategoryName);
 
     Integer getpricebyProductIdandStatus(int pID,String stt);

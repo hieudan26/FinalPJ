@@ -36,7 +36,7 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
-
+    <link rel="stylesheet" href="assets/css/singleproduct.css" />
 </head>
 
 <body>
@@ -54,7 +54,7 @@
                 <h2 class="breadcrumb-title">Single Product</h2>
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="<c:url value="/index" />">Home</a></li>
+                    <li class="breadcrumb-item"><a href="<c:url value="/home" />">Home</a></li>
                     <li class="breadcrumb-item active">Product</li>
                 </ul>
                 <!-- breadcrumb-list end -->
@@ -71,141 +71,97 @@
             <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
                 <!-- Swiper -->
                 <div class="swiper-slide zoom-image-hover">
-                    <img class="img-responsive m-auto" src="${product.image}"
-                         alt="">
+                    <img class="img-responsive m-auto" src="${singleProductDTO.getImage()}" alt="">
                 </div>
 
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content ml-25px">
-                    <h2>${product.name}</h2>
+                    <h2>${singleProductDTO.getName()}</h2>
                     <div class="pricing-meta">
                         <ul class="d-flex">
-                            <!--Lay ra gia cua san pham theo status-->
-                            <!--Lay ra  status-->
-                            <c:set var="productstatus" value="${product.productStatusesEntity.name}"/>
-                            <!--khong discount-->
-                            <c:set var="statusnd" value="no discount"/>
-
-                            <c:if test="${productstatus.equals(statusnd)}">
-                                <li class="new-price">${product.regularPrice} </li>
-                                <li class="old-price">
-                                    <del></del>
-                                </li>
-                            </c:if>
-                            <!--discount-->
-                            <c:set var="statusd" value="discount"/>
-                            <c:if test="${productstatus.equals(statusd)}">
-                                <li class="new-price">${product.discountPrice} </li>
-                                <li class="old-price">
-                                    <del>${product.regularPrice}</del>
-                                </li>
-                            </c:if>
-
+                            <c:choose>
+                                <c:when test="${singleProductDTO.isProductStatus()}">
+                                    <li class="new-price">$${singleProductDTO.getDiscountPrice()}
+                                    </li>
+                                    <li class="old-price">
+                                        <del>$${singleProductDTO.getRegularPrice()}</del>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="new-price">$${singleProductDTO.getRegularPrice()}
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </div>
                     <div class="pro-details-rating-wrap">
                         <div class="rating-product">
-                            <c:set var="star" scope="session" value="${avgrat}" />
-                            <c:forEach begin="1" end="${star}" varStatus="loop" >
+                            <c:set var="star" scope="session" value="${singleProductDTO.getAvgReview()}" />
+                            <c:forEach begin="1" end="${star}" varStatus="loop">
                                 <i class="fa fa-star" style="color: #ffde00"></i>
                             </c:forEach>
 
-                            <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                            <c:forEach begin="${star + 1}" end="5" varStatus="loop">
                                 <i class="fa fa-star" style="color: #bcbebf"></i>
                             </c:forEach>
-
-
                         </div>
-                        <span class="read-review"><a class="reviews" href="#">(${sumre} Review )</a></span>
+                        <span class="read-review"><a class="reviews" href="#">(${singleProductDTO.getTotalReview()}
+                                    Review )</a></span>
                     </div>
                     <div class="stock mt-30px">
-                            <span class="avallabillty">Availability: <span class="in-stock"><i
-                                    class="fa fa-check"></i>In Stock</span></span>
+                        <c:choose>
+                            <c:when test="${singleProductDTO.getQuantity() == 0}">
+                                    <span class="avallabillty">Availability: <span class="out-of-stock"><i
+                                            class="fa fa-times"></i>Out Of
+                                            Stock</span></span>
+                            </c:when>
+                            <c:otherwise>
+                                    <span class="avallabillty">Availability: <span class="in-stock"><i
+                                            class="fa fa-check"></i>In Stock</span></span>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
-                    <div class="color-group mt-30px">
-                        <!--color san pham-->
-                        <c:set var="yellow" value="yellow"/>
-                        <c:set var="blue" value="blue"/>
-                        <c:set var="red" value="red"/>
-                        <c:set var="black" value="black"/>
-                        <c:set var="green" value="green"/>
-                        <c:forEach items="${listColor}" var="i">
-                            <c:if test="${red.equals(i)}">
-                                <a id="color-2" href="#" class="color-block bg-danger"
-                                   onclick="onClickColor(event, this.id);"></a>
-                            </c:if>
-
-                            <c:if test="${blue.equals(i)}">
-                                <a id="color-4" href="#" class="color-block bg-info"
-                                   onclick="onClickColor(event, this.id);"></a>
-                            </c:if>
-                            <c:if test="${yellow.equals(i)}">
-                                <a id="color-1" href="#" class="color-block bg-warning"
-                                   onclick="onClickColor(event, this.id);"></a>
-                            </c:if>
-
-                            <c:if test="${black.equals(i)}">
-                                <a id="color-5" href="#" class="color-block bg-dark"
-                                   onclick="onClickColor(event, this.id);"></a>
-
-                            </c:if>
-
-                            <c:if test="${green.equals(i)}">
-                                <a id="color-3" href="#" class="color-block bg-success"
-                                   onclick="onClickColor(event, this.id);"></a>
-                            </c:if>
-                        </c:forEach>
-
-                    </div>
-
-                    <script>
-                        const onClickColor = (event, idColor) => {
-                            event.preventDefault();
-                            for (var i = 1; i <= ${listColor.size()}; i++) {
-                                var temp = "color-" + i;
-                                if (temp === idColor) {
-                                    document.getElementById(temp).style.transform = "scale(1.3,1.3)"
-                                } else {
-                                    document.getElementById(temp).style.transform = "scale(1,1)";
-                                }
-                            }
-                        }
-                    </script>
-
-                    <p class="mt-20px mb-0">${product.description} </p>
-                    <!--Them cai the form khi m add to card thi no chuyen data qua ben cart theo pid-->
+                    <%--FORM--%>
                     <form action="OrderProductController">
-                        <div class="pro-details-quality">
+                        <input hidden type="text" name="productId" value="${singleProductDTO.getId()}">
+                        <div id="color-grp" class="color-group mt-30px">
+                            <li hidden name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" id="color-${itemColor.getId()}" href="#" class="color-block"
+                                style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></li>
+                            <c:forEach items="${singleProductDTO.getColorDTOList()}" var="itemColor">
+                                <li name="colorId" value="${itemColor.getId()}" id="color-${itemColor.getId()}" href="#" class="color-block"
+                                   style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></li>
+                            </c:forEach>
+                        </div>
 
+                        <p class="mt-20px mb-0">
+                            ${singleProductDTO.getDescription().split("\\.")[0]}.
+                            ${singleProductDTO.getDescription().split("\\.")[1] }</p>
+
+                        <div class="pro-details-quality">
                             <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart" name="productid" value="${product.id}">
-                                    <!--chuyen cai product id qua làm order id (mot line item)-->
-                                    <!--Truyen cai pid qua ben cart-->
+                                <button class="add-cart" name="action" value="addCart">
                                     Add To Cart
                                 </button>
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart buy-button">Buy It Now</button>
+                                <button class="add-cart buy-button" name="action" value="buyNow">Buy It Now</button>
                             </div>
                             <div class="pro-details-compare-wishlist pro-details-wishlist ">
                                 <a href="wishlist.jsp"><i class="pe-7s-like"></i></a>
                             </div>
-
-
                         </div>
                     </form>
                     <div class="pro-details-categories-info pro-details-same-style d-flex">
                         <span>Categories: </span>
                         <ul class="d-flex">
                             <li>
-                                <a href="#">${catename} </a>
+                                <a href="#">${singleProductDTO.getCategoriesName()} </a>
                             </li>
-
                         </ul>
                     </div>
                     <div class="pro-details-social-info pro-details-same-style d-flex">
@@ -229,7 +185,7 @@
                         </ul>
                     </div>
                     <div class="payment-img">
-                        <a href="#"><img src="assets/images//icons/payment.png" alt=""></a>
+                        <a href="#"><img src="assets/images/icons/payment.png" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -251,54 +207,57 @@
                 <div id="des-details2" class="tab-pane">
                     <div class="product-anotherinfo-wrapper text-start">
                         <ul>
-                            <!--truong info chua fix-->
-                            <li><span>Weight</span>${product.information}</li>
-                            <li><span>Dimensions</span>10 x 10 x 15 cm</li>
-                            <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                            <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
+                            <li><span>Weight</span> ${singleProductDTO.getInformation().getWeight()}
+                            </li>
+                            <li><span>Dimensions</span>${singleProductDTO.getInformation().getDimensions()}
+                            </li>
+                            <li><span>Materials</span>
+                                ${singleProductDTO.getInformation().getMaterials()}</li>
+                            <li><span>Other Info</span>
+                                ${singleProductDTO.getInformation().getOtherInfo()}</li>
                         </ul>
                     </div>
                 </div>
                 <div id="des-details1" class="tab-pane active">
                     <div class="product-description-wrapper">
                         <p>
-                            ${product.description}
+                            ${singleProductDTO.getDescription()}
                         </p>
                     </div>
                 </div>
                 <div id="des-details3" class="tab-pane">
                     <div class="row">
                         <div class="col-lg-7">
-                            <div class="review-wrapper">
-                                <!--Tung review-->
-                                <c:forEach items="${listrv}" var="l">
+                            <div class="review-wrapper" style="overflow-y: auto; height: 425px;">
+                                <c:forEach items="${singleProductDTO.getReviewOfUserDTOList()}" var="itemReview">
                                     <div class="single-review">
                                         <div class="review-img">
-                                            <img src="${l.usersEntity.image}" alt=""/>
+                                            <img style="border-radius: 70px; width: 65px; height: 65px"
+                                                 src="${itemReview.getImage()}" alt="" />
                                         </div>
                                         <div class="review-content">
                                             <div class="review-top-wrap">
                                                 <div class="review-left">
                                                     <div class="review-name">
-                                                        <h4>${l.usersEntity.lastName}</h4>
+                                                        <h4>${itemReview.getFullname()}</h4>
                                                     </div>
                                                     <div class="rating-product">
-                                                        <!--ra ting star-->
-                                                        <c:set var="star" scope="session" value="${l.rating}" />
-                                                        <c:forEach begin="1" end="${star}" varStatus="loop" >
+                                                        <c:set var="starReview" scope="session"
+                                                               value="${itemReview.getAvg_rating()}" />
+                                                        <c:forEach begin="1" end="${starReview}" varStatus="loop">
                                                             <i class="fa fa-star" style="color: #ffde00"></i>
                                                         </c:forEach>
 
-                                                        <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                                                        <c:forEach begin="${starReview + 1}" end="5"
+                                                                   varStatus="loop">
                                                             <i class="fa fa-star" style="color: #bcbebf"></i>
                                                         </c:forEach>
-
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="review-bottom">
                                                 <p>
-                                                        ${l.comment}
+                                                        ${itemReview.getComment()}
                                                 </p>
                                             </div>
                                         </div>
@@ -310,50 +269,47 @@
                             <div class="ratting-form-wrapper pl-50">
                                 <h3>Add a Review</h3>
                                 <div class="ratting-form">
-                                    <!--goi reviewctler -->
-                                    <!-- chuyen data qua sertlet-->
-                                    <form action="ReviewController" >
+                                    <%--FROM--%>
+                                    <form action="ReviewController" method="post">
                                         <div class="star-box">
                                             <span>Your rating:</span>
-
                                             <div class="rating-container">
-                                                <div  class="star-widget">
-                                                    <!--thiet ke lai may cai sao xem them ben file style.css-->
-                                                    <input type="radio" class="radio_rate" value="5" name="rate" id="rate-5">
+                                                <div class="star-widget">
+                                                    <input type="radio" class="radio_rate" value="5" name="rate"
+                                                           id="rate-5">
                                                     <label for="rate-5" class="fa fa-star"></label>
-                                                    <input type="radio" class="radio_rate" value="4" name="rate"  id="rate-4">
+                                                    <input type="radio" class="radio_rate" value="4" name="rate"
+                                                           id="rate-4">
                                                     <label for="rate-4" class="fa fa-star"></label>
-                                                    <input type="radio" class="radio_rate" value="3" name="rate"  id="rate-3" >
+                                                    <input type="radio" class="radio_rate" value="3" name="rate"
+                                                           id="rate-3">
                                                     <label for="rate-3" class="fa fa-star"></label>
-                                                    <input type="radio" class="radio_rate" value="2" name="rate"  id="rate-2">
+                                                    <input type="radio" class="radio_rate" value="2" name="rate"
+                                                           id="rate-2">
                                                     <label for="rate-2" class="fa fa-star"></label>
-                                                    <input type="radio" class="radio_rate" value="1" name="rate"  id="rate-1" >
+                                                    <input type="radio" class="radio_rate" value="1" name="rate"
+                                                           id="rate-1" checked>
                                                     <label for="rate-1" class="fa fa-star"> </label>
                                                 </div>
-                                                <!-- Viet them js-->
-                                                <script src="assets/js/Checked.js"></script>
-                                            <script>
-                                                    checked('radio_rate');
-                                             </script>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="rating-form-style">
-                                                    <input placeholder="Name" type="text" name="username"/>
+                                                    <input placeholder="Name" type="text" name="username" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="rating-form-style">
-                                                    <input placeholder="Email" type="email" name="email"/>
+                                                    <input placeholder="Email" type="email" name="email" />
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <!-- khi submit con main thi nhan du lieu ,comment by pid-->
                                                 <div class="rating-form-style form-submit">
                                                     <textarea name="review" placeholder="Message"></textarea>
-                                                    <button class="btn btn-primary btn-hover-color-primary "
-                                                            type="submit" value="${product.id}" name="pid" >Submit
+                                                    <button class="btn btn-primary btn-hover-color-primary"
+                                                            type="submit" value="${singleProductDTO.getId()}"
+                                                            name="productId">Submit
                                                     </button>
                                                 </div>
                                             </div>
@@ -377,37 +333,41 @@
             <div class="col-12">
                 <div class="section-title text-center line-height-1">
                     <h2 class="title">Related Products</h2>
-                    <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                    <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod
                         incididunt ut labore et dolore magna aliqua.
                     </p>
                 </div>
             </div>
         </div>
-        <!--San pham cung category -->
+        <!-- 8 product random with category -->
         <div class="new-product-slider swiper-container slider-nav-style-1 pb-100px">
             <div class="new-product-wrapper swiper-wrapper">
-                <c:forEach items="${listp}" var="lp">
+                <c:forEach items="${Top8Product_categories}" var="item">
                     <div class="new-product-item swiper-slide">
+                            <%--FORM--%>
                         <form action="OrderProductController">
                             <!-- Single Prodect -->
                             <div class="product">
                                 <div class="thumb">
-                                    <a href="singleproduct?pid=${lp.id}" class="image">
-                                        <img src="${lp.image}" alt="Product"/>
-                                        <img class="hover-image" src="${lp.image}" alt="Product"/>
+                                    <a href="singleproduct?productCode=${item.getId()}" class="image">
+                                        <img src="${item.getImage()}" alt="Product" />
+                                        <img class="hover-image" src="${item.getImage()}" alt="Product" />
                                     </a>
                                     <span class="badges">
-                                    <span class="new">
-
-                                    </span>
-                                </span>
+                                            <c:if test="${item.isProductStatus()}">
+                                                <span class="sale">-${item.getDiscount_percent()}%</span>
+                                            </c:if>
+                                            <c:forEach var="tag" items="${item.getTagsName()}">
+                                                <span class="new">${tag.toString().trim()}</span>
+                                            </c:forEach>
+                                        </span>
                                     <div class="actions">
                                         <a href="wishlist.jsp" class="action wishlist" title="Wishlist"><i
                                                 class="pe-7s-like"></i></a>
-                                        <!--Gui cai pid qua de hien len voi toggle la class,target la link-->
-
-                                        <a onclick="onClickLoadData(${lp.getId()}, 2);" href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                           data-bs-toggle="modal" data-bs-target="#exampleModal"  >
+                                        <a onclick="onClickLoadData(${item.getId()}, 2);" href="#"
+                                           class="action quickview" data-link-action="quickview" title="Quick view"
+                                           data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <i class="pe-7s-look"></i>
                                         </a>
                                         <a href="compare.jsp" class="action compare" title="Compare"><i
@@ -415,23 +375,32 @@
                                     </div>
                                 </div>
                                 <div class="content">
-                                <span class="ratings">
-                                    <span class="rating-wrap">
-                                        <span class="star" style="width: 100%"></span>
-                                    </span>
-                                    <span class="rating-num">( ${sumrv} )</span>
-                                </span>
-                                    <h5 class="title"><a href="single-product.jsp">${lp.name}
-                                    </a>
+                                    <div class="rating-product">
+                                        <c:set var="star" scope="session" value="${item.getAvgReview()}" />
+                                        <c:forEach begin="1" end="${star}" varStatus="loop">
+                                            <i class="fa fa-star" style="color: #ffde00"></i>
+                                        </c:forEach>
+
+                                        <c:forEach begin="${star + 1}" end="5" varStatus="loop">
+                                            <i class="fa fa-star" style="color: #bcbebf"></i>
+                                        </c:forEach>
+                                    </div>
+                                    <h5 class="title">
+                                        <a href="single-product.jsp">${item.getName()}</a>
                                     </h5>
                                     <span class="price">
-                                        <!--lay gia san pham theo status -->
-                                    <span class="new">${SingletonServiceUltils.getProductDAOImpl().getpricebyProductIdandStatus(lp.id,lp.productStatusesEntity.name)} </span>
-                                </span>
+                                            <c:choose>
+                                                <c:when test="${item.isProductStatus()}">
+                                                    <span class="new">$${item.getDiscountPrice()}</span>
+                                                    <span class="old">$${item.getRegularPrice()}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="new">$${item.getRegularPrice()}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </span>
                                 </div>
-                                <!--truyen pid qua-->
-                                <!--con thảo luận với thắng về cái này tí-->
-                                <button title="Add To Cart" class=" add-to-cart"  name="pid" value="${lp.id}" >
+                                <button title="Add To Cart" class=" add-to-cart" name="pid" value="${item.getId()}">
                                     Add To Cart
                                 </button>
                             </div>
@@ -451,7 +420,7 @@
 <!-- Related product Area End -->
 
 <!-- Footer Area Start -->
-<jsp:include page="footer.jsp"/>
+<jsp:include page="footer.jsp" />
 <!-- Footer Area End -->
 
 <!-- Search Modal Start -->
@@ -489,8 +458,17 @@
     </div>
 </div>
 <!-- Modal end -->
-
 <script>
+    const onClickColor = (id) => {
+        event.preventDefault();
+        var doc = document.getElementById("color-grp");
+        var notes = null;
+        for (var i = 0; i < doc.childNodes.length; i++) {
+            doc.childNodes[i].className = "color-block"
+        }
+        document.getElementById(id).className += " color-block-active";
+    }
+
     const onClickLoadData = (ID, flag) => {
         //flag == 1 --> get data 1
         //flag == 2 --> load modal
@@ -510,8 +488,8 @@
                 // })
             },
             success: function (response) {
-                flag === 1 ? document.getElementById("tab-data").innerHTML = response
-                    : document.getElementById("modal").innerHTML = response;
+                flag === 1 ? document.getElementById("tab-data").innerHTML = response :
+                    document.getElementById("modal").innerHTML = response;
             },
             error: function (xhr) {
                 alert("Loading data not success. Please comeback later <3")
@@ -521,10 +499,13 @@
 </script>
 
 <!-- Global Vendor, plugins JS -->
-
+<script src="assets/js/Checked.js"></script>
+<script>
+    checked('radio_rate');
+</script>
 <!-- Vendor JS -->
 <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
 <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>

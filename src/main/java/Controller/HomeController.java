@@ -1,5 +1,6 @@
 package Controller;
 
+import Business.Top8ProductBusiness;
 import DAO.*;
 import DTO.ProductDisplayDTO;
 import Model.CategoriesEntity;
@@ -47,10 +48,10 @@ public class HomeController extends HttpServlet {
 
         req.setAttribute("categoriesEntityList", categoriesEntityList);
         req.setAttribute("categoriesTop4EntityList", categoriesTop4EntityList);
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab1", this.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(0).getId())));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", this.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(1).getId())));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", this.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(2).getId())));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", this.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(3).getId())));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab1", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(0).getId())));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(1).getId())));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(2).getId())));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(3).getId())));
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
         dispatcher.forward(req,resp);
@@ -59,38 +60,5 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    }
-
-    private List<ProductDisplayDTO> handleDataTop8ProductsTab(List<ProductsEntity> top8ProductsInTop4Categories) {
-        List<ProductsEntity> productsEntityList = top8ProductsInTop4Categories;
-        List<ProductDisplayDTO> productDisplayDTOList = new ArrayList<>();
-        for (ProductsEntity item:productsEntityList) {
-            ProductDisplayDTO productDisplayDTO = this.handleDataOneProductTab(item);
-            productDisplayDTOList.add(productDisplayDTO);
-
-        }
-        return productDisplayDTOList;
-    }
-
-    private ProductDisplayDTO handleDataOneProductTab(ProductsEntity productsEntity) {
-        ProductDisplayDTO productDisplayDTO;
-        int id = productsEntity.getId();
-        String name = productsEntity.getName();
-        BigDecimal regularPrice = productsEntity.getRegularPrice();
-        BigDecimal discountPrice = productsEntity.getDiscountPrice();
-        String image = productsEntity.getImage();
-        int discount_percent = productsEntity.getDiscount_percent();
-        boolean status = productsEntity.getProductStatusesEntity().isId();
-        int avgReview = SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(productsEntity.getId());
-
-        List<String> tagsName = new ArrayList<>();
-        for (TagsEntity item:productsEntity.getTagsEntities()) {
-            tagsName.add(item.getName());
-        }
-
-        productDisplayDTO = new ProductDisplayDTO(id, name, regularPrice, discountPrice, image,
-                discount_percent, tagsName, status, avgReview);
-
-        return productDisplayDTO;
     }
 }

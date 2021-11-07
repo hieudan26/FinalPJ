@@ -18,6 +18,33 @@ import java.util.Set;
 
 public class ProductDAOImpl extends AbstractDAO<Integer, ProductsEntity> implements ProductDAO {
     @Override
+    public List<ProductsEntity> getTop8ProductByCategorytID_Except(int categoryID, int productID) {
+        Transaction transaction = null;
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        List<ProductsEntity> productsEntityList = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            Query<ProductsEntity> productsEntityQuery = session.createQuery("FROM ProductsEntity p " +
+                    "where p.categoriesEntity.id=:categoryID and p.id!=:productID " +
+                    "order by p.productStatusesEntity.id desc").setMaxResults(8);
+            productsEntityQuery.setParameter("productID", productID);
+            productsEntityQuery.setParameter("categoryID", categoryID);
+            productsEntityList = productsEntityQuery.getResultList();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return productsEntityList;
+    }
+
+    @Override
     public ProductsEntity getProductbyID(int ID) {
         Transaction transaction = null;
         Session session =HibernateUtils.getSessionFactory().openSession();
