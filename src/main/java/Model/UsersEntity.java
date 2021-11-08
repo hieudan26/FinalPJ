@@ -14,6 +14,7 @@ public class UsersEntity {
     private String lastName;
     private Boolean active;
     private String address;
+    private String image;
     private Set<ReviewsEntity> reviewsEntities;
     private Set<SalesOrdersEntity> salesOrdersEntities;
     private Set<ProductsEntity> productsEntities;
@@ -109,6 +110,15 @@ public class UsersEntity {
     }
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Basic
+    @Column(name = "image", nullable = true)
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

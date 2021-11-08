@@ -1,8 +1,14 @@
 package Controller;
 
+import Business.Top8ProductBusiness;
 import DAO.ColorDAOImpl;
 import DAO.ProductDAOImpl;
 import DAO.ReviewDAOImpl;
+import DTO.ColorDTO;
+import DTO.InformationProductDTO;
+import DTO.ReviewOfUserDTO;
+import DTO.SingleProductDTO;
+import Model.ColorsEntity;
 import Model.ProductsEntity;
 import Model.ReviewsEntity;
 import Utils.SingletonServiceUltils;
@@ -14,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,62 +30,76 @@ import java.util.stream.Collectors;
 public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, IOException {
-        //Tieng Viet
         resp.setContentType("text/htm");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        //get lấy cái id bên trang home click vào sản phẩm chuyền qua
-       //int pid = Integer.parseInt(req.getParameter("pid"));
-       int pid=3;
-        //lấy ra các thông tin của sản phẩm này
-        ProductsEntity product= SingletonServiceUltils.getProductDAOImpl().getProductbyID(pid);
-        // lấy ra cate name
-        String cateName= SingletonServiceUltils.getProductDAOImpl().getCategoryNamebyProductId(pid);
-        //lay ra cac san pham cung cate
-        List<ProductsEntity> listp= SingletonServiceUltils.getProductDAOImpl().getProductbyCategorytName(cateName);
-        //lấy ra color của sản phẩm
-        List<String> colorPro=new ArrayList<>();
+        String productCode = req.getParameter("productCode");
+        int productId = Integer.parseInt(productCode);
 
-        Set<Integer> idColor= SingletonServiceUltils.getProductDAOImpl().getProductbyID(1).getColorsEntities().stream().map(item -> item.getId()).collect(Collectors.toSet());
-        for (Integer i:idColor
-        ) {
-            colorPro.add(SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(i));
-        }
-        // lấy ra tổng số review
-        Long sumReview= SingletonServiceUltils.getReviewDAOImpl().countReivewbyProductId(pid);
-        //trung bình rating
-        double avgrating= SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(pid);
-        List<Integer> lrid= SingletonServiceUltils.getReviewDAOImpl().getReviewIdByProductId(pid);
-        List<ReviewsEntity> lrv=new ArrayList<>();
-        //lay ra ca review entity theo id
-        for (Integer i:lrid
-             ) {
-            ReviewsEntity r= SingletonServiceUltils.getReviewDAOImpl().getOneById(i);
-            lrv.add(r);
-        }
-        //remove cai san pham dang xet
-        listp.remove(product);
+        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
+        SingleProductDTO singleProductDTO = this.handleSingleProductDTO(productsEntity);
 
-        //cai modal id nay de xai cho quick view
+        int categoryId = productsEntity.getCategoriesEntity().getId();
 
-        req.setAttribute("product",product);
-        req.setAttribute("catename",cateName);
-        req.setAttribute("listColor", colorPro);
-        req.setAttribute("sumre",sumReview);
-        req.setAttribute("avgrat",avgrating);
-        req.setAttribute("listrv",lrv);
-        req.setAttribute("listp",listp);
+        req.setAttribute("singleProductDTO", singleProductDTO);
+        req.setAttribute("Top8Product_categories", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID_Except(categoryId, productId)));
 
-        //trả về trang product
         RequestDispatcher rd= req.getRequestDispatcher("/single-product.jsp");
         rd.forward(req,resp);
-
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    private List<ColorDTO> getColorDTOList(ProductsEntity productsEntity) {
+        List<ColorDTO> colorDTOList = new ArrayList<>();
+        for (ColorsEntity item: productsEntity.getColorsEntities()) {
+            ColorDTO colorDTO = new ColorDTO(item.getId(), item.getName());
+            colorDTOList.add(colorDTO);
+        }
+        return colorDTOList;
+    }
+
+    private List<ReviewOfUserDTO> getReviewOfUserDTOList(ProductsEntity productsEntity) {
+        List<ReviewOfUserDTO> reviewOfUserDTOList = new ArrayList<>();
+        for (ReviewsEntity item:productsEntity.getReviewsEntities()) {
+            String fullname = item.getUsersEntity().getFirstName() + item.getUsersEntity().getLastName();
+            String image = item.getUsersEntity().getImage();
+            ReviewOfUserDTO reviewOfUserDTO = new ReviewOfUserDTO(item.getUsersEntity().getId(),
+                    item.getRating(), item.getComment(), fullname, image);
+            reviewOfUserDTOList.add(reviewOfUserDTO);
+        }
+        return  reviewOfUserDTOList;
+    }
+
+    private SingleProductDTO handleSingleProductDTO(ProductsEntity productsEntity) {
+        SingleProductDTO singleProductDTO;
+        int id = productsEntity.getId();
+        String name = productsEntity.getName();
+        String description = productsEntity.getDescription();
+        BigDecimal regularPrice = productsEntity.getRegularPrice();
+        BigDecimal discountPrice = productsEntity.getDiscountPrice();
+        int quantity = productsEntity.getQuantity();
+        String image = productsEntity.getImage();
+        int discount_percent = productsEntity.getDiscount_percent();
+
+        String informationProduct = productsEntity.getInformation();
+        InformationProductDTO informationProductDTO = new InformationProductDTO(informationProduct);
+
+        boolean status = productsEntity.getProductStatusesEntity().isId();
+        int categoryId = productsEntity.getCategoriesEntity().getId();
+        String categoryName = productsEntity.getCategoriesEntity().getName();
+        int avgReview = SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(id);
+        List<ColorDTO> colorDTOList = this.getColorDTOList(productsEntity);
+        List<ReviewOfUserDTO> reviewOfUserDTOList = this.getReviewOfUserDTOList(productsEntity);
+        int totalReviews = SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(id).size();
+
+        singleProductDTO = new SingleProductDTO(id, name, description, regularPrice, discountPrice, quantity,
+                image, discount_percent, informationProductDTO, status, categoryId, categoryName, colorDTOList, reviewOfUserDTOList, avgReview, totalReviews);
+
+        return singleProductDTO;
     }
 }

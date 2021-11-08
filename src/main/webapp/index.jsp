@@ -485,16 +485,16 @@
                                         <div class="product">
                                             <div class="thumb">
                                                 <a href="singleproduct?productCode=${item.getId()}" class="image">
-                                                    <img src="assets/images/product-image/9.jpg" alt="Product" />
-                                                    <img class="hover-image" src="assets/images/product-image/9.jpg"
+                                                    <img src="${item.getImage()}" alt="Product" />
+                                                    <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
                                                 </a>
                                                 <span class="badges">
-                                                    <c:if test="${item.getProductStatusesEntity().isId()}">
+                                                    <c:if test="${item.isProductStatus()}">
                                                         <span class="sale">-${item.getDiscount_percent()}%</span>
                                                     </c:if>
-                                                    <c:forEach var="tag" items="${Single.getAllByProductID(item.getId())}">
-                                                        <span class="new">${tag.getTagsEntity().getName()}</span>
+                                                    <c:forEach var="tag" items="${item.getTagsName()}">
+                                                        <span class="new">${tag.toString().trim()}</span>
                                                     </c:forEach>
                                                 </span>
                                                 <div class="actions">
@@ -509,7 +509,7 @@
                                             </div>
                                             <div class="content">
                                                 <div class="rating-product">
-                                                    <c:set var="star" scope="session" value="${SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(item.getId())*1}" />
+                                                    <c:set var="star" scope="session" value="${item.getAvgReview()}" />
                                                     <c:forEach begin="1" end="${star}" varStatus="loop" >
                                                         <i class="fa fa-star" style="color: #ffde00"></i>
                                                     </c:forEach>
@@ -518,22 +518,22 @@
                                                         <i class="fa fa-star" style="color: #bcbebf"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.name}
+                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
                                                     <c:choose>
-                                                        <c:when test="${item.productStatusesEntity.isId()}">
-                                                            <span class="new">$${item.discountPrice}</span>
-                                                            <span class="old">$${item.regularPrice}</span>
+                                                        <c:when test="${item.isProductStatus()}">
+                                                            <span class="new">$${item.getDiscountPrice()}</span>
+                                                            <span class="old">$${item.getRegularPrice()}</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <span class="new">$${item.regularPrice}</span>
+                                                            <span class="new">$${item.getRegularPrice()}</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -558,17 +558,17 @@
                                         <div class="product">
                                             <div class="thumb">
                                                 <a href="singleproduct?productCode=${item.getId()}" class="image">
-                                                    <img src="assets/images/product-image/9.jpg" alt="Product" />
-                                                    <img class="hover-image" src="assets/images/product-image/9.jpg"
+                                                    <img src="${item.getImage()}" alt="Product" />
+                                                    <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
                                                 </a>
                                                 <span class="badges">
-                                                    <c:if test="${item.getProductStatusesEntity().isId()}">
+                                                    <c:if test="${item.isProductStatus()}">
                                                         <span class="sale">-${item.getDiscount_percent()}%</span>
                                                     </c:if>
-<%--                                                    <c:forEach var="tag" items="${SingletonServiceUltils.getProductDAOImpl.getProductbyID(item.getId()).getTagsEntities()}">--%>
-<%--                                                        <span class="new">${tag.getTagsEntity().getName()}</span>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:forEach var="tag" items="${item.getTagsName()}">
+                                                        <span class="new">${tag.toString().trim()}</span>
+                                                    </c:forEach>
                                                 </span>
                                                 <div class="actions">
                                                     <a href="wishlist.jsp" class="action wishlist" title="Wishlist"><i
@@ -582,31 +582,31 @@
                                             </div>
                                             <div class="content">
                                                 <div class="rating-product">
-<%--                                                    <c:set var="star" scope="session" value="${SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(item.getId())*1}" />--%>
-<%--                                                    <c:forEach begin="1" end="${star}" varStatus="loop" >--%>
-<%--                                                        <i class="fa fa-star" style="color: #ffde00"></i>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:set var="star" scope="session" value="${item.getAvgReview()}" />
+                                                    <c:forEach begin="1" end="${star}" varStatus="loop" >
+                                                        <i class="fa fa-star" style="color: #ffde00"></i>
+                                                    </c:forEach>
 
-<%--                                                    <c:forEach begin="${star + 1}" end="5" varStatus="loop" >--%>
-<%--                                                        <i class="fa fa-star" style="color: #bcbebf"></i>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                                                        <i class="fa fa-star" style="color: #bcbebf"></i>
+                                                    </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.name}
+                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
                                                     <c:choose>
-                                                        <c:when test="${item.productStatusesEntity.isId()}">
-                                                            <span class="new">$${item.discountPrice}</span>
-                                                            <span class="old">$${item.regularPrice}</span>
+                                                        <c:when test="${item.isProductStatus()}">
+                                                            <span class="new">$${item.getDiscountPrice()}</span>
+                                                            <span class="old">$${item.getRegularPrice()}</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <span class="new">$${item.regularPrice}</span>
+                                                            <span class="new">$${item.getRegularPrice()}</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -631,17 +631,17 @@
                                         <div class="product">
                                             <div class="thumb">
                                                 <a href="singleproduct?productCode=${item.getId()}" class="image">
-                                                    <img src="assets/images/product-image/9.jpg" alt="Product" />
-                                                    <img class="hover-image" src="assets/images/product-image/9.jpg"
+                                                    <img src="${item.getImage()}" alt="Product" />
+                                                    <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
                                                 </a>
                                                 <span class="badges">
-                                                    <c:if test="${item.getProductStatusesEntity().isId()}">
+                                                    <c:if test="${item.isProductStatus()}">
                                                         <span class="sale">-${item.getDiscount_percent()}%</span>
                                                     </c:if>
-<%--                                                    <c:forEach var="tag" items="${SingletonServiceUltils.getProductDAOImpl.getProductbyID(item.getId())}">--%>
-<%--                                                        <span class="new">${tag.getTagsEntity().getName()}</span>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:forEach var="tag" items="${item.getTagsName()}">
+                                                        <span class="new">${tag.toString().trim()}</span>
+                                                    </c:forEach>
                                                 </span>
                                                 <div class="actions">
                                                     <a href="wishlist.jsp" class="action wishlist" title="Wishlist"><i
@@ -655,31 +655,31 @@
                                             </div>
                                             <div class="content">
                                                 <div class="rating-product">
-<%--                                                    <c:set var="star" scope="session" value="${SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(item.getId())*1}" />--%>
-<%--                                                    <c:forEach begin="1" end="${star}" varStatus="loop" >--%>
-<%--                                                        <i class="fa fa-star" style="color: #ffde00"></i>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:set var="star" scope="session" value="${item.getAvgReview()}" />
+                                                    <c:forEach begin="1" end="${star}" varStatus="loop" >
+                                                        <i class="fa fa-star" style="color: #ffde00"></i>
+                                                    </c:forEach>
 
-<%--                                                    <c:forEach begin="${star + 1}" end="5" varStatus="loop" >--%>
-<%--                                                        <i class="fa fa-star" style="color: #bcbebf"></i>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                                                        <i class="fa fa-star" style="color: #bcbebf"></i>
+                                                    </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.name}
+                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
                                                     <c:choose>
-                                                        <c:when test="${item.productStatusesEntity.isId()}">
-                                                            <span class="new">$${item.discountPrice}</span>
-                                                            <span class="old">$${item.regularPrice}</span>
+                                                        <c:when test="${item.isProductStatus()}">
+                                                            <span class="new">$${item.getDiscountPrice()}</span>
+                                                            <span class="old">$${item.getRegularPrice()}</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <span class="new">$${item.regularPrice}</span>
+                                                            <span class="new">$${item.getRegularPrice()}</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -704,17 +704,17 @@
                                         <div class="product">
                                             <div class="thumb">
                                                 <a href="singleproduct?productCode=${item.getId()}" class="image">
-                                                    <img src="assets/images/product-image/9.jpg" alt="Product" />
-                                                    <img class="hover-image" src="assets/images/product-image/9.jpg"
+                                                    <img src="${item.getImage()}" alt="Product" />
+                                                    <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
                                                 </a>
                                                 <span class="badges">
-                                                    <c:if test="${item.getProductStatusesEntity().isId()}">
+                                                    <c:if test="${item.isProductStatus()}">
                                                         <span class="sale">-${item.getDiscount_percent()}%</span>
                                                     </c:if>
-<%--                                                    <c:forEach var="tag" items="${SingletonServiceUltils.getProductDAOImpl.getProductbyID(item.getId())}">--%>
-<%--                                                        <span class="new">${tag.getTagsEntity().getName()}</span>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:forEach var="tag" items="${item.getTagsName()}">
+                                                        <span class="new">${tag.toString().trim()}</span>
+                                                    </c:forEach>
                                                 </span>
                                                 <div class="actions">
                                                     <a href="wishlist.jsp" class="action wishlist" title="Wishlist"><i
@@ -728,31 +728,31 @@
                                             </div>
                                             <div class="content">
                                                 <div class="rating-product">
-<%--                                                    <c:set var="star" scope="session" value="${SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(item.getId())*1}" />--%>
-<%--                                                    <c:forEach begin="1" end="${star}" varStatus="loop" >--%>
-<%--                                                        <i class="fa fa-star" style="color: #ffde00"></i>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:set var="star" scope="session" value="${item.getAvgReview()}" />
+                                                    <c:forEach begin="1" end="${star}" varStatus="loop" >
+                                                        <i class="fa fa-star" style="color: #ffde00"></i>
+                                                    </c:forEach>
 
-<%--                                                    <c:forEach begin="${star + 1}" end="5" varStatus="loop" >--%>
-<%--                                                        <i class="fa fa-star" style="color: #bcbebf"></i>--%>
-<%--                                                    </c:forEach>--%>
+                                                    <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                                                        <i class="fa fa-star" style="color: #bcbebf"></i>
+                                                    </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.name}
+                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
                                                     <c:choose>
-                                                        <c:when test="${item.productStatusesEntity.isId()}">
-                                                            <span class="new">$${item.discountPrice}</span>
-                                                            <span class="old">$${item.regularPrice}</span>
+                                                        <c:when test="${item.isProductStatus()}">
+                                                            <span class="new">$${item.getDiscountPrice()}</span>
+                                                            <span class="old">$${item.getRegularPrice()}</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <span class="new">$${item.regularPrice}</span>
+                                                            <span class="new">$${item.getRegularPrice()}</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -868,16 +868,20 @@
     const onClickLoadData = (ID, flag) => {
         //flag == 1 --> get data 1
         //flag == 2 --> load modal
+        var URL = "<c:url value="/api-top8product" />";
+        if (flag == 2) {
+            URL = "<c:url value="/api-modal" />"
+        }
 
         $.ajax({
-            url: "<c:url value="/index" />",
-            type: "post",
+            url: URL,
+            type: "get",
             data: {
                 ID: ID,
-                action: (function() {
-                    if (flag === 1) return "tab-data";
-                    else return "modal";
-                })
+                // action: (function() {
+                //     if (flag === 1) return "tab-data";
+                //     else return "modal";
+                // })
             },
             success: function (response) {
                 flag === 1 ? document.getElementById("tab-data").innerHTML = response
@@ -898,9 +902,9 @@
 <!-- Global Vendor, plugins JS -->
 
 <!-- Vendor JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
 
+<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
 <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>

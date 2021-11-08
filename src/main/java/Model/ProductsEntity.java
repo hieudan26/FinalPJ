@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"products\"", schema = "public", catalog = "Web")
+@Table(name = "\"products\"", schema = "public")
 public class ProductsEntity {
     private int id;
     private String name;
@@ -71,7 +71,7 @@ public class ProductsEntity {
 
     //one to many product-->review
     @Fetch(FetchMode.SELECT)
-    @OneToMany(mappedBy = "productsEntity",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "productsEntity",fetch = FetchType.EAGER)
 
     public Set<ReviewsEntity> getReviewsEntities(){
         return this.reviewsEntities;
@@ -84,6 +84,7 @@ public class ProductsEntity {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
