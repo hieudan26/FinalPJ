@@ -4,20 +4,6 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="default">
-        <mapping-file>AccountsEntity.xml</mapping-file>
-        <mapping-file>CategoriesEntity.xml</mapping-file>
-        <mapping-file>CcTransactionsEntity.xml</mapping-file>
-        <mapping-file>ColorsEntity.xml</mapping-file>
-        <mapping-file>OrderProductsEntity.xml</mapping-file>
-        <mapping-file>ProductStatusesEntity.xml</mapping-file>
-        <mapping-file>ProductsEntity.xml</mapping-file>
-        <mapping-file>ReviewsEntity.xml</mapping-file>
-        <mapping-file>RolesEntity.xml</mapping-file>
-        <mapping-file>SalesOrdersEntity.xml</mapping-file>
-        <mapping-file>SessionsEntity.xml</mapping-file>
-        <mapping-file>TagsEntity.xml</mapping-file>
-        <mapping-file>UsersEntity.xml</mapping-file>
-
         <class>Model.AccountsEntity</class>
         <class>Model.CategoriesEntity</class>
         <class>Model.CcTransactionsEntity</class>
