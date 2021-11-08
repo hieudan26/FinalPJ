@@ -39,7 +39,7 @@
                                 <li><a class="dropdown-item" href="checkout.jsp">Checkout</a></li>
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
-                                        <li><a class="dropdown-item" href="<c:url value='/login'/>">Sign in</a></li>
+                                        <li><a class="dropdown-item" href="<c:url value='/login'/>">Sign in/Log in</a></li>
                                     </c:when>
                                     <c:otherwise>
                                         <li><a class="dropdown-item" href="<c:url value='/logout'/>">Log out</a></li>

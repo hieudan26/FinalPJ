@@ -267,6 +267,15 @@
                         </div>
                         <div class="col-lg-5">
                             <div class="ratting-form-wrapper pl-50">
+                                <script>alert(${sessionScope.loginedUser})</script>
+                                <c:choose>
+                                    <c:when test="${sessionScope.loginedUser == null}">
+                                        <h3>Login and buy it to leave a comment for this product</h3>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h3>Login as ${sessionScope.loginedUser.getFirstname()} ${sessionScope.loginedUser.getLastname()}</h3>
+                                    </c:otherwise>
+                                </c:choose>
                                 <h3>Add a Review</h3>
                                 <div class="ratting-form">
                                     <%--FROM--%>
@@ -294,19 +303,9 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="rating-form-style">
-                                                    <input placeholder="Name" type="text" name="username" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="rating-form-style">
-                                                    <input placeholder="Email" type="email" name="email" />
-                                                </div>
-                                            </div>
                                             <div class="col-md-12">
                                                 <div class="rating-form-style form-submit">
-                                                    <textarea name="review" placeholder="Message"></textarea>
+                                                    <textarea style="line-height: 25px;" name="review" placeholder="Message"></textarea>
                                                     <button class="btn btn-primary btn-hover-color-primary"
                                                             type="submit" value="${singleProductDTO.getId()}"
                                                             name="productId">Submit
