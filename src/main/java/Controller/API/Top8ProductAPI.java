@@ -44,7 +44,7 @@ public class Top8ProductAPI extends HttpServlet {
                                 "                                <!-- Single Prodect -->\n" +
                                 "                                <div class=\"product\">\n" +
                                 "                                    <div class=\"thumb\">\n" +
-                                "                                        <a href=\"singleproduct?productCode=" + productDisplayApiDTO.getId() + "\" class=\"image\">\n" +
+                                "                                        <a href=\"singleproduct?productId=" + productDisplayApiDTO.getId() + "\" class=\"image\">\n" +
                                 "                                            <img src=\"" + productDisplayApiDTO.getImage() + "\" alt=\"Product\" />\n" +
                                 "                                            <img class=\"hover-image\" src=\"" + productDisplayApiDTO.getImage() + "\"\n" +
                                 "                                                 alt=\"Product\" />\n" +
@@ -66,14 +66,14 @@ public class Top8ProductAPI extends HttpServlet {
                                 "                                        <div class=\"rating-product\">\n" +
                                                                             this.loadRating(productDisplayApiDTO.getAvgReview()) +
                                 "                                        </div>\n" +
-                                "                                        <h5 class=\"title\"><a href=\"singleproduct?productCode=" + productDisplayApiDTO.getId() + "\">" + productDisplayApiDTO.getName() + "\n" +
+                                "                                        <h5 class=\"title\"><a href=\"singleproduct?productId=" + productDisplayApiDTO.getId() + "\">" + productDisplayApiDTO.getName() + "\n" +
                                 "                                        </a>\n" +
                                 "                                        </h5>\n" +
                                 "                                        <span class=\"price\">\n" +
                                                                             this.priceDiscount(productDisplayApiDTO.isProductStatus(), productDisplayApiDTO.getDiscountPrice(), productDisplayApiDTO.getRegularPrice()) +
                                 "                                        </span>\n" +
                                 "                                    </div>\n" +
-                                "                                    <button onclick=\"window.location.href='singleproduct?productCode=" + productDisplayApiDTO.getId() + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
+                                "                                    <button onclick=\"window.location.href='singleproduct?productId=" + productDisplayApiDTO.getId() + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
                                 "                                        To Cart</button>\n" +
                                 "                                </div>\n" +
                                 "                            </div>\n"
