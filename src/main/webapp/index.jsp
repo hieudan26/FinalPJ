@@ -484,7 +484,7 @@
                                         <!-- Single Prodect -->
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="singleproduct?productCode=${item.getId()}" class="image">
+                                                <a href="singleproduct?productId=${item.getId()}" class="image">
                                                     <img src="${item.getImage()}" alt="Product" />
                                                     <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
@@ -533,7 +533,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -557,7 +557,7 @@
                                         <!-- Single Prodect -->
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="singleproduct?productCode=${item.getId()}" class="image">
+                                                <a href="singleproduct?productId=${item.getId()}" class="image">
                                                     <img src="${item.getImage()}" alt="Product" />
                                                     <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
@@ -591,7 +591,7 @@
                                                         <i class="fa fa-star" style="color: #bcbebf"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
+                                                <h5 class="title"><a href="singleproduct?productId=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
@@ -606,7 +606,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -630,7 +630,7 @@
                                         <!-- Single Prodect -->
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="singleproduct?productCode=${item.getId()}" class="image">
+                                                <a href="singleproduct?productId=${item.getId()}" class="image">
                                                     <img src="${item.getImage()}" alt="Product" />
                                                     <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
@@ -664,7 +664,7 @@
                                                         <i class="fa fa-star" style="color: #bcbebf"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
+                                                <h5 class="title"><a href="singleproduct?productId=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
@@ -679,7 +679,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -703,7 +703,7 @@
                                         <!-- Single Prodect -->
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="singleproduct?productCode=${item.getId()}" class="image">
+                                                <a href="singleproduct?productId=${item.getId()}" class="image">
                                                     <img src="${item.getImage()}" alt="Product" />
                                                     <img class="hover-image" src="${item.getImage()}"
                                                          alt="Product" />
@@ -737,7 +737,7 @@
                                                         <i class="fa fa-star" style="color: #bcbebf"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
+                                                <h5 class="title"><a href="singleproduct?productId=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">

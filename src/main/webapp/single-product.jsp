@@ -41,11 +41,11 @@
 
 <body>
 
-
+<span>
 <!-- Header Area Start -->
 <jsp:include page="header.jsp" />
 <!-- Header Area End -->
-
+</span>
 <!-- breadcrumb-area start -->
 <div class="breadcrumb-area">
     <div class="container">
@@ -124,14 +124,13 @@
                     </div>
 
                     <%--FORM--%>
-                    <form action="OrderProductController">
-                        <input hidden type="text" name="productId" value="${singleProductDTO.getId()}">
+                    <form action="AddorCheckRedirectController" method="post">
+                        <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
+                        <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
                         <div id="color-grp" class="color-group mt-30px">
-                            <li hidden name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" id="color-${itemColor.getId()}" href="#" class="color-block"
-                                style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></li>
                             <c:forEach items="${singleProductDTO.getColorDTOList()}" var="itemColor">
-                                <li name="colorId" value="${itemColor.getId()}" id="color-${itemColor.getId()}" href="#" class="color-block"
-                                   style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></li>
+                                <div id="color-${itemColor.getId()}" class="color-block"
+                                   style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></div>
                             </c:forEach>
                         </div>
 
@@ -267,10 +266,9 @@
                         </div>
                         <div class="col-lg-5">
                             <div class="ratting-form-wrapper pl-50">
-                                <script>alert(${sessionScope.loginedUser})</script>
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
-                                        <h3 style="margin-bottom: 40px; font-size: 24px;">Login and buy it to leave a comment for this product</h3>
+                                        <h3 style="margin-bottom: 40px; font-size: 24px;"><span style="color: red">WARNING: </span>Login and buy it to leave a comment for this product</h3>
                                     </c:when>
                                     <c:otherwise>
                                         <h3 style="margin-bottom: 40px; font-size: 24px;">Login as ${sessionScope.loginedUser.getFirstname()} ${sessionScope.loginedUser.getLastname()}</h3>
@@ -279,7 +277,7 @@
                                 <h3>Add a Review</h3>
                                 <div class="ratting-form">
                                     <%--FROM--%>
-                                    <form action="ReviewController" method="post">
+                                    <form id="frm_Review" action="ReviewController" method="post">
                                         <div class="star-box">
                                             <span>Your rating:</span>
                                             <div class="rating-container">
@@ -306,8 +304,9 @@
                                             <div class="col-md-12">
                                                 <div class="rating-form-style form-submit">
                                                     <textarea style="line-height: 25px;" name="review" placeholder="Message"></textarea>
-                                                    <button class="btn btn-primary btn-hover-color-primary"
+                                                    <button id="btn_Review" class="btn btn-primary btn-hover-color-primary"
                                                             type="submit" value="${singleProductDTO.getId()}"
+                                                            onclick="return disableReview()"
                                                             name="productId">Submit
                                                     </button>
                                                 </div>
@@ -458,8 +457,29 @@
 </div>
 <!-- Modal end -->
 <script>
+    window.onload = function()
+    {
+        var UserId = ${empty sessionScope.loginedUser.id ? -1 : sessionScope.loginedUser.id};
+        if (UserId === -1) {
+            event.preventDefault();
+            $('#btn_Review').attr('disabled',true);
+        }
+    };
+
+    function disableReview() {
+        var UserId = ${empty sessionScope.loginedUser.id ? -1 : sessionScope.loginedUser.id};
+        if (UserId === -1) {
+            event.preventDefault();
+            alert("Please login. If you buy this product you can leave reviews for this product");
+            return false;
+        }
+    }
+
     const onClickColor = (id) => {
-        event.preventDefault();
+        var temp = id.slice(6, id.length)
+        var element = document.querySelector('input[name="colorId"]');
+        element.setAttribute('value', temp);
+
         var doc = document.getElementById("color-grp");
         var notes = null;
         for (var i = 0; i < doc.childNodes.length; i++) {

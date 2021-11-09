@@ -34,8 +34,8 @@ public class ProductController extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        String productCode = req.getParameter("productCode");
-        int productId = Integer.parseInt(productCode);
+        String productIdString= req.getParameter("productId");
+        int productId = Integer.parseInt(productIdString);
 
         ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
         SingleProductDTO singleProductDTO = this.handleSingleProductDTO(productsEntity);

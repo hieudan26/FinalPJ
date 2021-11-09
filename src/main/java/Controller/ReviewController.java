@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.ProductDAOImpl;
 import DAO.ReviewDAOImpl;
+import DTO.UserAccountDTO;
 import Model.ProductsEntity;
 import Model.ReviewsEntity;
 import Model.UsersEntity;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "ReviewController", value = "/ReviewController")
@@ -24,17 +26,18 @@ public class ReviewController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String URL = "/singleproduct?productCode=";
+        String URL = "/singleproduct?productId=";
 
-        String emailString = request.getParameter("email");
-        String commentString = request.getParameter("review");
-        String ratingString = request.getParameter("rate");
+        HttpSession session = request.getSession();
+        UserAccountDTO userAccountDTO = (UserAccountDTO)session.getAttribute("loginedUser");
         String productIdString = request.getParameter("productId");
+        String ratingString = request.getParameter("rate");
+        String commentString = request.getParameter("review");
 
         int rating = Integer.parseInt(ratingString);
         int productId = Integer.parseInt(productIdString);
 
-        UsersEntity usersEntity = SingletonServiceUltils.getUserDAOImpl().getOneByEmail(emailString);
+        UsersEntity usersEntity = SingletonServiceUltils.getUserDAOImpl().getOneById(userAccountDTO.getId());
         ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
 
         ReviewsEntity reviewsEntity = new ReviewsEntity();
@@ -49,6 +52,7 @@ public class ReviewController extends HttpServlet {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
         URL += productId;
         response.sendRedirect(URL);
     }
