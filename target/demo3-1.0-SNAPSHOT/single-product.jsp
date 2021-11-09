@@ -270,10 +270,10 @@
                                 <script>alert(${sessionScope.loginedUser})</script>
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
-                                        <h3>Login and buy it to leave a comment for this product</h3>
+                                        <h3 style="margin-bottom: 40px; font-size: 24px;">Login and buy it to leave a comment for this product</h3>
                                     </c:when>
                                     <c:otherwise>
-                                        <h3>Login as ${sessionScope.loginedUser.getFirstname()} ${sessionScope.loginedUser.getLastname()}</h3>
+                                        <h3 style="margin-bottom: 40px; font-size: 24px;">Login as ${sessionScope.loginedUser.getFirstname()} ${sessionScope.loginedUser.getLastname()}</h3>
                                     </c:otherwise>
                                 </c:choose>
                                 <h3>Add a Review</h3>

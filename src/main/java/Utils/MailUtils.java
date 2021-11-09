@@ -6,8 +6,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-import static Constant.WebConstant.MAIL_SENDER;
-import static Constant.WebConstant.PASS_MAIL_SENDER;
+import static Constant.WebConstant.*;
 
 public class MailUtils {
     private String useremail;
@@ -30,10 +29,7 @@ public class MailUtils {
             message.setFrom(new InternetAddress(emailsender));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(useremail));
             message.setSubject("MIOCA shop in Email Vertication Link" );
-            message.setContent(
-                    "<h1>Vertication Link....</h1></br>" +
-                            "<b >Your Verification Link:</b> "+contentmail,
-                    "text/html");
+            message.setContent(contentmail, "text/html");
             Transport.send(message);
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +50,17 @@ public class MailUtils {
 
     public void sendMaiRegister(){
         String token = TokenUltils.getToken(useremail);
-        String LinkSending = "Http://localhost:8080/ActiveAccount?key="+token;
+        String LinkSending = WEB_URL+"/ActiveAccount?key="+token;
+        String content = "<h1>Vertication Link....</h1></br>" +
+                "<b >Your Verification Link:</b> "+LinkSending;
+        sendMail(LinkSending);
+    }
+    public void sendMaiForget(String password){
+        String token = TokenUltils.getToken(useremail);
+        String hashPassword = TokenUltils.getToken(password);
+        String LinkSending = WEB_URL+"/forgetpass?mail="+token+"&newpass="+hashPassword;
+        String content = "<h1>Confirm new password Link....</h1></br>" +
+                "<b >Your Verification to change Password Link:</b> "+LinkSending;
         sendMail(LinkSending);
     }
 }

@@ -16,7 +16,7 @@ class ActiveAccountController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getParameter("key");
         RegisterBusiness.Active(token);
-        System.out.println("welcom "+ TokenUltils.getemail(token));
+        System.out.println("welcom "+ TokenUltils.getPlanText(token));
         resp.sendRedirect(req.getContextPath() + "/account");
     }
 

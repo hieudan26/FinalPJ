@@ -50,7 +50,7 @@ public class RegisterBusiness {
     }
 
     public static boolean Active(String token){
-        String email = TokenUltils.getemail(token);
+        String email = TokenUltils.getPlanText(token);
         UsersEntity user = SingletonServiceUltils.getUserDAOImpl().getOneByEmail(email);
         if(user == null)
             return false;

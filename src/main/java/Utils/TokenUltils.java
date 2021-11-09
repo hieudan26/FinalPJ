@@ -27,7 +27,7 @@ public class TokenUltils {
         return emailtext+"."+emailHash;
     }
 
-    public static String getemail(String token){
+    public static String getPlanText(String token){
         String[] parts = token.split("\\.");
         System.out.println(token);
         System.out.println(parts);
