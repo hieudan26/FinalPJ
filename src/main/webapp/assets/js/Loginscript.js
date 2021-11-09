@@ -38,3 +38,16 @@ setTimeout(() => {
         err.style.display = "none";
     }
 },3500);
+const passwordforget = document.getElementById("passwordforget");
+const confirmPasswordforget = document.getElementById("repasswordforget");
+function checkPasswordforgetMatch() {
+    if (passwordforget.value != confirmPasswordforget.value)
+    {
+        confirmPasswordforget.setCustomValidity("Passwords Don't Match");
+    } else {
+        confirmPasswordforget.setCustomValidity('');
+    }
+}
+
+passwordforget.onchange = checkPasswordforgetMatch;
+confirmPasswordforget.onkeyup = checkPasswordforgetMatch;

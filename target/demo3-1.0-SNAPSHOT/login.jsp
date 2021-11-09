@@ -43,146 +43,6 @@
 
 <!-- Header Area Start -->
 <jsp:include page="header.jsp"/>
-<!-- Header Area End -->
-<div class="offcanvas-overlay"></div>
-
-<!-- OffCanvas Wishlist Start -->
-<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Wishlist</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$21.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$13.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$17.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons">
-                <a href="wishlist.jsp" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Wishlist End -->
-<!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Cart</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons mt-30px">
-                <a href="cart.jsp" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                <a href="checkout.jsp" class="btn btn-outline-dark current-btn">checkout</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Cart End -->
-
-<!-- OffCanvas Menu Start -->
-<div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
-    <button class="offcanvas-close"></button>
-
-    <div class="inner customScroll">
-
-        <div class="offcanvas-menu mb-4">
-            <ul>
-                <li><a href="#"><span class="menu-text">Home</span></a>
-                </li>
-                <li><a href="about.jsp">About</a></li>
-
-                <li><a href="shop-left-sidebar.jsp"><span class="menu-text">Shop</span></a>
-                </li>
-                <li><a href="coming-soon.jsp"><span class="menu-text">Blog</span></a>
-                </li>
-                <li><a href="contact.jsp">Contact Us</a></li>
-            </ul>
-        </div>
-        <!-- OffCanvas Menu End -->
-        <div class="offcanvas-social mt-auto">
-            <ul>
-                <li>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-google"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Menu End -->
 
 <!-- breadcrumb-area start -->
 <div class="breadcrumb-area">
@@ -227,6 +87,22 @@
                                 <c:out value="${requestScope.errorMessage}"/>
                             </div>
                         </c:if>
+                        <c:if test ="${requestScope.Message != null}">
+                            <c:if test ="${requestScope.isSuccess != null}">
+                                <c:if test ="${requestScope.isSuccess != true}">
+                                    <div id="errorMessage" class="error-msg">
+                                        <i class="fa fa-times-circle"></i>
+                                        <c:out value="${requestScope.Message}"/>
+                                    </div>
+                                </c:if>
+                                <c:if test ="${requestScope.isSuccess == true}">
+                                    <div id="errorMessage" class="success-msg">
+                                        <i class="fa fa-times-circle"></i>
+                                        <c:out value="${requestScope.Message}"/>
+                                    </div>
+                                </c:if>
+                            </c:if>
+                        </c:if>
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
@@ -246,7 +122,7 @@
                                 </div>
                             </div>
                         </div>
-<%--   EndLogin--%>
+                        <%--   EndLogin--%>
                         <div id="lg2" class="tab-pane">
                             <div class="login-form-container">
                                 <div class="login-register-form">
@@ -265,10 +141,10 @@
                         <div id="lg3" class="tab-pane">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <form action="#" method="post">
-                                        <input name="user-email" placeholder="Email" type="email" />
-                                        <input type="password" name="user-password" placeholder="Password" />
-                                        <input type="password" name="user-retype_password" placeholder="Retype password" />
+                                    <form action="/forgetpass" method="post">
+                                        <input name="email" placeholder="Email" type="email" />
+                                        <input id="passwordforget" type="password" name="password" placeholder="Password" required/>
+                                        <input id="repasswordforget"  type="password" name="retypepassword" placeholder="Retype password" required/>
                                         <div class="button-box" style="text-align: center;">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox" />
@@ -351,7 +227,14 @@
         document.getElementById("reg").classList.add("active");
     </script>
 </c:if>
-
+<c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/forgetpass'}">
+    <script type="text/javascript">
+        document.getElementById("forgot-passwd").click();
+        document.getElementById("forgot-passwd").style.display = 'block';
+        // document.getElementById("lg").style.display = 'none';
+        // document.getElementById("reg").style.display = 'none';
+    </script>
+</c:if>
 </body>
 
 </html>

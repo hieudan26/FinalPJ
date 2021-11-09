@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"users\"", schema = "public", catalog = "Web")
+@Table(name = "\"users\"", schema = "public")
 public class UsersEntity {
     private int id;
     private String email;
