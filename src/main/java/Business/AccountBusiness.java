@@ -1,10 +1,11 @@
 package Business;
 
-import DAO.UserDAOImpl;
 import DTO.AddressDTO;
 import Model.AccountsEntity;
 import Model.UsersEntity;
+import Utils.MailUtils;
 import Utils.SingletonServiceUltils;
+import Utils.TokenUltils;
 
 public class AccountBusiness {
     public static AddressDTO getaddressDTO(int id){
@@ -35,5 +36,27 @@ public class AccountBusiness {
         if(old_pass.equals(acc.getPassword()))
             return acc;
         return null;
+    }
+    public static void ForgetPassword(String email, String newpass)
+    {
+        MailUtils mail = new MailUtils(email);
+        mail.sendMaiForget(newpass);
+    }
+    public static boolean ChangePasswordForForget(String tokenemail, String tokennewpass)
+    {
+        String email = TokenUltils.getPlanText(tokenemail);
+        String pass = TokenUltils.getPlanText(tokennewpass);
+        if(email == null || pass == null)
+            return false;
+        UsersEntity user = SingletonServiceUltils.getUserDAOImpl().getOneByEmail(email);
+        if(user == null)
+            return false;
+
+        AccountsEntity acc = user.getAccountsEntity();
+        acc.setPassword(pass);
+
+        if(SingletonServiceUltils.getAccountDAOImpl().update(acc) == null)
+            return false;
+        return true;
     }
 }

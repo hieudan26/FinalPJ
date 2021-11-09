@@ -268,7 +268,11 @@
                             <div class="ratting-form-wrapper pl-50">
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
+<<<<<<< HEAD
                                         <h3 style="margin-bottom: 40px; font-size: 24px;"><span style="color: red">WARNING: </span>Login and buy it to leave a comment for this product</h3>
+=======
+                                        <h3 style="margin-bottom: 40px; font-size: 24px;">Login and buy it to leave a comment for this product</h3>
+>>>>>>> e741a354f3134a80d49571654e5818ddd615d7e1
                                     </c:when>
                                     <c:otherwise>
                                         <h3 style="margin-bottom: 40px; font-size: 24px;">Login as ${sessionScope.loginedUser.getFirstname()} ${sessionScope.loginedUser.getLastname()}</h3>
