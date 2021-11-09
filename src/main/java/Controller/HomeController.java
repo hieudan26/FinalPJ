@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/home", "/trang-chu", "/nha", "/index"})
+@WebServlet(urlPatterns = {"/home", "/trang-chu", "/nha", "/index", ""})
 public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
