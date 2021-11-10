@@ -106,7 +106,7 @@
                                 <i class="fa fa-star" style="color: #bcbebf"></i>
                             </c:forEach>
                         </div>
-                        <span class="read-review"><a class="reviews" href="#">(${singleProductDTO.getTotalReview()}
+                        <span class="read-review"><a class="reviews" style="cursor: pointer;" onclick="() => {event.preventDefault();}">(${singleProductDTO.getTotalReview()}
                                     Review )</a></span>
                     </div>
                     <div class="stock mt-30px">
@@ -268,11 +268,7 @@
                             <div class="ratting-form-wrapper pl-50">
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
-<<<<<<< HEAD
                                         <h3 style="margin-bottom: 40px; font-size: 24px;"><span style="color: red">WARNING: </span>Login and buy it to leave a comment for this product</h3>
-=======
-                                        <h3 style="margin-bottom: 40px; font-size: 24px;">Login and buy it to leave a comment for this product</h3>
->>>>>>> e741a354f3134a80d49571654e5818ddd615d7e1
                                     </c:when>
                                     <c:otherwise>
                                         <h3 style="margin-bottom: 40px; font-size: 24px;">Login as ${sessionScope.loginedUser.getFirstname()} ${sessionScope.loginedUser.getLastname()}</h3>
@@ -352,7 +348,7 @@
                             <!-- Single Prodect -->
                             <div class="product">
                                 <div class="thumb">
-                                    <a href="singleproduct?productCode=${item.getId()}" class="image">
+                                    <a href="singleproduct?productId=${item.getId()}" class="image">
                                         <img src="${item.getImage()}" alt="Product" />
                                         <img class="hover-image" src="${item.getImage()}" alt="Product" />
                                     </a>

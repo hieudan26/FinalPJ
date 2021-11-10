@@ -13,4 +13,5 @@ public interface UserDAO extends GenericDAO<Integer, UsersEntity>{
     UsersEntity getOneByEmail(String email);
     UsersEntity getOneById(int id);
     UsersEntity getOneByIdAcc(int idacc);
+    UsersEntity getOneByReviewId(int reviewId);
 }

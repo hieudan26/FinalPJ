@@ -11,4 +11,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TagDAO extends GenericDAO<Integer, TagsEntity>{
+    List<TagsEntity> getAllTagsByProductId(int productId);
 }

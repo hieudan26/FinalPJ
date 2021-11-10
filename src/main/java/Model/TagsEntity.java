@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"tags\"", schema = "public", catalog = "Web")
+@Table(name = "\"tags\"", schema = "public")
 public class TagsEntity {
     private int id;
     private String name;

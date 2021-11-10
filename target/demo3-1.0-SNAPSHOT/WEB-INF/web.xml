@@ -6,6 +6,7 @@
     <welcome-file-list>
         <welcome-file>HomeController</welcome-file>
     </welcome-file-list>
+
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>Controller.HomeController</servlet-class>
@@ -13,6 +14,15 @@
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShopController</servlet-name>
+        <servlet-class>Controller.ShopController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShopController</servlet-name>
+        <url-pattern>/ShopController</url-pattern>
     </servlet-mapping>
 
     <error-page>

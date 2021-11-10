@@ -13,4 +13,5 @@ import java.util.List;
 public interface ColorDAO extends GenericDAO<Integer, ColorsEntity>{
     String getNameColorbyColorsId (int color_id);
 
+    List<ColorsEntity> getAllColorsByProductId(int productId);
 }

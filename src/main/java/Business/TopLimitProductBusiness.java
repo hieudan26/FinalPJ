@@ -9,12 +9,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Top8ProductBusiness {
-    public static List<ProductDisplayDTO> handleDataTop8ProductsTab(List<ProductsEntity> top8ProductsInTop4Categories) {
-        List<ProductsEntity> productsEntityList = top8ProductsInTop4Categories;
+public class TopLimitProductBusiness {
+    public static List<ProductDisplayDTO> handleDataTopLimitProductsTab(List<ProductsEntity> topLimitProductsInTopLimitCategories) {
+        List<ProductsEntity> productsEntityList = topLimitProductsInTopLimitCategories;
         List<ProductDisplayDTO> productDisplayDTOList = new ArrayList<>();
         for (ProductsEntity item:productsEntityList) {
-            ProductDisplayDTO productDisplayDTO = Top8ProductBusiness.handleDataOneProductTab(item);
+            ProductDisplayDTO productDisplayDTO = TopLimitProductBusiness.handleDataOneProductTab(item);
             productDisplayDTOList.add(productDisplayDTO);
         }
         return productDisplayDTOList;
@@ -32,7 +32,7 @@ public class Top8ProductBusiness {
         int avgReview = SingletonServiceUltils.getReviewDAOImpl().getAVGRatingbyProductId(productsEntity.getId());
 
         List<String> tagsName = new ArrayList<>();
-        for (TagsEntity item:productsEntity.getTagsEntities()) {
+        for (TagsEntity item:SingletonServiceUltils.getTagDAOImpl().getAllTagsByProductId(id)) {
             tagsName.add(item.getName());
         }
 

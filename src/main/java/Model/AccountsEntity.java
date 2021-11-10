@@ -13,7 +13,7 @@ public class AccountsEntity {
     private RolesEntity rolesEntity;
     private  UsersEntity usersEntity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     public RolesEntity getRolesEntity() {
         return rolesEntity;
