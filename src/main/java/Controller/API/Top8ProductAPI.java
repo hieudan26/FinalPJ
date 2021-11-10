@@ -35,7 +35,7 @@ public class Top8ProductAPI extends HttpServlet {
     }
 
     private void loadTop8ProductByCategoryID(HttpServletResponse response, int categoryID) {
-        List<ProductsEntity> top8ProductsEntityList = SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoryID);
+        List<ProductsEntity> top8ProductsEntityList = SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoryID, 8);
 
         try (PrintWriter out = response.getWriter()) {
             for (ProductsEntity productsEntity : top8ProductsEntityList) {
@@ -139,7 +139,7 @@ public class Top8ProductAPI extends HttpServlet {
         String information = productsEntity.getInformation();
 
         Set<String> tagsName = new HashSet<>();
-        for (TagsEntity item:productsEntity.getTagsEntities()) {
+        for (TagsEntity item:SingletonServiceUltils.getTagDAOImpl().getAllTagsByProductId(productId)) {
             tagsName.add(item.getName());
         }
 
@@ -147,7 +147,7 @@ public class Top8ProductAPI extends HttpServlet {
         String category = productsEntity.getCategoriesEntity().getName();
 
         Set<String> colorsName = new HashSet<>();
-        for (ColorsEntity item:productsEntity.getColorsEntities()) {
+        for (ColorsEntity item:SingletonServiceUltils.getColorDAOImpl().getAllColorsByProductId(productId)) {
             colorsName.add(item.getName());
         }
 

@@ -58,7 +58,7 @@ public class ModalAPI extends HttpServlet {
                     "                                <div class=\"rating-product\">\n" +
                                                         this.loadRating(productDisplayModalDTO.getAvgReview()) +
                     "                                </div>\n" +
-                    "                                <span class=\"read-review\"><a class=\"reviews\" href>( " + productDisplayModalDTO.getTotalReviews() + " Review )</a></span>\n" +
+                    "                                <span class=\"read-review\"><a class=\"reviews\" onclick=\"() => {event.preventDefault();}\" style=\"cursor: pointer;\">( " + productDisplayModalDTO.getTotalReviews() + " Review )</a></span>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"stock mt-30px\">\n" +
                                                     this.loadStockStatus(productDisplayModalDTO.getQuantity()) +
@@ -154,7 +154,7 @@ public class ModalAPI extends HttpServlet {
         String information = productsEntity.getInformation();
 
         Set<String> tagsName = new HashSet<>();
-        for (TagsEntity item:productsEntity.getTagsEntities()) {
+        for (TagsEntity item:SingletonServiceUltils.getTagDAOImpl().getAllTagsByProductId(productId)) {
             tagsName.add(item.getName());
         }
 
@@ -162,7 +162,7 @@ public class ModalAPI extends HttpServlet {
         String category = productsEntity.getCategoriesEntity().getName();
 
         Set<String> colorsName = new HashSet<>();
-        for (ColorsEntity item:productsEntity.getColorsEntities()) {
+        for (ColorsEntity item:SingletonServiceUltils.getColorDAOImpl().getAllColorsByProductId(productId)) {
             colorsName.add(item.getName());
         }
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"product_statuses\"", schema = "public", catalog = "Web")
+@Table(name = "\"product_statuses\"", schema = "public")
 public class ProductStatusesEntity {
     private boolean id;
     private String name;

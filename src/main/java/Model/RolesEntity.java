@@ -3,7 +3,7 @@ package Model;
 import javax.persistence.*;
 import java.util.Set;
 @Entity
-@Table(name = "\"roles\"", schema = "public", catalog = "Web")
+@Table(name = "\"roles\"", schema = "public")
 public class RolesEntity {
     private int id;
     private String name;
@@ -19,6 +19,7 @@ public class RolesEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

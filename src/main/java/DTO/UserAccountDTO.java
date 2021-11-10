@@ -42,7 +42,7 @@ public class UserAccountDTO {
         if(role != null)
         {
             this.roles.add(ROLE_USER);
-            if(role.getName() == "admin")
+            if(role.getName().equals("admin"))
                 this.roles.add(ROLE_ADMIN);
         }
 

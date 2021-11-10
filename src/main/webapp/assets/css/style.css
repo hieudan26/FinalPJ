@@ -9406,3 +9406,7 @@ Pages - My Account
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(transparent, #EAAA85);
 }
+
+.selected {
+    color: #eaaa85!important;
+}

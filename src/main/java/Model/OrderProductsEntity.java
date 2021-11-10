@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "\"order_products\"", schema = "public", catalog = "Web")
+@Table(name = "\"order_products\"", schema = "public")
 public class OrderProductsEntity {
     private int id;
     private String name;
@@ -16,7 +16,7 @@ public class OrderProductsEntity {
 
 
     //many to one oderpro-->sale_oder
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
 
     public SalesOrdersEntity getSalesOrdersEntity() {

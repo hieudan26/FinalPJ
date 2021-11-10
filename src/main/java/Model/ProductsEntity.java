@@ -26,10 +26,8 @@ public class ProductsEntity {
     private Set<ColorsEntity> colorsEntities;
     private Set<ReviewsEntity> reviewsEntities;
 
-
-    //One to Many Product-->product tag
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(mappedBy = "productsEntities",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "productsEntities",fetch = FetchType.LAZY)
     public Set<TagsEntity> getTagsEntities(){
         return this.tagsEntities;
     }
@@ -37,9 +35,8 @@ public class ProductsEntity {
         this.tagsEntities = tagsEntities;
     }
 
-    //Many to One Product-->product status
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_status_id")
     public ProductStatusesEntity getProductStatusesEntity() {
         return productStatusesEntity;
@@ -47,11 +44,10 @@ public class ProductsEntity {
     public void setProductStatusesEntity(ProductStatusesEntity productStatusesEntity) {
         this.productStatusesEntity = productStatusesEntity;
     }
-    //Many to One Product-->catagory
-    @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch =FetchType.EAGER)
-    @JoinColumn(name = "category_id")
 
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch =FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     public CategoriesEntity getCategoriesEntity() {
         return categoriesEntity;
     }
@@ -59,9 +55,8 @@ public class ProductsEntity {
         this.categoriesEntity = categoriesEntity;
     }
 
-    //one to many product-->product color
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(mappedBy = "productsEntities",fetch =FetchType.EAGER)
+    @ManyToMany(mappedBy = "productsEntities",fetch =FetchType.LAZY)
     public Set<ColorsEntity> getColorsEntities(){
         return this.colorsEntities;
     }
@@ -69,18 +64,14 @@ public class ProductsEntity {
         this.colorsEntities = colorsEntities;
     }
 
-    //one to many product-->review
     @Fetch(FetchMode.SELECT)
-    @OneToMany(mappedBy = "productsEntity",fetch = FetchType.EAGER)
-
+    @OneToMany(mappedBy = "productsEntity",fetch = FetchType.LAZY)
     public Set<ReviewsEntity> getReviewsEntities(){
         return this.reviewsEntities;
     }
     public void setReviewsEntities(Set<ReviewsEntity> reviewsEntities){
         this.reviewsEntities = reviewsEntities;
     }
-
-
 
 
     @Id
