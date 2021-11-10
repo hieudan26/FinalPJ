@@ -3,7 +3,7 @@ package Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "\"reviews\"", schema = "public", catalog = "Web")
+@Table(name = "\"reviews\"", schema = "public")
 public class ReviewsEntity {
     private int id;
     private String comment;
@@ -12,7 +12,7 @@ public class ReviewsEntity {
     private UsersEntity usersEntity;
 
     //many to one review-->product
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
 
     public ProductsEntity getProductsEntity() {
@@ -22,7 +22,7 @@ public class ReviewsEntity {
         this.productsEntity = productsEntity;
     }
     //many to one review-->user
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
 
     public UsersEntity getUsersEntity() {

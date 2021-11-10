@@ -101,4 +101,30 @@ public class UserDAOImpl extends AbstractDAO<Integer, UsersEntity> implements Us
         else
             return usersEntityList.get(0);
     }
+
+    @Override
+    public UsersEntity getOneByReviewId(int reviewId) {
+        Transaction transaction = null;
+        Session session =HibernateUtils.getSessionFactory().openSession();
+        UsersEntity usersEntity = new UsersEntity();
+        try{
+
+            transaction = session.beginTransaction();
+            Query<UsersEntity> usersEntityQuery = session.createQuery("FROM UsersEntity user JOIN FETCH " +
+                    "user.reviewsEntities review WHERE review.id=:reviewId");
+            usersEntityQuery.setParameter("reviewId",reviewId);
+            transaction.commit();
+            usersEntity = usersEntityQuery.getSingleResult();
+        }
+        catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return usersEntity;
+    }
 }

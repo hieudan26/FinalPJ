@@ -11,21 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductDAO extends GenericDAO<Integer, ProductsEntity>{
+    List<ProductsEntity> getAllProductByTagId(int tagId);
 
-    List<ProductsEntity> getTop8ProductByCategorytID_Except(int categoryID, int productID);
+
+    List<ProductsEntity> getAllProductByColorId(int colorId);
+
+    List<ProductsEntity> getTopLimitProductByCategorytID_Except(int categoryID, int productID, int limit);
 
     ProductsEntity getProductbyID(int ID) ;
 
     //Get 8 product by id of category and sort by discount.
-    List<ProductsEntity> getTop8ProductByCategorytID(int categoryID);
+    List<ProductsEntity> getTopLimitProductByCategorytID(int categoryID, int limit);
 
     //Get all product by id of category and dont sort - mean random
-    List<ProductsEntity> getAllProductByCategorytID(int categoryID);
-
-    String getCategoryNamebyProductId(int ID);
-
-    List<ProductsEntity> getProductbyCategorytName(String CategoryName);
-
-    Integer getpricebyProductIdandStatus(int pID,String stt);
+    List<ProductsEntity> getAllProductByCategoryID(int categoryID);
 
 }

@@ -45,4 +45,29 @@ public class ColorDAOImpl extends AbstractDAO<Integer, ColorsEntity> implements 
         return name;
     }
 
+    @Override
+    public List<ColorsEntity> getAllColorsByProductId(int productId) {
+        Transaction transaction = null;
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        List<ColorsEntity> colorsEntityList = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            Query<ColorsEntity> colorsEntityQuery = session.createQuery("select c from ColorsEntity c join fetch " +
+                    "c.productsEntities p where p.id=:productId");
+            colorsEntityQuery.setParameter("productId", productId);
+            colorsEntityList = colorsEntityQuery.getResultList();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return colorsEntityList;
+    }
+
 }

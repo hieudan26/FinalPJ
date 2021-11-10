@@ -1,9 +1,6 @@
 package Controller;
 
-import Business.Top8ProductBusiness;
-import DAO.ColorDAOImpl;
-import DAO.ProductDAOImpl;
-import DAO.ReviewDAOImpl;
+import Business.TopLimitProductBusiness;
 import DTO.ColorDTO;
 import DTO.InformationProductDTO;
 import DTO.ReviewOfUserDTO;
@@ -11,6 +8,7 @@ import DTO.SingleProductDTO;
 import Model.ColorsEntity;
 import Model.ProductsEntity;
 import Model.ReviewsEntity;
+import Model.UsersEntity;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -23,8 +21,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/singleproduct")
 public class ProductController extends HttpServlet {
@@ -43,7 +39,7 @@ public class ProductController extends HttpServlet {
         int categoryId = productsEntity.getCategoriesEntity().getId();
 
         req.setAttribute("singleProductDTO", singleProductDTO);
-        req.setAttribute("Top8Product_categories", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID_Except(categoryId, productId)));
+        req.setAttribute("Top8Product_categories", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID_Except(categoryId, productId, 8)));
 
         RequestDispatcher rd= req.getRequestDispatcher("/single-product.jsp");
         rd.forward(req,resp);
@@ -56,7 +52,7 @@ public class ProductController extends HttpServlet {
 
     private List<ColorDTO> getColorDTOList(ProductsEntity productsEntity) {
         List<ColorDTO> colorDTOList = new ArrayList<>();
-        for (ColorsEntity item: productsEntity.getColorsEntities()) {
+        for (ColorsEntity item: SingletonServiceUltils.getColorDAOImpl().getAllColorsByProductId(productsEntity.getId())) {
             ColorDTO colorDTO = new ColorDTO(item.getId(), item.getName());
             colorDTOList.add(colorDTO);
         }
@@ -65,10 +61,12 @@ public class ProductController extends HttpServlet {
 
     private List<ReviewOfUserDTO> getReviewOfUserDTOList(ProductsEntity productsEntity) {
         List<ReviewOfUserDTO> reviewOfUserDTOList = new ArrayList<>();
-        for (ReviewsEntity item:productsEntity.getReviewsEntities()) {
-            String fullname = item.getUsersEntity().getFirstName() + item.getUsersEntity().getLastName();
-            String image = item.getUsersEntity().getImage();
-            ReviewOfUserDTO reviewOfUserDTO = new ReviewOfUserDTO(item.getUsersEntity().getId(),
+        for (ReviewsEntity item:SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productsEntity.getId())) {
+            UsersEntity usersEntity = SingletonServiceUltils.getUserDAOImpl().getOneByReviewId(item.getId());
+            String fullname = usersEntity.getFirstName() + usersEntity.getLastName();
+            String image = usersEntity.getImage();
+            int id = usersEntity.getId();
+            ReviewOfUserDTO reviewOfUserDTO = new ReviewOfUserDTO(id,
                     item.getRating(), item.getComment(), fullname, image);
             reviewOfUserDTOList.add(reviewOfUserDTO);
         }

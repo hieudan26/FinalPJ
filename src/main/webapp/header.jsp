@@ -15,7 +15,7 @@
                             <li class="dropdown"><a href="<c:url value="/home" />">Home</a>
                             </li>
                             <li><a href="about.jsp">About</a></li>
-                            <li class="position-static"><a href="shop-left-sidebar.jsp">Shop</a>
+                            <li class="position-static"><a href="<c:url value="/shop" />">Shop</a>
                             </li>
                             <li class=""><a href="coming-soon.jsp">Blog</a>
                             </li>
@@ -36,7 +36,9 @@
                                     class="pe-7s-users"></i></button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a class="dropdown-item" href="my-account.jsp">My account</a></li>
-                                <li><a class="dropdown-item" href="checkout.jsp">Checkout</a></li>
+                                <c:if test="${sessionScope.loginedUser != null}">
+                                    <li><a class="dropdown-item" href="checkout.jsp">Checkout</a></li>
+                                </c:if>
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
                                         <li><a class="dropdown-item" href="<c:url value='/login'/>">Sign in/Log in</a></li>

@@ -1,12 +1,7 @@
 package Controller;
 
-import Business.Top8ProductBusiness;
-import DAO.*;
-import DTO.ProductDisplayDTO;
+import Business.TopLimitProductBusiness;
 import Model.CategoriesEntity;
-import Model.ColorsEntity;
-import Model.ProductsEntity;
-import Model.TagsEntity;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -16,13 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/home", "/trang-chu", "/nha", "/index", ""})
 public class HomeController extends HttpServlet {
@@ -48,10 +37,10 @@ public class HomeController extends HttpServlet {
 
         req.setAttribute("categoriesEntityList", categoriesEntityList);
         req.setAttribute("categoriesTop4EntityList", categoriesTop4EntityList);
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab1", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(0).getId())));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(1).getId())));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(2).getId())));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", Top8ProductBusiness.handleDataTop8ProductsTab(SingletonServiceUltils.getProductDAOImpl().getTop8ProductByCategorytID(categoriesTop4EntityList.get(3).getId())));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab1", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(0).getId(),8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(1).getId(), 8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(2).getId(), 8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(3).getId(), 8)));
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
         dispatcher.forward(req,resp);

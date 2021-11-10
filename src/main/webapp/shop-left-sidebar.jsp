@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -13,7 +14,6 @@
     <!-- Add site Favicon -->
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/png">
 
-
     <!-- vendor css (Icon Font) -->
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.bundle.min.css" />
     <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.css" />
@@ -26,11 +26,6 @@
     <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
     <link rel="stylesheet" href="assets/css/plugins/venobox.css" />
 
-    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-    <!-- <link rel="stylesheet" href="assets/css/vendor/vendor.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/plugins.min.css" />
-    <link rel="stylesheet" href="assets/css/style.min.css"> -->
-
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
 
@@ -41,145 +36,6 @@
 <!-- Header Area Start -->
 <jsp:include page="header.jsp" />
 <!-- Header Area End -->
-<div class="offcanvas-overlay"></div>
-
-<!-- OffCanvas Wishlist Start -->
-<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Wishlist</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$21.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$13.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$17.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons">
-                <a href="wishlist.jsp" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Wishlist End -->
-<!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Cart</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons mt-30px">
-                <a href="cart.jsp" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                <a href="checkout.jsp" class="btn btn-outline-dark current-btn">checkout</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Cart End -->
-
-<!-- OffCanvas Menu Start -->
-<div id="offcanvas-mobile-menu" class="offcanvas offcanvas-mobile-menu">
-    <button class="offcanvas-close"></button>
-
-    <div class="inner customScroll">
-
-        <div class="offcanvas-menu mb-4">
-            <ul>
-                <li><a href="#"><span class="menu-text">Home</span></a>
-                </li>
-                <li><a href="about.jsp">About</a></li>
-
-                <li><a href="shop-left-sidebar.jsp"><span class="menu-text">Shop</span></a>
-                </li>
-                <li><a href="coming-soon.jsp"><span class="menu-text">Blog</span></a>
-                </li>
-                <li><a href="contact.jsp">Contact Us</a></li>
-            </ul>
-        </div>
-        <!-- OffCanvas Menu End -->
-        <div class="offcanvas-social mt-auto">
-            <ul>
-                <li>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-google"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<!-- OffCanvas Menu End -->
 
 <!-- breadcrumb-area start -->
 <div class="breadcrumb-area">
@@ -240,23 +96,6 @@
                             </div>
                         </div>
                         <!-- Right Side End -->
-                        <!-- Right Side Start -->
-                        <!-- <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Show:</p>
-                            </div>
-                            <div class="shop-select show">
-                                <select class="shop-sort">
-                                    <option data-display="12">12</option>
-                                    <option value="1"> 12</option>
-                                    <option value="2"> 10</option>
-                                    <option value="3"> 25</option>
-                                    <option value="4"> 20</option>
-                                </select>
-
-                            </div>
-                        </div> -->
-                        <!-- Right Side End -->
                         <!-- Left Side start -->
                         <p class="compare-product">Product Compare <span>(0) </span></p>
                     </div>
@@ -295,22 +134,6 @@
                     <!-- Right Side End -->
                     <!-- Right Side Start -->
                     <div class="select-shoing-wrap d-flex align-items-center justify-content-between">
-                        <!-- <div class="select-shoing-wrap d-flex align-items-center">
-                            <div class="shot-product">
-                                <p>Show:</p>
-                            </div>
-                            <div class="shop-select show">
-                                <select class="shop-sort">
-                                    <option data-display="12">12</option>
-                                    <option value="1"> 12</option>
-                                    <option value="2"> 10</option>
-                                    <option value="3"> 25</option>
-                                    <option value="4"> 20</option>
-                                </select>
-
-                            </div>
-                        </div> -->
-
                         <p class="compare-product">Product Compare <span>(0) </span></p>
                     </div>
                 </div>
@@ -1286,20 +1109,22 @@
                         <h4 class="sidebar-title">Categories</h4>
                         <div class="sidebar-widget-category">
                             <ul>
-                                <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                    <span>(65)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Computer
-                                    <span>(12)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Covid-19
-                                    <span>(22)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Electronics
-                                    <span>(19)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Frame Sunglasses
-                                    <span>(17)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Furniture
-                                    <span>(7)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Genuine Leather
-                                    <span>(9)</span> </a></li>
+                                <li>
+                                    <a href="#" class="selected m-0">
+                                        <i class="fa fa-angle-right"></i>
+                                        All
+                                        <span>(${allQuantityProduct})</span>
+                                    </a>
+                                </li>
+                                <c:forEach var="item" items="${categoriesShopDTOList}">
+                                    <li>
+                                        <a href="#" class="">
+                                            <i class="fa fa-angle-right"></i>
+                                            ${item.getName()}
+                                        <span>(${item.getSize()})</span>
+                                        </a>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -1308,38 +1133,25 @@
                         <h4 class="sidebar-title">Color</h4>
                         <div class="sidebar-widget-color">
                             <ul>
-                                <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                    <span>(65)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Gold <span>(14)</span>
-                                </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Golden <span>(21)</span>
-                                </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> White <span>(16)</span>
-                                </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> Black <span>(12)</span>
-                                </a></li>
+                                <li>
+                                    <a href="#" class="selected m-0">
+                                        <i class="fa fa-angle-right"></i>
+                                        All
+                                        <span>(${allQuantityProduct})</span>
+                                    </a>
+                                </li>
+                                <c:forEach var="item" items="${colorShopDTOList}">
+                                    <li>
+                                        <a href="#" class="">
+                                        <i class="fa fa-angle-right"></i>
+                                        ${item.getName()}
+                                        <span>(${item.getSize()})</span>
+                                        </a>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
-                    <!-- Sidebar single item -->
-                    <!-- <div class="sidebar-widget">
-                        <h4 class="sidebar-title">Size</h4>
-                        <div class="sidebar-widget-size">
-                            <ul>
-                                <li><a href="#" class="selected m-0"><i class="fa fa-angle-right"></i> All
-                                        <span>(6)</span> </a></li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> S <span>(12)</span> </a>
-                                </li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> M <span>(21)</span> </a>
-                                </li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> L <span>(16)</span> </a>
-                                </li>
-                                <li><a href="#" class=""><i class="fa fa-angle-right"></i> XL <span>(22)</span> </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> -->
-                    <!-- Sidebar single item -->
                     <!-- Sidebar single item -->
                     <div class="sidebar-widget mt-8">
                         <h4 class="sidebar-title">Price Filter</h4>
@@ -1362,12 +1174,9 @@
                         <h4 class="sidebar-title">Tags</h4>
                         <div class="sidebar-widget-tag">
                             <ul>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Organic</a></li>
-                                <li><a href="#">Old Fashion</a></li>
-                                <li><a href="#">Men</a></li>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Dress</a></li>
+                                <c:forEach var="item" items="${tagShopDTOList}">
+                                    <li><a href="#">${item.getName()}</a></li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -1383,29 +1192,6 @@
 <jsp:include page="footer.jsp" />
 <!-- Footer Area End -->
 
-<!-- Search Modal Start -->
-<div class="modal popup-search-style" id="searchActive">
-    <button type="button" class="close-btn" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-    <div class="modal-overlay">
-        <div class="modal-dialog p-0" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h2>Search Your Product</h2>
-                    <form class="navbar-form position-relative" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search here...">
-                        </div>
-                        <button type="submit" class="submit-btn"><i class="pe-7s-search"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Search Modal End -->
-
-
-
 <!-- Modal -->
 <div class="modal modal-2 fade" id="exampleModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -1419,53 +1205,7 @@
                                 <img class="img-responsive m-auto"
                                      src="assets/images/product-image/zoom-image/1.jpg" alt="">
                             </div>
-                            <!-- <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/zoom-image/1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/zoom-image/2.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/zoom-image/3.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/zoom-image/4.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/zoom-image/5.jpg" alt="">
-                                </div>
-                            </div> -->
                         </div>
-                        <!-- <div class="swiper-container gallery-thumbs mt-20px">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/small-image/1.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/small-image/2.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/small-image/3.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/small-image/4.jpg" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img class="img-responsive m-auto"
-                                        src="assets/images/product-image/small-image/5.jpg" alt="">
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                         <div class="product-details-content quickview-content">
@@ -1502,22 +1242,6 @@
 
                                 <a id="color-5" href="#" class="color-block bg-dark" onclick="onClickColor(this.id);"></a>
                             </div>
-
-<%--                            <script>--%>
-<%--                                const onClickColor = (idColor) => {--%>
-<%--                                    event.preventDefault();--%>
-<%--                                    for (var i = 1; i <= 5; i++) {--%>
-<%--                                        var temp = "color-" + i;--%>
-<%--                                        if (temp === idColor) {--%>
-<%--                                            document.getElementById(temp).style.transform = "scale(1.3,1.3)"--%>
-<%--                                        }--%>
-<%--                                        else {--%>
-<%--                                            document.getElementById(temp).style.transform = "scale(1,1)";--%>
-<%--                                        }--%>
-<%--                                    }--%>
-<%--                                }--%>
-<%--                            </script>--%>
-
                             <p class="mt-20px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                 eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
                                 nostrud exercitation ullamco laboris </p>
@@ -1596,11 +1320,6 @@
 <script src="assets/js/plugins/scrollup.js"></script>
 <script src="assets/js/plugins/jquery.zoom.min.js"></script>
 <script src="assets/js/plugins/venobox.min.js"></script>
-
-
-<!-- Use the minified version files listed below for better performance and remove the files listed above -->
-<!-- <script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script> -->
 
 <!-- Main Js -->
 <script src="assets/js/main.js"></script>

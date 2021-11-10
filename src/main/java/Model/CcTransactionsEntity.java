@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-@Table(name = "\"cc_transactions\"", schema = "public", catalog = "Web")
+@Table(name = "\"cc_transactions\"", schema = "public")
 public class CcTransactionsEntity {
     private int id;
     private Date transdate;
@@ -13,7 +13,7 @@ public class CcTransactionsEntity {
     private SalesOrdersEntity salesOrdersEntity;
 
     //many to one cc-->sale_oder
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
 
     public SalesOrdersEntity getSalesOrdersEntity() {

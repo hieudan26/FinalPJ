@@ -12,7 +12,7 @@ public class ColorsEntity {
 
 
     //one to many color--> product color
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "products_colors",
             joinColumns = @JoinColumn(name = "color_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))

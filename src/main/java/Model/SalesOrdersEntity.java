@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"sales_orders\"", schema = "public", catalog = "Web")
+@Table(name = "\"sales_orders\"", schema = "public")
 public class SalesOrdersEntity {
     private int id;
     private Date orderDate;
@@ -18,7 +18,7 @@ public class SalesOrdersEntity {
 
 
     //many to one saleoder-->user
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
 
     public UsersEntity getUsersEntity() {
