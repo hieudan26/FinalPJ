@@ -1,0 +1,47 @@
+package Controller.Admin;
+
+import DTO.AddressDTO;
+import Model.UsersEntity;
+import Utils.SingletonServiceUltils;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import static Constant.WebConstant.IMAGE_NULL_URL;
+
+@WebServlet("/admin/customeraccount")
+public class AdminCustomerAccountController extends HttpServlet {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("Id");
+        System.out.println("hello"+id);
+        try{
+            int idCustomer = Integer.parseInt(id);
+            UsersEntity users = SingletonServiceUltils.getUserDAOImpl().getOneById(idCustomer);
+            if(users.getImage() == null)
+                users.setImage(IMAGE_NULL_URL);
+            if(users != null){
+                AddressDTO addressDTO = new AddressDTO(users.getAddress());
+                req.setAttribute("users",users);
+                req.setAttribute("address",addressDTO);
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/CustomerAccount.jsp");
+                dispatcher.forward(req,resp);
+                return;
+            }
+            else {
+                resp.sendRedirect("/admin/customer");
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+}

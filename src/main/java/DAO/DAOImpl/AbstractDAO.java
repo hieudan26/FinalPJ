@@ -123,8 +123,6 @@ public class AbstractDAO<ID extends Serializable,T>  implements GenericDAO<ID,T>
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try{
-
-            transaction = session.beginTransaction();
             session.delete(entity);
             transaction.commit();
             return true;
