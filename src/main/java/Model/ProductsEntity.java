@@ -20,6 +20,7 @@ public class ProductsEntity {
     private String image;
     private Integer discount_percent;
     private String information;
+    private Boolean publish;
     private Set<TagsEntity> tagsEntities;
     private ProductStatusesEntity productStatusesEntity;
     private CategoriesEntity categoriesEntity;
@@ -159,6 +160,15 @@ public class ProductsEntity {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    @Basic
+    @Column(name = "publish", nullable = true)
+    public Boolean getPublish() {
+        return publish;
+    }
+    public void setPublish(Boolean publish) {
+        this.publish = publish;
     }
 
     @Override

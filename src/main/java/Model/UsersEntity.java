@@ -14,7 +14,9 @@ public class UsersEntity {
     private String lastName;
     private Boolean active;
     private String address;
+    private String phone;
     private String image;
+    private Boolean banned;
     private Set<ReviewsEntity> reviewsEntities;
     private Set<SalesOrdersEntity> salesOrdersEntities;
     private Set<ProductsEntity> productsEntities;
@@ -119,6 +121,24 @@ public class UsersEntity {
     }
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Basic
+    @Column(name = "phone", nullable = true)
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Basic
+    @Column(name = "banned", nullable = true)
+    public Boolean getBanned() {
+        return banned;
+    }
+    public void setBanned(Boolean banned) {
+        this.banned = banned;
     }
 
     @Override
