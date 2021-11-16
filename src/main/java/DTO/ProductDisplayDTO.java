@@ -2,7 +2,6 @@ package DTO;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 public class ProductDisplayDTO {
     private int id;
@@ -15,11 +14,21 @@ public class ProductDisplayDTO {
     private boolean productStatus;
     private int avgReview;
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    private String information;
+
     public ProductDisplayDTO() {
     }
 
     public ProductDisplayDTO(int id, String name, BigDecimal regularPrice, BigDecimal discountPrice, String image,
-                             Integer discount_percent, List<String> tagsName, boolean productStatus, int avgReview) {
+                             Integer discount_percent, List<String> tagsName, boolean productStatus, int avgReview, String information) {
         this.id = id;
         this.name = name;
         this.regularPrice = regularPrice;
@@ -29,6 +38,7 @@ public class ProductDisplayDTO {
         this.tagsName = tagsName;
         this.productStatus = productStatus;
         this.avgReview = avgReview;
+        this.information = information;
     }
 
     public int getId() {
