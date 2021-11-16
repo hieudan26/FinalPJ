@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Web@localhost" uuid="e97227fd-dc11-4a9e-b7f8-25ef86791ce3">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/Web</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="default/TopLink" uuid="e03063a8-ca9a-4ae7-ad54-bb220a095bcb">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -75,6 +68,13 @@ E:/Study/Year3rd/Web/Git/FinalPJ/src/main/resources/hibernate.cfg.xml</remarks>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-23-21-229-200.compute-1.amazonaws.com:5432/dfia69dvo71k9t</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Web@localhost" uuid="53f7c6e5-dd6e-45f4-9a58-684193d93261">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/Web</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

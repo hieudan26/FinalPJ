@@ -19,6 +19,169 @@ import java.util.List;
 import java.util.Set;
 
 public class ProductDAOImpl extends AbstractDAO<Integer, ProductsEntity> implements ProductDAO {
+    @Override
+    public List<ProductsEntity> getProductWithMoreCondition(int flag, int categoryId, int colorId, int tagId, int sortId, BigDecimal minDisPrice, BigDecimal maxDisPrice, String search, int limit, int startPos) {
+        //flag:
+        //0 - not searching
+        // WHERE p.discountPrice between 1 and 2
+        int temp = 0;
+        String query = "";
+        String tailPrice = "p.discountPrice between :min and :max";
+        String fairyTail = " ORDER BY p.name asc";
+        if (sortId == 2) {
+            fairyTail = " ORDER BY p.name desc";
+        }
+        else if (sortId == 3) {
+            fairyTail = " ORDER BY p.discountPrice asc";
+        }
+        else if (sortId == 4) {
+            fairyTail = " ORDER BY p.discountPrice desc";
+        }
+
+        if (flag == 0)
+        {
+            if ( categoryId < 0)
+            {
+                if (colorId < 0)
+                {
+                    if (tagId < 0)
+                    {
+                        //not filter
+                        query = "SELECT p FROM ProductsEntity p WHERE ";
+                    }
+                    else
+                    {
+                        //filter with tag
+                        temp = 1;
+                        query = "SELECT p FROM ProductsEntity p JOIN FETCH p.tagsEntities t WHERE t.id=:tagId AND ";
+                    }
+                }
+                else
+                {
+                    if (tagId < 0)
+                    {
+                        temp = 2;
+                        query = "SELECT p FROM ProductsEntity p JOIN FETCH p.colorsEntities c WHERE c.id=:colorId AND ";
+                    }
+                    else
+                    {
+                        temp = 3;
+                        query = "SELECT p FROM ProductsEntity p JOIN FETCH p.tagsEntities t " +
+                                "LEFT JOIN FETCH p.colorsEntities c WHERE t.id=:tagId AND c.id=:colorId AND ";
+                    }
+                }
+            }
+            else
+            {
+                if (colorId < 0)
+                {
+                    if (tagId < 0)
+                    {
+                        temp = 4;
+                        query = "SELECT p FROM ProductsEntity p WHERE p.categoriesEntity.id=:cateId AND ";
+                    }
+                    else
+                    {
+                        temp = 5;
+                        query = "SELECT p FROM ProductsEntity p JOIN FETCH p.tagsEntities t WHERE t.id=:tagId " +
+                                "AND p.categoriesEntity.id=:cateId AND ";
+                    }
+                }
+                else
+                {
+                    if (tagId < 0)
+                    {
+                        temp = 6;
+                        query = "SELECT p FROM ProductsEntity p " +
+                                "JOIN FETCH p.colorsEntities c WHERE c.id=:colorId " +
+                                "AND p.categoriesEntity.id=:cateId AND ";
+                    }
+                    else
+                    {
+                        temp = 7;
+                        query = "SELECT p FROM ProductsEntity p JOIN FETCH p.tagsEntities t " +
+                                "JOIN FETCH p.colorsEntities c WHERE t.id=:tagId AND c.id=:colorId " +
+                                "AND p.categoriesEntity.id=:cateId AND ";
+                    }
+                }
+            }
+            query += tailPrice;
+            query += fairyTail;
+        }
+
+        Transaction transaction = null;
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        List<ProductsEntity> productsEntityList = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            Query<ProductsEntity> productsEntityQuery = session.createQuery(query).setFirstResult(startPos).setMaxResults(limit);
+            if (flag == 0) {
+                if (temp == 1) {
+                    productsEntityQuery.setParameter("tagId", tagId);
+                }
+                else if (temp == 2) {
+                    productsEntityQuery.setParameter("colorId", colorId);
+                }
+                else if (temp == 3) {
+                    productsEntityQuery.setParameter("tagId", tagId);
+                    productsEntityQuery.setParameter("colorId", colorId);
+                }
+                else if (temp == 4) {
+                    productsEntityQuery.setParameter("cateId", categoryId);
+                }
+                else if (temp == 5) {
+                    productsEntityQuery.setParameter("tagId", tagId);
+                    productsEntityQuery.setParameter("cateId", categoryId);
+                }
+                else if (temp == 6) {
+                    productsEntityQuery.setParameter("colorId", colorId);
+                    productsEntityQuery.setParameter("cateId", categoryId);
+                }
+                else if (temp == 7){
+                    productsEntityQuery.setParameter("tagId", tagId);
+                    productsEntityQuery.setParameter("colorId", colorId);
+                    productsEntityQuery.setParameter("cateId", categoryId);
+                }
+            }
+            productsEntityQuery.setParameter("min", minDisPrice);
+            productsEntityQuery.setParameter("max", maxDisPrice);
+            productsEntityList = productsEntityQuery.getResultList();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return productsEntityList;
+    }
+
+    @Override
+    public List<ProductsEntity> getTopLimitProduct(int limit, int startPos) {
+        Transaction transaction = null;
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        List<ProductsEntity> productsEntityList = new ArrayList<>();
+        try {
+            transaction = session.beginTransaction();
+            Query<ProductsEntity> productsEntityQuery = session.createQuery("FROM ProductsEntity p ORDER BY p.name asc").setFirstResult(startPos).setMaxResults(limit);
+            productsEntityList = productsEntityQuery.getResultList();
+            transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
+        return productsEntityList;
+    }
 
     @Override
     public List<ProductsEntity> getAllProductByTagId(int tagId) {

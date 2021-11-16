@@ -5,7 +5,7 @@ import Model.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class ProductDisplayApiDTO {
+public class ProductDisplayApiDTO implements Comparable<ProductDisplayApiDTO>{
     private int id;
     private String name;
     private String description;
@@ -174,5 +174,17 @@ public class ProductDisplayApiDTO {
 
     public void setAvgReview(int avgReview) {
         this.avgReview = avgReview;
+    }
+
+
+    @Override
+    public int compareTo(ProductDisplayApiDTO o) {
+        BigDecimal price01;
+        BigDecimal price02;
+        price01 = o.productStatus ? o.discountPrice : o.regularPrice;
+        price02 = this.productStatus ? this.discountPrice : this.regularPrice;
+        int result = price02.compareTo(price01);
+        result = result != -1 ? 1 : 0;
+        return result;
     }
 }

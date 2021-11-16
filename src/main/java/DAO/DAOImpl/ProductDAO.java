@@ -7,12 +7,16 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductDAO extends GenericDAO<Integer, ProductsEntity>{
-    List<ProductsEntity> getAllProductByTagId(int tagId);
+    List<ProductsEntity> getProductWithMoreCondition(int flag, int categoryId, int colorId, int tagId, int sortId, BigDecimal minDisPrice, BigDecimal maxDisPrice, String search, int limit, int startPos);
 
+    List<ProductsEntity> getTopLimitProduct(int limit, int startPos);
+
+    List<ProductsEntity> getAllProductByTagId(int tagId);
 
     List<ProductsEntity> getAllProductByColorId(int colorId);
 
