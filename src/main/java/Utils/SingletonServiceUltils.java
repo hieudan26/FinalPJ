@@ -14,7 +14,6 @@ public class SingletonServiceUltils {
     private static ReviewDAOImpl reviewDAOImpl = null;
     private static RoleDAOImpl roleDAOImpl = null;
     private static SalesOrderDAOImpl salesOrderDAOImpl = null;
-    private static SessionDAOImpl sessionDAOImpl = null;
     private static TagDAOImpl tagDAOImpl = null;
 
     public static AccountDAOImpl getAccountDAOImpl(){
@@ -83,12 +82,7 @@ public class SingletonServiceUltils {
         }
         return salesOrderDAOImpl;
     }
-    public static SessionDAOImpl getSessionDAOImpl(){
-        if(sessionDAOImpl == null){
-            sessionDAOImpl = new SessionDAOImpl();
-        }
-        return sessionDAOImpl;
-    }
+
     public static TagDAOImpl getTagDAOImpl(){
         if(tagDAOImpl == null){
             tagDAOImpl = new TagDAOImpl();

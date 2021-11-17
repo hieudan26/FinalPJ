@@ -124,7 +124,7 @@
                     </div>
 
                     <%--FORM--%>
-                    <form action="AddorCheckRedirectController" method="post">
+                    <form action="AddorCheckRedirectController" method="get">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
                         <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
                         <div id="color-grp" class="color-group mt-30px">
