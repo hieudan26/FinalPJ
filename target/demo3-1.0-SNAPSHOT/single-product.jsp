@@ -126,13 +126,15 @@
                     <%--FORM--%>
                     <form action="AddorCheckRedirectController" method="post">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
-                        <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
-                        <div id="color-grp" class="color-group mt-30px">
-                            <c:forEach items="${singleProductDTO.getColorDTOList()}" var="itemColor">
-                                <div id="color-${itemColor.getId()}" class="color-block"
-                                   style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></div>
-                            </c:forEach>
-                        </div>
+                        <c:if test="${singleProductDTO.getColorDTOList().size() != 0}">
+                            <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
+                            <div id="color-grp" class="color-group mt-30px">
+                                <c:forEach items="${singleProductDTO.getColorDTOList()}" var="itemColor">
+                                    <div id="color-${itemColor.getId()}" class="color-block"
+                                         style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
 
                         <p class="mt-20px mb-0">
                             ${singleProductDTO.getDescription().split("\\.")[0]}.

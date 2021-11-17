@@ -31,7 +31,7 @@ public class ShopController extends HttpServlet {
         List<CategoriesShopDTO> categoriesShopDTOList = this.handleCategoriesShopDTOList(categoriesEntityList);
         List<ColorShopDTO> colorShopDTOList = this.handleColorShopDTO(colorsEntityList);
         List<TagShopDTO> tagShopDTOList = this.handleTagShopDTO(tagsEntityList);
-        List<ProductDisplayApiDTO> productDisplayApiDTOList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProduct(1000,0));
+        List<ProductDisplayApiDTO> productDisplayApiDTOList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProduct(9,0));
 
         List<ProductDisplayApiDTO> maxList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getAll());
         ProductDisplayApiDTO max = Collections.max(maxList);
