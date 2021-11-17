@@ -1,6 +1,0 @@
-<Context>
-     <!--only if you do not use jsp tag
-    <JarScanner>
-        <JarScanFilter defaultPluggabilityScan="false" defaultTldScan="false"/>
-    </JarScanner>-->
-</Context>
