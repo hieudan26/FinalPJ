@@ -54,13 +54,19 @@
                             <i class="pe-7s-like"></i>
                         </a>
                         <!-- Single Wedge End -->
-                        <a href="#offcanvas-cart"
+                        <a onclick="onClickHeaderCartList();" href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="pe-7s-shopbag"></i>
-                            <span class="header-action-num">01</span>
-                            <!-- <span class="cart-amount">€30.00</span> -->
+                            <c:if test="${cookie.products.value != null}">
+                                <c:set var="temp" value="${cookie.products.value.split('p')}" />
+                                <c:set var="numProduct" value="${0}" />
+                                <c:forEach var="item" items="${temp}" >
+                                    <c:set var="numProduct" value="${numProduct + 1}"></c:set>
+                                </c:forEach>
+                                <span class="header-action-num">${numProduct}</span>
+                            </c:if>
                         </a>
-                        <a href="#offcanvas-mobile-menu"
+                        <a href="#offcanvas-mobile-menu"products
                            class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
                             <i class="pe-7s-menu"></i>
                         </a>
@@ -129,34 +135,36 @@
         </div>
 
         <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
+            <ul id="cartList" class="minicart-product-list">
+<%--                <li>--%>
+<%--                    <a href="single-product.jsp" class="image">--%>
+<%--                        <img src="assets/images/product-image/1.jpg" alt="Cart product Image">--%>
+<%--                    </a>--%>
+<%--                    <div class="content">--%>
+<%--                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>--%>
+<%--                        <span class="quantity-price">Color: <a style="cursor: pointer" class="title">Red</a></span>--%>
+<%--                        <span class="quantity-price">1 x <span class="amount">$18.86</span></span>--%>
+<%--                        <a href="#" class="remove">x</a>--%>
+<%--                    </div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"--%>
+<%--                                                                    alt="Cart product Image"></a>--%>
+<%--                    <div class="content">--%>
+<%--                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>--%>
+<%--                        <span class="quantity-price">1 x <span class="amount">$43.28</span></span>--%>
+<%--                        <a href="#" class="remove">×</a>--%>
+<%--                    </div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"--%>
+<%--                                                                    alt="Cart product Image"></a>--%>
+<%--                    <div class="content">--%>
+<%--                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>--%>
+<%--                        <span class="quantity-price">1 x <span class="amount">$37.34</span></span>--%>
+<%--                        <a href="#" class="remove">×</a>--%>
+<%--                    </div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="foot">
@@ -231,3 +239,19 @@
     </div>
 </div>
 <!-- Search Modal End -->
+
+<script>
+    function onClickHeaderCartList() {
+        event.preventDefault();
+        $.ajax({
+            url: "<c:url value="/api-header-cart-list" />",
+            type: "get",
+            success: function (response) {
+                document.getElementById("cartList").innerHTML = response;
+            },
+            error: function (xhr) {
+                alert("Loading data not success. Please comeback later <3")
+            }
+        })
+    }
+</script>

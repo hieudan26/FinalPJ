@@ -6,12 +6,14 @@ import Model.ProductsEntity;
 import Model.TagsEntity;
 import Utils.SingletonServiceUltils;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -73,7 +75,7 @@ public class Top8ProductAPI extends HttpServlet {
                                                                             this.priceDiscount(productDisplayApiDTO.isProductStatus(), productDisplayApiDTO.getDiscountPrice(), productDisplayApiDTO.getRegularPrice()) +
                                 "                                        </span>\n" +
                                 "                                    </div>\n" +
-                                "                                    <button onclick=\"window.location.href='singleproduct?productId=" + productDisplayApiDTO.getId() + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
+                                "                                    <button onclick=\"window.location.href='/AddorCheckRedirectController?productId=" + productDisplayApiDTO.getId() + "&amp;quantity=1&amp;colorId=" + productDisplayApiDTO.getColorsId().get(0) + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
                                 "                                        To Cart</button>\n" +
                                 "                                </div>\n" +
                                 "                            </div>\n"
@@ -147,8 +149,10 @@ public class Top8ProductAPI extends HttpServlet {
         String category = productsEntity.getCategoriesEntity().getName();
 
         Set<String> colorsName = new HashSet<>();
+        List<Integer> colorsId = new ArrayList<>();
         for (ColorsEntity item:SingletonServiceUltils.getColorDAOImpl().getAllColorsByProductId(productId)) {
             colorsName.add(item.getName());
+            colorsId.add(item.getId());
         }
 
         int totalReviews = SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productId).size();
@@ -156,7 +160,7 @@ public class Top8ProductAPI extends HttpServlet {
         int categoryId = productsEntity.getCategoriesEntity().getId();
 
         productDisplayModalDTODTO = new ProductDisplayApiDTO(productId, name, description, regularPrice, discountPrice, quantity, image,
-                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview);
+                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview, colorsId);
 
         return  productDisplayModalDTODTO;
     }

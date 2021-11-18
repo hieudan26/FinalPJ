@@ -124,7 +124,7 @@
                     </div>
 
                     <%--FORM--%>
-                    <form action="AddorCheckRedirectController" method="post">
+                    <form action="AddorCheckRedirectController" method="get">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
                         <c:if test="${singleProductDTO.getColorDTOList().size() != 0}">
                             <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
@@ -139,7 +139,10 @@
                         <p class="mt-20px mb-0">
                             ${singleProductDTO.getDescription().split("\\.")[0]}.
                             ${singleProductDTO.getDescription().split("\\.")[1] }</p>
-                        <p class="mt-10px mb-0" style="font-size: 12px; color: red">We apologize for this inconvenience. The item is currently out of stock, please comeback later</p>
+                        <c:if test="${singleProductDTO.getQuantity() == 0}">
+                            <p class="mt-10px mb-0" style="font-size: 12px; color: red">We apologize for this inconvenience.
+                                The item is currently out of stock, please comeback later</p>
+                        </c:if>
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
                                 <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
@@ -161,7 +164,7 @@
                         <span>Categories: </span>
                         <ul class="d-flex">
                             <li>
-                                <a href="#">${singleProductDTO.getCategoriesName()} </a>
+                                <a href="<c:url value="/shop?redi=${singleProductDTO.getCategoryId()}" />">${singleProductDTO.getCategoriesName()} </a>
                             </li>
                         </ul>
                     </div>
@@ -525,6 +528,8 @@
             }
         })
     }
+
+    var inputQuantity = +document.getElementById('qty').value;
 </script>
 
 <!-- Global Vendor, plugins JS -->

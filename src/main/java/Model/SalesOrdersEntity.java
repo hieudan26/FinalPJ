@@ -12,7 +12,7 @@ public class SalesOrdersEntity {
     private Date orderDate;
     private BigInteger total;
     private UsersEntity usersEntity;
-    private SessionsEntity sessionsEntity;
+    //    private SessionsEntity sessionsEntity;
     private Set<CcTransactionsEntity> ccTransactionsEntities;
     private Set<OrderProductsEntity> orderProductsEntities;
 
@@ -30,15 +30,15 @@ public class SalesOrdersEntity {
 
 
     //many to one saleoder-->session
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "session_id")
-
-    public SessionsEntity getSessionsEntity() {
-        return this.sessionsEntity;
-    }
-    public void setSessionsEntity(SessionsEntity sessionsEntity) {
-        this.sessionsEntity =sessionsEntity;
-    }
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "session_id")
+//
+//    public SessionsEntity getSessionsEntity() {
+//        return this.sessionsEntity;
+//    }
+//    public void setSessionsEntity(SessionsEntity sessionsEntity) {
+//        this.sessionsEntity =sessionsEntity;
+//    }
 
 
 

@@ -23,7 +23,6 @@
         <mapping class="Model.OrderProductsEntity"/>
         <mapping class="Model.ReviewsEntity"/>
         <mapping class="Model.SalesOrdersEntity"/>
-        <mapping class="Model.SessionsEntity"/>
         <mapping class="Model.TagsEntity"/>
         <mapping class="Model.ProductStatusesEntity"/>
     </session-factory>

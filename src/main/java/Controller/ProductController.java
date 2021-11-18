@@ -1,10 +1,7 @@
 package Controller;
 
 import Business.TopLimitProductBusiness;
-import DTO.ColorDTO;
-import DTO.InformationProductDTO;
-import DTO.ReviewOfUserDTO;
-import DTO.SingleProductDTO;
+import DTO.*;
 import Model.ColorsEntity;
 import Model.ProductsEntity;
 import Model.ReviewsEntity;

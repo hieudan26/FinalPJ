@@ -37,10 +37,10 @@ public class HomeController extends HttpServlet {
 
         req.setAttribute("categoriesEntityList", categoriesEntityList);
         req.setAttribute("categoriesTop4EntityList", categoriesTop4EntityList);
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab1", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(0).getId(),8)));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(1).getId(), 8)));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(2).getId(), 8)));
-        req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(3).getId(), 8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab1", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(0).getId(),8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(1).getId(), 8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(2).getId(), 8)));
+        req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(3).getId(), 8)));
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
         dispatcher.forward(req,resp);

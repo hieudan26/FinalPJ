@@ -24,6 +24,9 @@ public class ShopController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        String redi = request.getParameter("redi");
+        String colorRedi = request.getParameter("colorRedi");
+
         List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();
         List<ColorsEntity> colorsEntityList = SingletonServiceUltils.getColorDAOImpl().getAll();
         List<TagsEntity> tagsEntityList = SingletonServiceUltils.getTagDAOImpl().getAll();
@@ -45,6 +48,8 @@ public class ShopController extends HttpServlet {
         request.setAttribute("tagShopDTOList", tagShopDTOList);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("max", maxValue);
+        request.setAttribute("redi", redi);
+        request.setAttribute("colorRedi", colorRedi);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("shop-left-sidebar.jsp");
         requestDispatcher.forward(request, response);

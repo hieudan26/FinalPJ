@@ -518,7 +518,7 @@
                                                         <i class="fa fa-star" style="color: #bcbebf"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
+                                                <h5 class="title"><a href="singleproduct?productId=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
@@ -533,7 +533,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -606,7 +606,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -679,7 +679,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -752,7 +752,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>

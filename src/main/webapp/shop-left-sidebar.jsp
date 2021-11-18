@@ -203,7 +203,7 @@
                                                     </c:choose>
                                                 </span>
                                                     </div>
-                                                    <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                                    <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
                                                         To Cart</button>
                                                 </div>
                                             </div>
@@ -277,7 +277,7 @@
                                                                 <a href="compare.jsp" class="action compare"
                                                                    title="Compare"><i class="pe-7s-refresh-2"></i></a>
                                                             </div>
-                                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
                                                                 To Cart</button>
                                                         </div>
                                                     </div>
@@ -692,18 +692,31 @@
     }
 
     window.onload = function () {
-        let i = 0;
-        let html = "";
-        let temp = this.pagination(1, numPage);
-        for (i; i < temp.length; i++) {
-            if (i === 0) {
-                html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
-            }
-            else {
-                html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
-            }
+        let redi = ${empty redi ? -1 : redi};
+        let colorRedi = ${empty colorRedi ? -1 : colorRedi};
+        if (redi !== -1) {
+            let id = "cate-" + redi;
+            document.getElementById(id).click();
         }
-        document.getElementById("paging").innerHTML = html;
+        if (colorRedi !== -1) {
+            let id = "colo-" + colorRedi;
+            document.getElementById(id).click();
+        }
+
+        else {
+            let i = 0;
+            let html = "";
+            let temp = this.pagination(1, numPage);
+            for (i; i < temp.length; i++) {
+                if (i === 0) {
+                    html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
+                }
+                else {
+                    html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
+                }
+            }
+            document.getElementById("paging").innerHTML = html;
+        }
     }
 
     function pagination(c, m) {

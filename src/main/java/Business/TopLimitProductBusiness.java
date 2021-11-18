@@ -7,6 +7,7 @@ import Model.ProductsEntity;
 import Model.TagsEntity;
 import Utils.SingletonServiceUltils;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,8 +47,10 @@ public class TopLimitProductBusiness {
         String category = productsEntity.getCategoriesEntity().getName();
 
         Set<String> colorsName = new HashSet<>();
+        List<Integer> colorsId = new ArrayList<>();
         for (ColorsEntity item:SingletonServiceUltils.getColorDAOImpl().getAllColorsByProductId(productId)) {
             colorsName.add(item.getName());
+            colorsId.add(item.getId());
         }
 
         int totalReviews = SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productId).size();
@@ -56,7 +59,7 @@ public class TopLimitProductBusiness {
         int categoryId = productsEntity.getCategoriesEntity().getId();
 
         productDisplayModalDTO = new ProductDisplayApiDTO(productId, name, description, regularPrice, discountPrice, quantity, image,
-                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview);
+                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview, colorsId);
 
         return  productDisplayModalDTO;
     }
