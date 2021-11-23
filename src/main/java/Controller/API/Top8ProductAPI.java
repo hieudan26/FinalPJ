@@ -75,8 +75,8 @@ public class Top8ProductAPI extends HttpServlet {
                                                                             this.priceDiscount(productDisplayApiDTO.isProductStatus(), productDisplayApiDTO.getDiscountPrice(), productDisplayApiDTO.getRegularPrice()) +
                                 "                                        </span>\n" +
                                 "                                    </div>\n" +
-                                "                                    <button onclick=\"window.location.href='/AddorCheckRedirectController?productId=" + productDisplayApiDTO.getId() + "&amp;quantity=1&amp;colorId=" + productDisplayApiDTO.getColorsId().get(0) + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
-                                "                                        To Cart</button>\n" +
+                                "                                    <button onclick=\"onClickAddToCart(" + productDisplayApiDTO.getId() + ", " + productDisplayApiDTO.getQuantity() + ", " + productDisplayApiDTO.getColorsId().get(0) + ")\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
+                        "                                                To Cart</button>\n" +
                                 "                                </div>\n" +
                                 "                            </div>\n"
                 );
