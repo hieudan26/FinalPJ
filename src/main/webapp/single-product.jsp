@@ -119,6 +119,9 @@
                             <c:otherwise>
                                     <span class="avallabillty">Availability: <span class="in-stock"><i
                                             class="fa fa-check"></i>In Stock</span></span>
+                                    <div class="mt-20px"></div>
+                                    <span class="avallabillty">Available products: <span class="in-stock"><i
+                                            class="fa fa-bell"></i>${singleProductDTO.getQuantity()}</span></span>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -148,7 +151,7 @@
                                 <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
                             </div>
                             <div class="pro-details-cart">
-                                <button id="btn_addCart" class="add-cart" name="action" value="addCart">
+                                <button id="btn_addCart" class="add-cart buy-button" name="action" value="addCart">
                                     Add To Cart
                                 </button>
                             </div>
@@ -403,9 +406,8 @@
                                             </c:choose>
                                         </span>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart" name="pid" value="${item.getId()}">
-                                    Add To Cart
-                                </button>
+                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
+                                    To Cart</button>
                             </div>
                         </form>
                     </div>
@@ -461,7 +463,66 @@
     </div>
 </div>
 <!-- Modal end -->
+
+<!-- Global Vendor, plugins JS -->
+<script src="assets/js/Checked.js"></script>
+<!-- Vendor JS -->
+<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+<script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+<script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+
+<!--Plugins JS-->
+<script src="assets/js/plugins/swiper-bundle.min.js"></script>
+<script src="assets/js/plugins/jquery-ui.min.js"></script>
+<script src="assets/js/plugins/jquery.nice-select.min.js"></script>
+<script src="assets/js/plugins/countdown.js"></script>
+<script src="assets/js/plugins/scrollup.js"></script>
+<script src="assets/js/plugins/jquery.zoom.min.js"></script>
+<script src="assets/js/plugins/venobox.min.js"></script>
+
+
+<!-- Use the minified version files listed below for better performance and remove the files listed above -->
+<!-- <script src="assets/js/vendor/vendor.min.js"></script>
+<script src="assets/js/plugins/plugins.min.js"></script> -->
+
+<!-- Main Js -->
+<script src="assets/js/Checked.js"></script>
+<script src="assets/js/main.js"></script>
+
 <script>
+    let numberQuantity = 1;
+
+    $("body").on("click", "#dec", function() {
+        if (numberQuantity > 1) {
+            numberQuantity--;
+            alert(numberQuantity);
+        }
+    })
+
+    $("body").on("click", "#inc", function() {
+        if (numberQuantity < ${MaxInc}) {
+            numberQuantity++;
+            alert(numberQuantity)
+        }
+        else {
+            document.getElementById("inc").style.pointerEvents = "none";
+        }
+    })
+
+    function onClickAddToCart(idItem, quantity, idColor) {
+        if (quantity === 0) {
+            event.preventDefault();
+            alert("We apologize for this inconvenience." +
+                "\nThe item is currently out of stock, please comeback later");
+        }
+        else {
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+            window.location.href = href;
+        }
+    }
+
     window.onload = function()
     {
         var UserId = ${empty sessionScope.loginedUser.id ? -1 : sessionScope.loginedUser.id};
@@ -529,38 +590,8 @@
         })
     }
 
-    var inputQuantity = +document.getElementById('qty').value;
-</script>
-
-<!-- Global Vendor, plugins JS -->
-<script src="assets/js/Checked.js"></script>
-<script>
     checked('radio_rate');
 </script>
-<!-- Vendor JS -->
-<script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-<script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
-
-<!--Plugins JS-->
-<script src="assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="assets/js/plugins/jquery-ui.min.js"></script>
-<script src="assets/js/plugins/jquery.nice-select.min.js"></script>
-<script src="assets/js/plugins/countdown.js"></script>
-<script src="assets/js/plugins/scrollup.js"></script>
-<script src="assets/js/plugins/jquery.zoom.min.js"></script>
-<script src="assets/js/plugins/venobox.min.js"></script>
-
-
-<!-- Use the minified version files listed below for better performance and remove the files listed above -->
-<!-- <script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script> -->
-
-<!-- Main Js -->
-<script src="assets/js/Checked.js"></script>
-<script src="assets/js/main.js"></script>
 </body>
 
 </html>

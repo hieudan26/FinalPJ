@@ -203,7 +203,7 @@
                                                     </c:choose>
                                                 </span>
                                                     </div>
-                                                    <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
+                                                    <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                         To Cart</button>
                                                 </div>
                                             </div>
@@ -277,7 +277,7 @@
                                                                 <a href="compare.jsp" class="action compare"
                                                                    title="Compare"><i class="pe-7s-refresh-2"></i></a>
                                                             </div>
-                                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
+                                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                                 To Cart</button>
                                                         </div>
                                                     </div>
@@ -458,6 +458,18 @@
     let numPage = parseInt(${totalPages}, 10);
     let flag = "page"; //sort
     let searching = "";
+
+    function onClickAddToCart(idItem, quantity, idColor) {
+        if (quantity === 0) {
+            event.preventDefault();
+            alert("We apologize for this inconvenience." +
+                "\nThe item is currently out of stock, please comeback later");
+        }
+        else {
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+            window.location.href = href;
+        }
+    }
 
     function onInputSearching(item) {
         searching = item;

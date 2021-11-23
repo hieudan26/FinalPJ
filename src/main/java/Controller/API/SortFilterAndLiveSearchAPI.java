@@ -141,7 +141,7 @@ public class SortFilterAndLiveSearchAPI extends HttpServlet {
                             "                                                                <a href=\"compare.html\" class=\"action compare\"\n" +
                             "                                                                    title=\"Compare\"><i class=\"pe-7s-refresh-2\"></i></a>\n" +
                             "                                                            </div>\n" +
-                            "                                                           <button onclick=\"window.location.href='/AddorCheckRedirectController?productId=" + item.getId() + "&amp;quantity=1&amp;colorId=" + item.getColorsId().get(0) + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
+                            "                                                           <button onclick=\"onClickAddToCart(" + item.getId() + ", " + item.getQuantity() + ", " + item.getColorsId().get(0) + ")\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
                             "                                                           To Cart</button>\n" +
                             "                                                        </div>\n" +
                             "                                                    </div>\n" +
@@ -197,8 +197,8 @@ public class SortFilterAndLiveSearchAPI extends HttpServlet {
                             this.priceDiscount(item.isProductStatus(), item.getDiscountPrice(), item.getRegularPrice()) +
                             "                                        </span>\n" +
                             "                                    </div>\n" +
-                            "                                    <button onclick=\"window.location.href='/AddorCheckRedirectController?productId=" + item.getId() + "&amp;quantity=1&amp;colorId=" + item.getColorsId().get(0) + "'\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
-                            "                                        To Cart</button>\n" +
+                            "                                    <button onclick=\"onClickAddToCart(" + item.getId() + ", " + item.getQuantity() + ", " + item.getColorsId().get(0) + ")\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
+                            "                                                To Cart</button>\n" +
                             "                                </div>\n" +
                             "                            </div>\n"
                     );

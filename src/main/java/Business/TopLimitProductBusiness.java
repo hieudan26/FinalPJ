@@ -89,9 +89,10 @@ public class TopLimitProductBusiness {
         for (TagsEntity item:SingletonServiceUltils.getTagDAOImpl().getAllTagsByProductId(id)) {
             tagsName.add(item.getName());
         }
+        int quantity = productsEntity.getQuantity();
 
         productDisplayDTO = new ProductDisplayDTO(id, name, regularPrice, discountPrice, image,
-                discount_percent, tagsName, status, avgReview, information);
+                discount_percent, tagsName, status, avgReview, information, quantity);
 
         return productDisplayDTO;
     }
