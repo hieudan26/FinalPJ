@@ -1,5 +1,6 @@
 package Controller.API;
 
+import Business.TopLimitProductBusiness;
 import DTO.ProductDisplayApiDTO;
 import Model.ColorsEntity;
 import Model.ProductsEntity;
@@ -12,10 +13,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @WebServlet(urlPatterns = {"/api-modal"})
 public class ModalAPI extends HttpServlet {
@@ -26,7 +24,12 @@ public class ModalAPI extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String s_productsEntityID = request.getParameter("ID");
         int i_productsEntityID = Integer.parseInt(s_productsEntityID);
-        this.loadModal(response, i_productsEntityID);
+
+        List<ProductDisplayApiDTO> maxList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getAll());
+        ProductDisplayApiDTO max = Collections.max(maxList);
+        BigDecimal maxValue = max.isProductStatus() ? max.getDiscountPrice() : max.getRegularPrice();
+
+        this.loadModal(response, i_productsEntityID, maxValue);
     }
 
     @Override
@@ -34,7 +37,7 @@ public class ModalAPI extends HttpServlet {
         this.doGet(request, response);
     }
 
-    private void loadModal(HttpServletResponse response, int i_productsEntityID) throws IOException {
+    private void loadModal(HttpServletResponse response, int i_productsEntityID, BigDecimal max) throws IOException {
         ProductDisplayApiDTO productDisplayModalDTO = this.createNewProductDTOByProductId(i_productsEntityID);
         try (PrintWriter out = response.getWriter()) {
             out.println("<div class=\"col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px\">\n" +
@@ -72,7 +75,7 @@ public class ModalAPI extends HttpServlet {
                     "                            <p class=\"mt-20px mb-0\">" + productDisplayModalDTO.getDescription().split("\\.")[0]  + "</p>\n" +
                     "                            <div class=\"pro-details-quality\">\n" +
                     "                                <div class=\"pro-details-cart\">\n" +
-                    "                                    <button class=\"add-cart\" onclick=\"window.location.href='singleproduct?productId=" + productDisplayModalDTO.getId() + "'\">Detail</button>\n" +
+                    "                                    <button class=\"add-cart\" onclick=\"window.location.href='/singleproduct?productId=" + productDisplayModalDTO.getId() + "'\">Detail</button>\n" +
                     "                                </div>\n" +
                     "                                <div class=\"pro-details-compare-wishlist pro-details-wishlist \">\n" +
                     "                                    <a href=\"wishlist.html\"><i class=\"pe-7s-like\"></i></a>\n" +
@@ -82,7 +85,7 @@ public class ModalAPI extends HttpServlet {
                     "                                <span>Categories: </span>\n" +
                     "                                <ul class=\"d-flex\">\n" +
                     "                                    <li>\n" +
-                    "                                        <a href=\"#" + productDisplayModalDTO.getCategoriesId() + "\">" + productDisplayModalDTO.getCategoriesName() + "</a>\n" +
+                    "                                        <a href=\"/shop?redi=" + productDisplayModalDTO.getCategoriesId() + "\">" + productDisplayModalDTO.getCategoriesName() + "</a>\n" +
                     "                                    </li>\n" +
                     "                                </ul>\n" +
                     "                            </div>\n" +
@@ -162,8 +165,10 @@ public class ModalAPI extends HttpServlet {
         String category = productsEntity.getCategoriesEntity().getName();
 
         Set<String> colorsName = new HashSet<>();
+        List<Integer> colorsId = new ArrayList<>();
         for (ColorsEntity item:SingletonServiceUltils.getColorDAOImpl().getAllColorsByProductId(productId)) {
             colorsName.add(item.getName());
+            colorsId.add(item.getId());
         }
 
         int totalReviews = SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productId).size();
@@ -172,7 +177,7 @@ public class ModalAPI extends HttpServlet {
         int categoryId = productsEntity.getCategoriesEntity().getId();
 
         productDisplayModalDTO = new ProductDisplayApiDTO(productId, name, description, regularPrice, discountPrice, quantity, image,
-                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview);
+                discout_percent, information, tagsName, status, category, categoryId, colorsName, totalReviews, avgReview, colorsId);
 
         return  productDisplayModalDTO;
     }

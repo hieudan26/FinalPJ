@@ -1,8 +1,7 @@
 package Controller;
 
-import DTO.CategoriesShopDTO;
-import DTO.ColorShopDTO;
-import DTO.TagShopDTO;
+import Business.TopLimitProductBusiness;
+import DTO.*;
 import Model.CategoriesEntity;
 import Model.ColorsEntity;
 import Model.TagsEntity;
@@ -12,7 +11,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/shop", "/cua-hang", "/shopController"})
@@ -23,6 +24,9 @@ public class ShopController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        String redi = request.getParameter("redi");
+        String colorRedi = request.getParameter("colorRedi");
+
         List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();
         List<ColorsEntity> colorsEntityList = SingletonServiceUltils.getColorDAOImpl().getAll();
         List<TagsEntity> tagsEntityList = SingletonServiceUltils.getTagDAOImpl().getAll();
@@ -30,12 +34,22 @@ public class ShopController extends HttpServlet {
         List<CategoriesShopDTO> categoriesShopDTOList = this.handleCategoriesShopDTOList(categoriesEntityList);
         List<ColorShopDTO> colorShopDTOList = this.handleColorShopDTO(colorsEntityList);
         List<TagShopDTO> tagShopDTOList = this.handleTagShopDTO(tagsEntityList);
-        int allProduct = SingletonServiceUltils.getProductDAOImpl().getAll().size();
+        List<ProductDisplayApiDTO> productDisplayApiDTOList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProduct(9,0));
 
-        request.setAttribute("allQuantityProduct", allProduct);
+        List<ProductDisplayApiDTO> maxList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getAll());
+        ProductDisplayApiDTO max = Collections.max(maxList);
+        BigDecimal maxValue = max.isProductStatus() ? max.getDiscountPrice() : max.getRegularPrice();
+
+        double totalPages = Math.ceil((double)SingletonServiceUltils.getProductDAOImpl().getAll().size() / 9);
+
+        request.setAttribute("AllProduct", productDisplayApiDTOList);
         request.setAttribute("categoriesShopDTOList", categoriesShopDTOList);
         request.setAttribute("colorShopDTOList", colorShopDTOList);
         request.setAttribute("tagShopDTOList", tagShopDTOList);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("max", maxValue);
+        request.setAttribute("redi", redi);
+        request.setAttribute("colorRedi", colorRedi);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("shop-left-sidebar.jsp");
         requestDispatcher.forward(request, response);

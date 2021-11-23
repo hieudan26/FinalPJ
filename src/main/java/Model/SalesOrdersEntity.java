@@ -12,7 +12,7 @@ public class SalesOrdersEntity {
     private Date orderDate;
     private BigInteger total;
     private UsersEntity usersEntity;
-//    private SessionsEntity sessionsEntity;
+    //    private SessionsEntity sessionsEntity;
     private Set<CcTransactionsEntity> ccTransactionsEntities;
     private Set<OrderProductsEntity> orderProductsEntities;
 

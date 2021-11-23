@@ -87,7 +87,8 @@ public class CartController extends HttpServlet {
             for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
                 int quantity = 1;
                 for (int j = i + 1; j < productDisplayCartDTOList.size(); j++) {
-                    if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId()) {
+                    if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId()
+                    && productDisplayCartDTOList.get(i).getColorDTO().getId() == productDisplayCartDTOList.get(j).getColorDTO().getId()) {
                         quantity++;
                         productDisplayCartDTOList.remove(j);
                         j--;
@@ -139,7 +140,8 @@ public class CartController extends HttpServlet {
         for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
             int quantity = 1;
             for (int j = i + 1; j < productDisplayCartDTOList.size(); j++) {
-                if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId()) {
+                if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId() &&
+                 productDisplayCartDTOList.get(i).getColorDTO().getId() ==  productDisplayCartDTOList.get(j).getColorDTO().getId()) {
                     quantity++;
                     productDisplayCartDTOList.remove(j);
                     j--;

@@ -82,7 +82,6 @@ public class SingletonServiceUltils {
         }
         return salesOrderDAOImpl;
     }
-
     public static TagDAOImpl getTagDAOImpl(){
         if(tagDAOImpl == null){
             tagDAOImpl = new TagDAOImpl();

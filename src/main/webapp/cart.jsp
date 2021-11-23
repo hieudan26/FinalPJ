@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -206,6 +205,105 @@
         <h3 class="cart-page-title">Your cart items</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="table-content table-responsive cart-table-content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Color</th>
+                            <th>Until Price</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbodyProduct">
+                        <c:forEach var="product" items="${productDisplayCartDTOList}">
+                            <form action="AddorCheckRedirectController/editQuantity">
+                                <tr>
+                                    <td class="product-thumbnail">
+                                        <a href="#"><img class="img-responsive ml-15px"
+                                                         src="${product.getImage()}" alt="" /></a>
+                                    </td>
+                                    <td class="product-name"><a href="#">${product.getName()}</a></td>
+                                    <td class="product-color"><a href="#">${product.getColorDTO().getName()}</a></td>
+                                    <td class="product-price-cart"><span class="amount">$${product.getPrice()}</span></td>
+                                    <td class="product-quantity">
+                                        <div class="cart-plus-minus updateQuantity">
+                                            <input  class="cart-plus-minus-box" type="text" name="inputQuantity"
+                                                    value="${product.getQuantity()}" />
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">$${product.getTotal()}</td>
+                                    <td class="product-remove">
+                                        <input type="hidden" name="productId" value="${product.getId()}">
+                                        <input type="hidden" name="colorId" value="${product.getColorDTO().getId()}">
+                                        <input type="hidden" name="quantity" value="${product.getQuantity()}">
+                                        <button><i class="fa fa-pencil"></i></button>
+                                        <a href="#"><i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            </form>
+
+                        </c:forEach>
+
+                        <%--                            <tr>--%>
+                        <%--                                <td class="product-thumbnail">--%>
+                        <%--                                    <a href="#"><img class="img-responsive ml-15px"--%>
+                        <%--                                                     src="assets/images/product-image/2.jpg" alt="" /></a>--%>
+                        <%--                                </td>--%>
+                        <%--                                <td class="product-name"><a href="#">Product Name</a></td>--%>
+                        <%--                                <td class="product-color"><a href="#">Dark Orange</a></td>--%>
+                        <%--                                <td class="product-price-cart"><span class="amount">$50.00</span></td>--%>
+                        <%--                                <td class="product-quantity">--%>
+                        <%--                                    <div class="cart-plus-minus">--%>
+                        <%--                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"--%>
+                        <%--                                               value="1" />--%>
+                        <%--                                    </div>--%>
+                        <%--                                </td>--%>
+                        <%--                                <td class="product-subtotal">$80.00</td>--%>
+                        <%--                                <td class="product-remove">--%>
+                        <%--                                    <!-- <a href="#"><i class="fa fa-pencil"></i></a> -->--%>
+                        <%--                                    <a href="#"><i class="fa fa-times"></i></a>--%>
+                        <%--                                </td>--%>
+                        <%--                            </tr>--%>
+                        <%--                            <tr>--%>
+                        <%--                                <td class="product-thumbnail">--%>
+                        <%--                                    <a href="#"><img class="img-responsive ml-15px"--%>
+                        <%--                                                     src="assets/images/product-image/3.jpg" alt="" /></a>--%>
+                        <%--                                </td>--%>
+                        <%--                                <td class="product-name"><a href="#">Product Name</a></td>--%>
+                        <%--                                <td class="product-color"><a href="#">Spring Green</a></td>--%>
+                        <%--                                <td class="product-price-cart"><span class="amount">$70.00</span></td>--%>
+                        <%--                                <td class="product-quantity">--%>
+                        <%--                                    <div class="cart-plus-minus">--%>
+                        <%--                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"--%>
+                        <%--                                               value="1" />--%>
+                        <%--                                    </div>--%>
+                        <%--                                </td>--%>
+                        <%--                                <td class="product-subtotal">$90.00</td>--%>
+                        <%--                                <td class="product-remove">--%>
+                        <%--                                    <!-- <a href="#"><i class="fa fa-pencil"></i></a> -->--%>
+                        <%--                                    <a href="#"><i class="fa fa-times"></i></a>--%>
+                        <%--                                </td>--%>
+                        <%--                            </tr>--%>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="cart-shiping-update-wrapper">
+                            <div class="cart-shiping-update">
+                                <a href="/shop">Continue Shopping</a>
+                            </div>
+                            <div class="cart-clear">
+                                <button id="btnUpdateCart" onclick="alreadyExistingFunc();">Update Shopping Cart</button>
+                                <a href="/cart/clear">Clear Shopping Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     <div class="table-content table-responsive cart-table-content">
                         <table>
                             <thead>
@@ -353,6 +451,34 @@
         </div>
     </div>
 </div>
+<script>
+    function alreadyExistingFunc() {
+        var values = $("input[name='inputQuantity']")
+            .map(function(){return $(this).val();}).get();
+        var inputQuantities = {
+            name: values
+        }
+        $.ajax({
+            url: 'cart/editAll',
+            type: 'POST',
+            data: {
+                inputQuantities: JSON.stringify(inputQuantities)
+            },
+            success(response) {
+                location.reload();
+            },
+            error: function(response) {
+                alert("Error");
+            }
+        });
+    }
+    function ajaxSuccess()
+    {
+        document.getElementById('btnUpdateCart').onClick = function() {
+            alreadyExistingFunc();
+        }
+    }
+</script>
 <script>
     function alreadyExistingFunc() {
         var values = $("input[name='inputQuantity']")

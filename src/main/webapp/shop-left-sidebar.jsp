@@ -28,7 +28,7 @@
 
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
-
+    <link rel="stylesheet" href="assets/css/shop-left-sidebar.css" />
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                 <h2 class="breadcrumb-title">Shop</h2>
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                    <li class="breadcrumb-item"><a href="<c:url value="/home" />">Home</a></li>
                     <li class="breadcrumb-item active">Shop</li>
                 </ul>
                 <!-- breadcrumb-list end -->
@@ -72,10 +72,10 @@
                     <div class="shop-top-bar d-flex">
                         <!-- Left Side End -->
                         <div class="shop-tab nav">
-                            <a class="active" href="#shop-grid" data-bs-toggle="tab">
+                            <a onclick="onClickDisplay(1)" class="active" href="#shop-grid" data-bs-toggle="tab">
                                 <i class="fa fa-th" aria-hidden="true"></i>
                             </a>
-                            <a href="#shop-list" data-bs-toggle="tab">
+                            <a onclick="onClickDisplay(2)" href="#shop-list" data-bs-toggle="tab">
                                 <i class="fa fa-list" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -85,8 +85,7 @@
                                 <p>Sort By:</p>
                             </div>
                             <div class="shop-select">
-                                <select class="shop-sort">
-                                    <!-- <option data-display="Default">Default</option> -->
+                                <select class="shop-sort" id="sort" onchange="onChangeSort()">
                                     <option value="1" selected> Name, A to Z</option>
                                     <option value="2"> Name, Z to A</option>
                                     <option value="3"> Price, low to high</option>
@@ -97,7 +96,8 @@
                         </div>
                         <!-- Right Side End -->
                         <!-- Left Side start -->
-                        <p class="compare-product">Product Compare <span>(0) </span></p>
+                        <div class="shot-product" style="display: flex;"><p style="margin: 5px;">Search:</p>
+                            <input oninput="onInputSearching(this.value);" type="text" placeholder="Searching" style="border-radius: 5px;height: 38px;"></div>
                     </div>
                 </div>
                 <!-- Shop Top Area End -->
@@ -107,10 +107,10 @@
                     <!-- Left Side End -->
                     <div class="shop-tab nav d-flex justify-content-between">
                         <div class="shop-tab nav">
-                            <a class="active" href="#shop-grid" data-bs-toggle="tab">
+                            <a onclick="onClickDisplay(1)" class="active" href="#shop-grid" data-bs-toggle="tab">
                                 <i class="fa fa-th" aria-hidden="true"></i>
                             </a>
-                            <a href="#shop-list" data-bs-toggle="tab">
+                            <a onclick="onClickDisplay(2)" href="#shop-list" data-bs-toggle="tab">
                                 <i class="fa fa-list" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -120,8 +120,7 @@
                                 <p>Sort By:</p>
                             </div>
                             <div class="shop-select">
-                                <select class="shop-sort">
-                                    <option data-display="Default">Default</option>
+                                <select class="shop-sort" id="sort-mobile" onchange="onChangeSortMobile()">
                                     <option value="1"> Name, A to Z</option>
                                     <option value="2"> Name, Z to A</option>
                                     <option value="3"> Price, low to high</option>
@@ -133,9 +132,8 @@
                     </div>
                     <!-- Right Side End -->
                     <!-- Right Side Start -->
-                    <div class="select-shoing-wrap d-flex align-items-center justify-content-between">
-                        <p class="compare-product">Product Compare <span>(0) </span></p>
-                    </div>
+                    <div class="shot-product" style="display: flex;"><p style="margin: 5px;">Search:</p>
+                        <input oninput="onInputSearching(this.value);" type="text" placeholder="Searching" style="border-radius: 5px;height: 38px;"></div>
                 </div>
                 <!-- Right Side End -->
                 <!-- Left Side start -->
@@ -149,934 +147,144 @@
                         <div class="col">
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="shop-grid">
-                                    <div class="row mb-n-30px">
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="200">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/1.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/1.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="new">New</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
+                                    <div id="rowList" class="row mb-n-30px">
+                                        <c:forEach var="item" items="${AllProduct}" >
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
+                                                 data-aos-delay="200">
+                                                <!-- Single Prodect -->
+                                                <div class="product">
+                                                    <div class="thumb">
+                                                        <a href="singleproduct?productId=${item.getId()}" class="image">
+                                                            <img src="${item.getImage()}" alt="Product" />
+                                                            <img class="hover-image" src="${item.getImage()}"
+                                                                 alt="Product" />
+                                                        </a>
+                                                        <span class="badges">
+                                                    <c:if test="${item.isProductStatus()}">
+                                                        <span class="sale">-${item.getDiscount_percent()}%</span>
+                                                    </c:if>
+                                                    <c:forEach var="tag" items="${item.getTagsName()}">
+                                                        <span class="new">${tag.toString().trim()}</span>
+                                                    </c:forEach>
+                                                </span>
+                                                        <div class="actions">
+                                                            <a href="wishlist.jsp" class="action wishlist" title="Wishlist"><i
+                                                                    class="pe-7s-like"></i></a>
+                                                            <a onclick="onClickLoadData(${item.getId()}, 2)" href="#" class="action quickview" data-link-action="quickview"
+                                                               title="Quick view" data-bs-toggle="modal"
+                                                               data-bs-target="#exampleModal"><i class="pe-7s-look"></i></a>
+                                                            <a href="compare.jsp" class="action compare" title="Compare"><i
+                                                                    class="pe-7s-refresh-2"></i></a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Hand-Made Garlic
-                                                        Mortar
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="400">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/2.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/2.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="sale">-10%</span>
-                                                            <span class="new">New</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                    <div class="content">
+                                                        <div class="rating-product">
+                                                            <c:set var="star" scope="session" value="${item.getAvgReview()}" />
+                                                            <c:forEach begin="1" end="${star}" varStatus="loop" >
+                                                                <i class="fa fa-star" style="color: #ffde00"></i>
+                                                            </c:forEach>
+
+                                                            <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                                                                <i class="fa fa-star" style="color: #bcbebf"></i>
+                                                            </c:forEach>
+                                                        </div>
+                                                        <h5 class="title"><a href="singleproduct?productId=${item.getId()}">${item.getName()}
+                                                        </a>
+                                                        </h5>
+                                                        <span class="price">
+                                                    <c:choose>
+                                                        <c:when test="${item.isProductStatus()}">
+                                                            <span class="new">$${item.getDiscountPrice()}</span>
+                                                            <span class="old">$${item.getRegularPrice()}</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="new">$${item.getRegularPrice()}</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </span>
                                                     </div>
+                                                    <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
+                                                        To Cart</button>
                                                 </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Handmade Ceramic
-                                                        Pottery
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                            <span class="old">$45.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
                                             </div>
-                                            <!-- Single Prodect -->
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="600">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/3.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/3.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="new">Sale</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Hand Painted
-                                                        Bowls
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="800">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/4.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/5.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="sale">-5%</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Antique Wooden
-                                                        Farm Large
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                            <span class="old">$40.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                            <!-- Single Prodect -->
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="200">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/6.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/6.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Handmade Jute
-                                                        Basket
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6  mb-30px" data-aos="fade-up"
-                                             data-aos-delay="400">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/7.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/7.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="new">New</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Knitting yarn &
-                                                        crochet hook
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                            <!-- Single Prodect -->
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="600">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/8.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/8.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="sale">-8%</span>
-                                                            <span class="new">New</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">David Head
-                                                        Portraits
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                            <span class="old">$44.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="800">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/9.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/10.jpg"
-                                                             alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="new">Sale</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">solid wood
-                                                        cherry paddle
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                            <!-- Single Prodect -->
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
-                                             data-aos-delay="800">
-                                            <!-- Single Prodect -->
-                                            <div class="product">
-                                                <div class="thumb">
-                                                    <a href="single-product.jsp" class="image">
-                                                        <img src="assets/images/product-image/1.jpg"
-                                                             alt="Product" />
-                                                        <img class="hover-image"
-                                                             src="assets/images/product-image/1.jpg" alt="Product" />
-                                                    </a>
-                                                    <span class="badges">
-                                                            <span class="new">New</span>
-                                                        </span>
-                                                    <div class="actions">
-                                                        <a href="wishlist.jsp" class="action wishlist"
-                                                           title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                        <a href="#" class="action quickview"
-                                                           data-link-action="quickview" title="Quick view"
-                                                           data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                                class="pe-7s-look"></i></a>
-                                                        <a href="compare.jsp" class="action compare"
-                                                           title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="content">
-                                                        <span class="ratings">
-                                                            <span class="rating-wrap">
-                                                                <span class="star" style="width: 100%"></span>
-                                                            </span>
-                                                            <span class="rating-num d-none">( 5 Review )</span>
-                                                        </span>
-                                                    <h5 class="title"><a href="single-product.jsp">Hand-Made Garlic
-                                                        Mortar
-                                                    </a>
-                                                    </h5>
-                                                    <span class="price">
-                                                            <span class="new">$38.50</span>
-                                                        </span>
-                                                </div>
-                                                <button title="Add To Cart" class=" add-to-cart">Add
-                                                    To Cart</button>
-                                            </div>
-                                            <!-- Single Prodect -->
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="shop-list">
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/1.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/1.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="new">New</span>
+                                    <c:forEach var="item" items="${AllProduct}" >
+                                        <div class="shop-list-wrapper">
+                                            <div class="row">
+                                                <div class="col-md-5 col-lg-5 col-xl-4">
+                                                    <div class="product">
+                                                        <div class="thumb">
+                                                            <a href="singleproduct?productId=${item.getId()}" class="image">
+                                                                <img src="${item.getImage()}"
+                                                                     alt="Product" />
+                                                                <img class="hover-image"
+                                                                     src="${item.getImage()}"
+                                                                     alt="Product" />
+                                                            </a>
+                                                            <span class="badges">
+                                                                <c:if test="${item.isProductStatus()}">
+                                                                    <span class="sale">-${item.getDiscount_percent()}%</span>
+                                                                </c:if>
+                                                                <c:forEach var="tag" items="${item.getTagsName()}">
+                                                                    <span class="new">${tag.toString().trim()}</span>
+                                                                </c:forEach>
                                                             </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 100%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 5 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Hand-Made Garlic
-                                                            Mortar
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
                                                         </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/2.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/2.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="sale">-10%</span>
-                                                                <span class="new">New</span>
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 80%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 4 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Handmade Ceramic
-                                                            Pottery
-                                                        </a>
-                                                        </h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                                <span class="old">$48.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/3.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/3.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="sale">-7%</span>
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 0%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 0 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Hand Painted
-                                                            Bowls
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                                <span class="old">$45.00</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/4.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/4.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="new">Sale</span>
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 70%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 3.5 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Antique Wooden
-                                                            Farm Large
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/5.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/5.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="sale">-5%</span>
-                                                                <span class="new">New</span>
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 100%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 5 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Handmade Jute
-                                                            Basket
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                                <span class="old">$45.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/6.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/6.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 100%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 5 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Knitting yarn &
-                                                            crochet hook
-                                                        </a> </h5>
+                                                <div class="col-md-7 col-lg-7 col-xl-8">
+                                                    <div class="content-desc-wrap">
+                                                        <div class="content">
+                                                            <div class="rating-product">
+                                                                <c:set var="star" scope="session" value="${item.getAvgReview()}" />
+                                                                <c:forEach begin="1" end="${star}" varStatus="loop" >
+                                                                    <i class="fa fa-star" style="color: #ffde00"></i>
+                                                                </c:forEach>
 
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
+                                                                    <i class="fa fa-star" style="color: #bcbebf"></i>
+                                                                </c:forEach>
+                                                            </div>
+                                                            <h5 class="title">
+                                                                <a href="single-product.jsp">${item.getName()}</a>
+                                                            </h5>
+                                                            <p>${item.getDescription().split("\\.")[0]} </p>
                                                         </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
+                                                        <div class="box-inner">
+                                                            <span class="price">
+                                                                <c:choose>
+                                                                    <c:when test="${item.isProductStatus()}">
+                                                                        <span class="new">$${item.getDiscountPrice()}</span>
+                                                                        <span class="old">$${item.getRegularPrice()}</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="new">$${item.getRegularPrice()}</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </span>
+                                                            <div class="actions">
+                                                                <a href="wishlist.jsp" class="action wishlist"
+                                                                   title="Wishlist"><i class="pe-7s-like"></i></a>
+                                                                <a onclick="onClickLoadData(${item.getId()}, 2)"
+                                                                   href="#" class="action quickview"
+                                                                   data-link-action="quickview" title="Quick view"
+                                                                   data-bs-toggle="modal"
+                                                                   data-bs-target="#exampleModal"><i
+                                                                        class="pe-7s-search"></i></a>
+                                                                <a href="compare.jsp" class="action compare"
+                                                                   title="Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                            </div>
+                                                            <button onclick="window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)}'" title="Add To Cart" class=" add-to-cart">Add
+                                                                To Cart</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/7.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/7.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 80%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 4 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">David Head
-                                                            Portraits
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/8.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/8.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="new">Sale</span>
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 60%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 3 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">solid wood
-                                                            cherry paddle
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-list-wrapper">
-                                        <div class="row">
-                                            <div class="col-md-5 col-lg-5 col-xl-4">
-                                                <div class="product">
-                                                    <div class="thumb">
-                                                        <a href="single-product.jsp" class="image">
-                                                            <img src="assets/images/product-image/9.jpg"
-                                                                 alt="Product" />
-                                                            <img class="hover-image"
-                                                                 src="assets/images/product-image/9.jpg"
-                                                                 alt="Product" />
-                                                        </a>
-                                                        <span class="badges">
-                                                                <span class="new">Sale</span>
-                                                            </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-lg-7 col-xl-8">
-                                                <div class="content-desc-wrap">
-                                                    <div class="content">
-                                                            <span class="ratings">
-                                                                <span class="rating-wrap">
-                                                                    <span class="star" style="width: 60%"></span>
-                                                                </span>
-                                                                <span class="rating-num d-none">( 3 Review )</span>
-                                                            </span>
-                                                        <h5 class="title"><a href="single-product.jsp">Hand-Made Garlic
-                                                            Mortar
-                                                        </a></h5>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmodol tempor incididunt ut labore et dolore
-                                                            magna aliqua. Ut enim ad minim veni quis nostrud
-                                                            exercitation ullamco laboris </p>
-                                                    </div>
-                                                    <div class="box-inner">
-                                                            <span class="price">
-                                                                <span class="new">$38.50</span>
-                                                            </span>
-                                                        <div class="actions">
-                                                            <a href="wishlist.jsp" class="action wishlist"
-                                                               title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                            <a href="#" class="action quickview"
-                                                               data-link-action="quickview" title="Quick view"
-                                                               data-bs-toggle="modal"
-                                                               data-bs-target="#exampleModal"><i
-                                                                    class="pe-7s-search"></i></a>
-                                                            <a href="compare.jsp" class="action compare"
-                                                               title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                        </div>
-                                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                                            To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -1087,12 +295,12 @@
                     <div class="pro-pagination-style text-center text-lg-end" data-aos="fade-up" data-aos-delay="200">
                         <div class="pages">
                             <ul>
-                                <li class="li"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                                <li id="Previous" onclick="onClickPreNex(this.id);"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
                                 </li>
-                                <li class="li"><a class="page-link" href="#">1</a></li>
-                                <li class="li"><a class="page-link active" href="#">2</a></li>
-                                <li class="li"><a class="page-link" href="#">3</a></li>
-                                <li class="li"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                                <span id="paging">
+
+                                </span>
+                                <li id="Next" onclick="onClickPreNex(this.id);"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -1108,20 +316,20 @@
                     <div class="sidebar-widget">
                         <h4 class="sidebar-title">Categories</h4>
                         <div class="sidebar-widget-category">
-                            <ul>
-                                <li>
+                            <ul class="ul-cate">
+                                <li id="cate-all" onclick="onClickHandleId(this.id, 'cate')" class="li-cate">
                                     <a href="#" class="selected m-0">
                                         <i class="fa fa-angle-right"></i>
                                         All
-                                        <span>(${allQuantityProduct})</span>
+                                        <span>(${AllProduct.size()})</span>
                                     </a>
                                 </li>
                                 <c:forEach var="item" items="${categoriesShopDTOList}">
-                                    <li>
+                                    <li id="cate-${item.getId()}" onclick="onClickHandleId(this.id, 'cate')" class="li-cate">
                                         <a href="#" class="">
                                             <i class="fa fa-angle-right"></i>
-                                            ${item.getName()}
-                                        <span>(${item.getSize()})</span>
+                                                ${item.getName()}
+                                            <span>(${item.getSize()})</span>
                                         </a>
                                     </li>
                                 </c:forEach>
@@ -1133,19 +341,19 @@
                         <h4 class="sidebar-title">Color</h4>
                         <div class="sidebar-widget-color">
                             <ul>
-                                <li>
+                                <li id="colo-all" onclick="onClickHandleId(this.id, 'color')" class="li-color">
                                     <a href="#" class="selected m-0">
                                         <i class="fa fa-angle-right"></i>
                                         All
-                                        <span>(${allQuantityProduct})</span>
+                                        <span>(${AllProduct.size()})</span>
                                     </a>
                                 </li>
                                 <c:forEach var="item" items="${colorShopDTOList}">
-                                    <li>
+                                    <li id="colo-${item.getId()}" onclick="onClickHandleId(this.id, 'color')" class="li-color">
                                         <a href="#" class="">
-                                        <i class="fa fa-angle-right"></i>
-                                        ${item.getName()}
-                                        <span>(${item.getSize()})</span>
+                                            <i class="fa fa-angle-right"></i>
+                                                ${item.getName()}
+                                            <span>(${item.getSize()})</span>
                                         </a>
                                     </li>
                                 </c:forEach>
@@ -1156,11 +364,17 @@
                     <div class="sidebar-widget mt-8">
                         <h4 class="sidebar-title">Price Filter</h4>
                         <div class="price-filter">
-                            <div class="price-slider-amount">
-                                <input type="text" id="amount" class="p-0 h-auto lh-1" name="price"
-                                       placeholder="Add Your Price" />
+                            <div class="range-slider" >
+                                <h6 style="color: #6c6c6c">$ Min: </h6>
+                                <input onclick="getMin()" class="range-slider__range" type="range" value="0" min="0" max="${max}" step="100">
+                                <span id="min" class="range-slider__value" >0</span>
                             </div>
-                            <div id="slider-range"></div>
+
+                            <div class="range-slider">
+                                <h6 style="color: #6c6c6c">$ Max: </h6>
+                                <input onclick="getMax()" class="range-slider__range" type="range" value="${max}" min="0" max="${max}" step="100">
+                                <span id="max" class="range-slider__value">0</span>
+                            </div>
                         </div>
                     </div>
                     <!-- Sidebar single item -->
@@ -1174,8 +388,13 @@
                         <h4 class="sidebar-title">Tags</h4>
                         <div class="sidebar-widget-tag">
                             <ul>
+                                <li id="tags-all" onclick="onClickHandleId(this.id, 'tags')" class="li-tags">
+                                    <a style="color: white" class="tag-selected" href="#">Default</a>
+                                </li>
                                 <c:forEach var="item" items="${tagShopDTOList}">
-                                    <li><a href="#">${item.getName()}</a></li>
+                                    <li id="tags-${item.getId()}" onclick="onClickHandleId(this.id, 'tags')" class="li-tags">
+                                        <a href="#">${item.getName()}</a>
+                                    </li>
                                 </c:forEach>
                             </ul>
                         </div>
@@ -1197,105 +416,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
-                        <!-- Swiper -->
-                        <div class="swiper-container gallery-top">
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto"
-                                     src="assets/images/product-image/zoom-image/1.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
-                        <div class="product-details-content quickview-content">
-                            <h2>Hand-Made Garlic Mortar</h2>
-                            <div class="pricing-meta">
-                                <ul class="d-flex">
-                                    <li class="new-price">$20.90</li>
-                                    <li class="old-price"><del>$30.90</del></li>
-                                </ul>
-                            </div>
-                            <div class="pro-details-rating-wrap">
-                                <div class="rating-product">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <span class="read-review"><a class="reviews" href="#">( 2 Review )</a></span>
-                            </div>
-                            <div class="stock mt-30px">
-                                <span class="avallabillty">Availability: <span class="in-stock"><i
-                                        class="fa fa-check"></i>In Stock</span></span>
-                            </div>
+                <div class="row" id="modal">
 
-                            <div class="color-group mt-30px">
-                                <a id="color-1" href="#" class="color-block bg-warning" ></a>
-
-                                <a id="color-2" href="#" class="color-block bg-danger" onclick="onClickColor(this.id);"></a>
-
-                                <a id="color-3" href="#" class="color-block bg-success" onclick="onClickColor(this.id);"></a>
-
-                                <a id="color-4" href="#" class="color-block bg-info" onclick="onClickColor(this.id);"></a>
-
-                                <a id="color-5" href="#" class="color-block bg-dark" onclick="onClickColor(this.id);"></a>
-                            </div>
-                            <p class="mt-20px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
-                                nostrud exercitation ullamco laboris </p>
-                            <div class="pro-details-quality">
-                                <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                                </div>
-                                <div class="pro-details-cart">
-                                    <button class="add-cart"> Add To
-                                        Cart</button>
-                                </div>
-                                <div class="pro-details-compare-wishlist pro-details-wishlist ">
-                                    <a href="wishlist.jsp"><i class="pe-7s-like"></i></a>
-                                </div>
-                            </div>
-                            <div class="pro-details-categories-info pro-details-same-style d-flex">
-                                <span>Categories: </span>
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#">Handmade, </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Furniture, </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Decore</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="pro-details-social-info pro-details-same-style d-flex">
-                                <span>Share: </span>
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-google"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-youtube"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="payment-img">
-                                <a href="#"><img src="assets/images//icons/payment.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1314,7 +436,7 @@
 
 <!--Plugins JS-->
 <script src="assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="assets/js/plugins/jquery-ui.min.js"></script>
+<%--<script src="assets/js/plugins/jquery-ui.min.js"></script>--%>
 <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
 <script src="assets/js/plugins/countdown.js"></script>
 <script src="assets/js/plugins/scrollup.js"></script>
@@ -1323,6 +445,340 @@
 
 <!-- Main Js -->
 <script src="assets/js/main.js"></script>
+
+<script>
+    let currentPage = 1;
+    let display = 1;
+    let cateId = "-1";
+    let colorId = "-1";
+    let tagId = "-1";
+    let min = 0;
+    let max = ${max};
+    let sort = 1;
+    let numPage = parseInt(${totalPages}, 10);
+    let flag = "page"; //sort
+    let searching = "";
+
+    function onInputSearching(item) {
+        searching = item;
+        this.sortAndFilter_LiveSearch();
+    }
+
+    function onChangeSortMobile() {
+        sort = document.getElementById("sort-mobile").value;
+        sortAndFilter_LiveSearch();
+    }
+
+    function onChangeSort() {
+        sort = document.getElementById("sort").value;
+        this.sortAndFilter_LiveSearch();
+    }
+
+    function getMin() {
+        min = Number($("#min").text());
+        this.sortAndFilter_LiveSearch();
+    }
+
+    function getMax() {
+        max = Number($("#max").text());
+        this.sortAndFilter_LiveSearch();
+    }
+
+    function onClickHandleId(id, flag) {
+        let ID = id.slice(5);
+        if (ID === "all") {
+            ID = "-1";
+        }
+        if (flag === "cate") {
+            cateId = ID;
+        }
+        else if (flag === "color") {
+            colorId = ID;
+        }
+        else {
+            tagId = ID;
+        }
+        this.sortAndFilter_LiveSearch();
+    }
+
+    function sortAndFilter_LiveSearch() {
+        flag = "sort";
+        currentPage = 1;
+        let curPage = currentPage;
+        let startPos = (curPage - 1) * 9;
+        let type = "get";
+        display === 1 ? type = "get" : type = "post";
+        let data;
+        let temp = $.ajax({
+            async: false,
+            url: "<c:url value="/api-sort-filter-search" />",
+            type: type,
+            data: {
+                cateId: cateId,
+                colorId: colorId,
+                tagId: tagId,
+                min: min,
+                max: max,
+                sort: sort,
+                searching: searching,
+                startPos: startPos,
+            },
+            success: function(value) {
+                data = value;
+            }
+        })
+
+        temp.done(() => {
+            let temp = "shop-list";
+            display === 1 ? temp = "rowList" : temp = "shop-list";
+            document.getElementById(temp).innerHTML = data;
+            numPage = parseInt(document.getElementById("phantrang").value, 10);
+
+            onClickPagination(Number(curPage), numPage);
+            if (numPage === 0 || numPage === 1) {
+                document.getElementById("Next").style.visibility = "hidden";
+                document.getElementById("Previous").style.visibility = "hidden";
+            }
+            else {
+                document.getElementById("Next").style.visibility = "visible";
+                document.getElementById("Previous").style.visibility = "visible";
+            }
+        })
+    }
+
+    $("body").on("click", ".li-tags", function() {
+        event.preventDefault()
+        $(".li-tags").children().removeClass("tag-selected");
+        $(".li-tags").children().css('color', '#7e7e7e')
+        $(this).children().addClass("tag-selected");
+        $(this).children().css('color', 'white');
+    })
+
+    $("body").on("click", ".li-color", function() {
+        event.preventDefault()
+        $(".li-color").children().removeClass("selected");
+        $(this).children().addClass("selected");
+    })
+
+    $("body").on("click", ".li-cate", function() {
+        event.preventDefault()
+        $(".li-cate").children().removeClass("selected");
+        $(this).children().addClass("selected");
+    })
+
+    $(document).ready(function(){
+        let slider = $(".range-slider"),
+            range = $(".range-slider__range"),
+            value = $(".range-slider__value");
+        slider.each(function () {
+            value.each(function () {
+                let value = $(this).prev().attr("value");
+                $(this).html(value);
+            });
+            range.on("input", function () {
+                $(this).next(value).html(this.value);
+            });
+        });
+    });
+
+    function onClickDisplay(value) {
+        display = value;
+        let curPage = currentPage;
+        let startPos = (curPage - 1) * 9;
+        onClickPagination(Number(curPage), numPage);
+        let type = "get";
+        display === 1 ? type = "get" : type = "post";
+        let url = flag === "sort" ? "<c:url value="/api-sort-filter-search" />" : "<c:url value="/api-paging-shop" />";
+        $.ajax({
+            async: false,
+            url: url,
+            type: type,
+            data: {
+                cateId: cateId,
+                colorId: colorId,
+                tagId: tagId,
+                min: min,
+                max: max,
+                sort: sort,
+                searching: searching,
+                startPos: startPos,
+            },
+            success: function(value) {
+                let temp = "shop-list";
+                display === 1 ? temp = "rowList" : temp = "shop-list";
+                document.getElementById(temp).innerHTML = value;
+            }
+        })
+    }
+
+    function onClickPreNex(id) {
+        event.preventDefault();
+        if ((currentPage === 1 && id === "Previous") || (currentPage === numPage && id === "Next")) {
+            return;
+        }
+        else {
+            id === "Next" ? currentPage += 1 : currentPage -= 1;
+            let curPage = currentPage;
+            let startPos = (curPage - 1) * 9;
+            onClickPagination(Number(curPage), numPage);
+            let type = "get";
+            display === 1 ? type = "get" : type = "post";
+            let url = flag === "sort" ? "<c:url value="/api-sort-filter-search" />" : "<c:url value="/api-paging-shop" />";
+            $.ajax({
+                url: url,
+                type: type,
+                data: {
+                    cateId: cateId,
+                    colorId: colorId,
+                    tagId: tagId,
+                    min: min,
+                    max: max,
+                    sort: sort,
+                    searching: searching,
+                    startPos: startPos,
+                },
+                success: function(value) {
+                    let temp = "shop-list";
+                    display === 1 ? temp = "rowList" : temp = "shop-list";
+                    document.getElementById(temp).innerHTML = value;
+                }
+            })
+        }
+    }
+
+    $("body").on("click", ".li", function() {
+        event.preventDefault();
+        let curPage = $(this).text();
+        currentPage = Number(curPage);
+        let startPos = (curPage - 1) * 9;
+        onClickPagination(Number(curPage), numPage);
+        let type = "get";
+        display === 1 ? type = "get" : type = "post";
+        let url = flag === "sort" ? "<c:url value="/api-sort-filter-search" />" : "<c:url value="/api-paging-shop" />";
+        $.ajax({
+            url: url,
+            type: type,
+            data: {
+                cateId: cateId,
+                colorId: colorId,
+                tagId: tagId,
+                min: min,
+                max: max,
+                sort: sort,
+                searching: searching,
+                startPos: startPos,
+            },
+            success: function(value) {
+                let temp = "shop-list";
+                display === 1 ? temp = "rowList" : temp = "shop-list";
+                document.getElementById(temp).innerHTML = value;
+            }
+        })
+    })
+
+    function onClickPagination(curPage, numPage) {
+        let i = 0;
+        let html = "";
+        let temp = this.pagination(curPage, numPage);
+        for (i; i < temp.length; i++) {
+            if (i === curPage - 1) {
+                html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
+            }
+            else {
+                html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
+            }
+        }
+        document.getElementById("paging").innerHTML = html;
+    }
+
+    window.onload = function () {
+        let redi = ${empty redi ? -1 : redi};
+        let colorRedi = ${empty colorRedi ? -1 : colorRedi};
+        if (redi !== -1) {
+            let id = "cate-" + redi;
+            document.getElementById(id).click();
+        }
+        if (colorRedi !== -1) {
+            let id = "colo-" + colorRedi;
+            document.getElementById(id).click();
+        }
+
+        else {
+            let i = 0;
+            let html = "";
+            let temp = this.pagination(1, numPage);
+            for (i; i < temp.length; i++) {
+                if (i === 0) {
+                    html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
+                }
+                else {
+                    html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
+                }
+            }
+            document.getElementById("paging").innerHTML = html;
+        }
+    }
+
+    function pagination(c, m) {
+        let current = c,
+            last = m,
+            delta = 2,
+            left = current - delta,
+            right = current + delta + 1,
+            range = [],
+            rangeWithDots = [],
+            l;
+
+        for (let i = 1; i <= last; i++) {
+            if (i == 1 || i == last || i >= left && i < right) {
+                range.push(i);
+            }
+        }
+
+        for (let i of range) {
+            if (l) {
+                if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
+                }
+            }
+            rangeWithDots.push(i);
+            l = i;
+        }
+
+        return rangeWithDots;
+    }
+
+    const onClickLoadData = (ID, flag) => {
+        //flag == 1 --> get data 1
+        //flag == 2 --> load modal
+        let URL = "<c:url value="/api-top8product" />";
+        if (flag == 2) {
+            URL = "<c:url value="/api-modal" />"
+        }
+
+        $.ajax({
+            url: URL,
+            type: "get",
+            data: {
+                ID: ID,
+                // action: (function() {
+                //     if (flag === 1) return "tab-data";
+                //     else return "modal";
+                // })
+            },
+            success: function (response) {
+                flag === 1 ? document.getElementById("tab-data").innerHTML = response
+                    : document.getElementById("modal").innerHTML = response;
+            },
+            error: function (xhr) {
+                alert("Loading data not success. Please comeback later <3")
+            }
+        })
+    }
+</script>
+
 </body>
 
 </html>

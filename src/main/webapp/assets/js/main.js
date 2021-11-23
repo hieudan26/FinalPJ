@@ -385,6 +385,7 @@
     var inputQuantity = +document.getElementById('qty').value
 
 
+
     /*------------------------------
             Single Product Slider
     -----------------------------------*/

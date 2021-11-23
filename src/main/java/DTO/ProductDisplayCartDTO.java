@@ -11,6 +11,15 @@ public class ProductDisplayCartDTO {
     private Integer quantity = 1;
     private ColorDTO colorDTO;
     private BigDecimal total;
+
+    public ProductDisplayCartDTO(int id, String image, String name, ColorDTO colorDTO, BigDecimal price) {
+        this.id = id;
+        this.image = image;
+        this.name = name;
+        this.colorDTO = colorDTO;
+        this.price = price;
+    }
+
     public ProductDisplayCartDTO() {
     }
 

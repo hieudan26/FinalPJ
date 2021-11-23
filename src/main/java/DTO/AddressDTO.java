@@ -19,20 +19,22 @@ public class AddressDTO {
     }
 
     public AddressDTO(String address) {
-        String[] parts = address.split("\\|");
-        int lengthparts = parts.length;
-        if(parts != null)
-        {
-            if(lengthparts > 0)
-                this.Number = parts[0];
-            if(lengthparts > 1)
-                this.Street = parts[1];
-            if(lengthparts > 2)
-                this.Commune = parts[2];
-            if(lengthparts > 3)
-                this.District = parts[3];
-            if(lengthparts > 4)
-                this.Province = parts[4];
+        if(address != null){
+            String[] parts = address.split("\\|");
+            int lengthparts = parts.length;
+            if(parts != null)
+            {
+                if(lengthparts > 0)
+                    this.Number = parts[0];
+                if(lengthparts > 1)
+                    this.Street = parts[1];
+                if(lengthparts > 2)
+                    this.Commune = parts[2];
+                if(lengthparts > 3)
+                    this.District = parts[3];
+                if(lengthparts > 4)
+                    this.Province = parts[4];
+            }
         }
     }
 

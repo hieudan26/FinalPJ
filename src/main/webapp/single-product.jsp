@@ -126,29 +126,34 @@
                     <%--FORM--%>
                     <form action="AddorCheckRedirectController" method="get">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
-                        <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
-                        <div id="color-grp" class="color-group mt-30px">
-                            <c:forEach items="${singleProductDTO.getColorDTOList()}" var="itemColor">
-                                <div id="color-${itemColor.getId()}" class="color-block"
-                                   style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></div>
-                            </c:forEach>
-                        </div>
+                        <c:if test="${singleProductDTO.getColorDTOList().size() != 0}">
+                            <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
+                            <div id="color-grp" class="color-group mt-30px">
+                                <c:forEach items="${singleProductDTO.getColorDTOList()}" var="itemColor">
+                                    <div id="color-${itemColor.getId()}" class="color-block"
+                                         style="background: ${itemColor.getName()}" onclick="onClickColor(this.id)"></div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
 
                         <p class="mt-20px mb-0">
                             ${singleProductDTO.getDescription().split("\\.")[0]}.
                             ${singleProductDTO.getDescription().split("\\.")[1] }</p>
-
+                        <c:if test="${singleProductDTO.getQuantity() == 0}">
+                            <p class="mt-10px mb-0" style="font-size: 12px; color: red">We apologize for this inconvenience.
+                                The item is currently out of stock, please comeback later</p>
+                        </c:if>
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
                                 <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart" name="action" value="addCart">
+                                <button id="btn_addCart" class="add-cart" name="action" value="addCart">
                                     Add To Cart
                                 </button>
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart buy-button" name="action" value="buyNow">Buy It Now</button>
+                                <button id="btn_buyNow" class="add-cart buy-button" name="action" value="buyNow">Buy It Now</button>
                             </div>
                             <div class="pro-details-compare-wishlist pro-details-wishlist ">
                                 <a href="wishlist.jsp"><i class="pe-7s-like"></i></a>
@@ -159,7 +164,7 @@
                         <span>Categories: </span>
                         <ul class="d-flex">
                             <li>
-                                <a href="#">${singleProductDTO.getCategoriesName()} </a>
+                                <a href="<c:url value="/shop?redi=${singleProductDTO.getCategoryId()}" />">${singleProductDTO.getCategoriesName()} </a>
                             </li>
                         </ul>
                     </div>
@@ -464,6 +469,14 @@
             event.preventDefault();
             $('#btn_Review').attr('disabled',true);
         }
+
+        var ProductStatus = ${singleProductDTO.getQuantity() == 0 ? true : false};
+        if (ProductStatus) {
+            $('#btn_addCart').attr('disabled',true);
+            $('#btn_buyNow').attr('disabled',true);
+            $('#btn_addCart').css("background-color", "#0d6efd");
+            $('#btn_buyNow').css("background-color", "#0d6efd");
+        }
     };
 
     function disableReview() {
@@ -515,6 +528,8 @@
             }
         })
     }
+
+    var inputQuantity = +document.getElementById('qty').value;
 </script>
 
 <!-- Global Vendor, plugins JS -->
