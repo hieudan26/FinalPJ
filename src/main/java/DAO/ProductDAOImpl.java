@@ -4,6 +4,7 @@ import DAO.DAOImpl.AbstractDAO;
 import DAO.DAOImpl.AccountDAO;
 import DAO.DAOImpl.ProductDAO;
 import Model.AccountsEntity;
+import Model.ColorsEntity;
 import Model.ProductsEntity;
 import Model.UsersEntity;
 import Utils.HibernateUtils;
@@ -433,5 +434,33 @@ public class ProductDAOImpl extends AbstractDAO<Integer, ProductsEntity> impleme
             session.close();
         }
         return productsEntityList;
+    }
+    // get id product by name
+    public int getProductIdByName(String productName) {
+        Transaction transaction = null;
+        Session session =HibernateUtils.getSessionFactory().openSession();
+        ProductsEntity productsEntity = new ProductsEntity();
+        try{
+            transaction = session.beginTransaction();
+
+            String hbm = "FROM ProductsEntity pe WHERE pe.name=:productname";
+            Query<ProductsEntity> query = session.createQuery(hbm);
+            query.setParameter("productname", productName);
+
+            productsEntity = query.uniqueResult();
+            transaction.commit();
+
+        }catch (Exception e){
+
+            if (transaction != null){
+
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+
+            session.close();
+        }
+        return productsEntity.getId();
     }
 }

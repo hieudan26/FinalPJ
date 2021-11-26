@@ -61,10 +61,9 @@
                                 <c:set var="temp" value="${cookie.products.value.split('p')}" />
                                 <c:set var="numProduct" value="${0}" />
                                 <c:forEach var="item" items="${temp}" >
-                                    <c:out value="${item}" />
+<%--                                    <c:out value="${item}" />--%>
                                     <c:set var="numProduct" value="${numProduct + 1}"></c:set>
                                 </c:forEach>
-
 <%--                                <c:set var="same" value="0" />--%>
 <%--                                <c:set var="i" value="0" />--%>
 <%--                                <c:if test="${numProduct > 1}" >--%>

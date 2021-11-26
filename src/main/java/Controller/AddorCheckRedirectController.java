@@ -3,11 +3,14 @@ package Controller;
 import DAO.OrderProductDAOImpl;
 import DAO.ProductDAOImpl;
 import DAO.SalesOrderDAOImpl;
+import DTO.SalesOrdersDTO;
 import DTO.UserAccountDTO;
 import Model.OrderProductsEntity;
 import Model.ProductsEntity;
 import Model.SalesOrdersEntity;
+import Model.UsersEntity;
 import Utils.ApplicationUtils;
+import Utils.HibernateUtils;
 import Utils.SingletonServiceUltils;
 import org.checkerframework.checker.units.qual.C;
 
@@ -21,7 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Application;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.sql.Date;
 
 @WebServlet(name = "AddorCheckRedirectController", urlPatterns = {"/AddorCheckRedirectController", "/AddorCheckRedirectController/editQuantity"})
 public class AddorCheckRedirectController extends HttpServlet {
@@ -90,6 +99,23 @@ public class AddorCheckRedirectController extends HttpServlet {
             response.addCookie(cookie);
 
             response.sendRedirect("/cart");
+        }
+        else {
+            int userId = userAccountDTO.getId();
+            SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+            if(salesOrdersEntity == null) {
+                java.util.Date utilDate = new java.util.Date();
+                java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                SalesOrdersDTO salesOrdersDTO = new SalesOrdersDTO(sqlDate, BigDecimal.valueOf(0), userId);
+                int saleOrderId = SingletonServiceUltils.getSalesOrderDAOImpl().addSaleOrder(salesOrdersDTO);
+
+                SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(saleOrderId, Integer.parseInt(productId), Integer.parseInt(colorId), Integer.parseInt(quantity));
+                response.sendRedirect("/cart");
+            }
+            else {
+                SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId), Integer.parseInt(quantity));
+                response.sendRedirect("/cart");
+            }
         }
     }
     private void editQuantityOfProduct(HttpServletRequest request, HttpServletResponse response)

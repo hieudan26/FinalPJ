@@ -9,7 +9,7 @@ public class ProductDisplayCartDTO {
     private String name;
     private BigDecimal price;
     private Integer quantity = 1;
-    private ColorDTO colorDTO;
+    private ColorDTO colorDTO = null;
     private BigDecimal total;
 
     public ProductDisplayCartDTO(int id, String image, String name, ColorDTO colorDTO, BigDecimal price) {
@@ -18,6 +18,15 @@ public class ProductDisplayCartDTO {
         this.name = name;
         this.colorDTO = colorDTO;
         this.price = price;
+    }
+
+    public ProductDisplayCartDTO(int id, String image, String name, Integer colorId, String colorName, BigDecimal price, Integer quantity) {
+        this.id = id;
+        this.image = image;
+        this.name = name;
+        this.price = price;
+        this.colorDTO = new ColorDTO(colorId, colorName);
+        this.quantity = quantity;
     }
 
     public ProductDisplayCartDTO() {

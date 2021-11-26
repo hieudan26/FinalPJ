@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
 import java.util.Set;
@@ -10,12 +11,14 @@ import java.util.Set;
 public class SalesOrdersEntity {
     private int id;
     private Date orderDate;
-    private BigInteger total;
+    private BigDecimal total;
     private UsersEntity usersEntity;
     //    private SessionsEntity sessionsEntity;
     private Set<CcTransactionsEntity> ccTransactionsEntities;
     private Set<OrderProductsEntity> orderProductsEntities;
 
+    public SalesOrdersEntity() {
+    }
 
     //many to one saleoder-->user
     @ManyToOne(fetch = FetchType.LAZY)
@@ -84,11 +87,11 @@ public class SalesOrdersEntity {
 
     @Basic
     @Column(name = "total", nullable = false, precision = 0)
-    public BigInteger getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(BigInteger total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
