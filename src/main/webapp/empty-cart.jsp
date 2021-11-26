@@ -4,27 +4,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="robots" content="index, follow" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="robots" content="index, follow"/>
     <title>Mioca - Handmade Goods eCommerce HTML Template</title>
-    <meta name="description" content="Mioca - Handmade Goods eCommerce HTML Template" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Mioca - Handmade Goods eCommerce HTML Template"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Add site Favicon -->
     <link rel="shortcut icon" href="assets/images/favicon/favicon.ico" type="image/png">
 
 
     <!-- vendor css (Icon Font) -->
-    <link rel="stylesheet" href="assets/css/vendor/bootstrap.bundle.min.css" />
-    <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.css" />
-    <link rel="stylesheet" href="assets/css/vendor/font.awesome.css" />
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.bundle.min.css"/>
+    <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.css"/>
+    <link rel="stylesheet" href="assets/css/vendor/font.awesome.css"/>
 
     <!-- plugins css (All Plugins Files) -->
-    <link rel="stylesheet" href="assets/css/plugins/animate.css" />
-    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
-    <link rel="stylesheet" href="assets/css/plugins/venobox.css" />
+    <link rel="stylesheet" href="assets/css/plugins/animate.css"/>
+    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css"/>
+    <link rel="stylesheet" href="assets/css/plugins/venobox.css"/>
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <!-- <link rel="stylesheet" href="assets/css/vendor/vendor.min.css" />
@@ -32,14 +32,14 @@
     <link rel="stylesheet" href="assets/css/style.min.css"> -->
 
     <!-- Main Style -->
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css"/>
 
 </head>
 
 <body>
 
 <!-- Header Area Start -->
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp"/>
 <!-- Header Area End -->
 <div class="offcanvas-overlay"></div>
 
@@ -210,7 +210,7 @@
                 <div class="empty-text-contant text-center">
                     <i class="pe-7s-shopbag"></i>
                     <h3>There are no more items in your cart</h3>
-                    <a class="empty-cart-btn" href="shop-left-sidebar.jsp">
+                    <a class="empty-cart-btn" href="/shop">
                         <i class="fa fa-arrow-left"> </i> Continue shopping
                     </a>
                 </div>
@@ -221,12 +221,13 @@
 <!-- Cart area end -->
 
 <!-- Footer Area Start -->
-<jsp:include page="footer.jsp" />
+<jsp:include page="footer.jsp"/>
 <!-- Footer Area End -->
 
 <!-- Search Modal Start -->
 <div class="modal popup-search-style" id="searchActive">
-    <button type="button" class="close-btn" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close-btn" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span>
+    </button>
     <div class="modal-overlay">
         <div class="modal-dialog p-0" role="document">
             <div class="modal-content">

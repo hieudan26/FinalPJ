@@ -1,10 +1,7 @@
 package Controller;
 
 import Business.TopLimitProductBusiness;
-import DTO.ColorDTO;
-import DTO.InformationProductDTO;
-import DTO.ReviewOfUserDTO;
-import DTO.SingleProductDTO;
+import DTO.*;
 import Model.ColorsEntity;
 import Model.ProductsEntity;
 import Model.ReviewsEntity;
@@ -39,7 +36,8 @@ public class ProductController extends HttpServlet {
         int categoryId = productsEntity.getCategoriesEntity().getId();
 
         req.setAttribute("singleProductDTO", singleProductDTO);
-        req.setAttribute("Top8Product_categories", TopLimitProductBusiness.handleDataTopLimitProductsTab(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID_Except(categoryId, productId, 8)));
+        req.setAttribute("Top8Product_categories", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID_Except(categoryId, productId, 8)));
+        req.setAttribute("MaxInc", singleProductDTO.getQuantity());
 
         RequestDispatcher rd= req.getRequestDispatcher("/single-product.jsp");
         rd.forward(req,resp);

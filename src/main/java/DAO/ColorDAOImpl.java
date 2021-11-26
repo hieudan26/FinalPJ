@@ -69,5 +69,31 @@ public class ColorDAOImpl extends AbstractDAO<Integer, ColorsEntity> implements 
         }
         return colorsEntityList;
     }
+    public int getColorIdByName(String colorName) {
+        Transaction transaction = null;
+        Session session =HibernateUtils.getSessionFactory().openSession();
+        ColorsEntity colorsEntity = new ColorsEntity();
+        try{
+            transaction = session.beginTransaction();
 
+            String hbm = "FROM ColorsEntity ce WHERE ce.name=:colorname";
+            Query<ColorsEntity> query = session.createQuery(hbm);
+            query.setParameter("colorname", colorName);
+
+            colorsEntity = query.uniqueResult();
+            transaction.commit();
+
+        }catch (Exception e){
+
+            if (transaction != null){
+
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+
+            session.close();
+        }
+        return colorsEntity.getId();
+    }
 }

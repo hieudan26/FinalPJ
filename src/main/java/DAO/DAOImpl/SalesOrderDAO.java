@@ -13,6 +13,4 @@ import java.util.List;
 public interface SalesOrderDAO extends GenericDAO<Integer, SalesOrdersEntity>{
 
     SalesOrdersEntity getOnebyId(int cartid);
-
-
 }

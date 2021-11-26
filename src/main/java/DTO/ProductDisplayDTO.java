@@ -14,6 +14,16 @@ public class ProductDisplayDTO {
     private boolean productStatus;
     private int avgReview;
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    private int quantity;
+
     public String getInformation() {
         return information;
     }
@@ -28,7 +38,7 @@ public class ProductDisplayDTO {
     }
 
     public ProductDisplayDTO(int id, String name, BigDecimal regularPrice, BigDecimal discountPrice, String image,
-                             Integer discount_percent, List<String> tagsName, boolean productStatus, int avgReview, String information) {
+                             Integer discount_percent, List<String> tagsName, boolean productStatus, int avgReview, String information, int quantity) {
         this.id = id;
         this.name = name;
         this.regularPrice = regularPrice;
@@ -39,6 +49,7 @@ public class ProductDisplayDTO {
         this.productStatus = productStatus;
         this.avgReview = avgReview;
         this.information = information;
+        this.quantity = quantity;
     }
 
     public int getId() {

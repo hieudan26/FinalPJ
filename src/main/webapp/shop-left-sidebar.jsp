@@ -45,7 +45,7 @@
                 <h2 class="breadcrumb-title">Shop</h2>
                 <!-- breadcrumb-list start -->
                 <ul class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                    <li class="breadcrumb-item"><a href="<c:url value="/home" />">Home</a></li>
                     <li class="breadcrumb-item active">Shop</li>
                 </ul>
                 <!-- breadcrumb-list end -->
@@ -97,7 +97,7 @@
                         <!-- Right Side End -->
                         <!-- Left Side start -->
                         <div class="shot-product" style="display: flex;"><p style="margin: 5px;">Search:</p>
-                            <input type="text" placeholder="searching" style="border-radius: 5px;height: 38px;"></div>
+                            <input oninput="onInputSearching(this.value);" type="text" placeholder="Searching" style="border-radius: 5px;height: 38px;"></div>
                     </div>
                 </div>
                 <!-- Shop Top Area End -->
@@ -133,7 +133,7 @@
                     <!-- Right Side End -->
                     <!-- Right Side Start -->
                     <div class="shot-product" style="display: flex;"><p style="margin: 5px;">Search:</p>
-                        <input type="text" value="aa" style="border-radius: 5px;height: 38px;"></div>
+                        <input oninput="onInputSearching(this.value);" type="text" placeholder="Searching" style="border-radius: 5px;height: 38px;"></div>
                 </div>
                 <!-- Right Side End -->
                 <!-- Left Side start -->
@@ -203,7 +203,7 @@
                                                     </c:choose>
                                                 </span>
                                                     </div>
-                                                    <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                                    <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                         To Cart</button>
                                                 </div>
                                             </div>
@@ -277,7 +277,7 @@
                                                                 <a href="compare.jsp" class="action compare"
                                                                    title="Compare"><i class="pe-7s-refresh-2"></i></a>
                                                             </div>
-                                                            <button title="Add To Cart" class=" add-to-cart">Add
+                                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                                 To Cart</button>
                                                         </div>
                                                     </div>
@@ -457,6 +457,24 @@
     let sort = 1;
     let numPage = parseInt(${totalPages}, 10);
     let flag = "page"; //sort
+    let searching = "";
+
+    function onClickAddToCart(idItem, quantity, idColor) {
+        if (quantity === 0) {
+            event.preventDefault();
+            alert("We apologize for this inconvenience." +
+                "\nThe item is currently out of stock, please comeback later");
+        }
+        else {
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+            window.location.href = href;
+        }
+    }
+
+    function onInputSearching(item) {
+        searching = item;
+        this.sortAndFilter_LiveSearch();
+    }
 
     function onChangeSortMobile() {
         sort = document.getElementById("sort-mobile").value;
@@ -502,7 +520,9 @@
         let startPos = (curPage - 1) * 9;
         let type = "get";
         display === 1 ? type = "get" : type = "post";
-        $.ajax({
+        let data;
+        let temp = $.ajax({
+            async: false,
             url: "<c:url value="/api-sort-filter-search" />",
             type: type,
             data: {
@@ -512,14 +532,28 @@
                 min: min,
                 max: max,
                 sort: sort,
+                searching: searching,
                 startPos: startPos,
             },
             success: function(value) {
-                let temp = "shop-list";
-                display === 1 ? temp = "rowList" : temp = "shop-list";
-                document.getElementById(temp).innerHTML = value;
-                numPage = parseInt(document.getElementById("phantrang").value, 10);
-                onClickPagination(Number(curPage), numPage);
+                data = value;
+            }
+        })
+
+        temp.done(() => {
+            let temp = "shop-list";
+            display === 1 ? temp = "rowList" : temp = "shop-list";
+            document.getElementById(temp).innerHTML = data;
+            numPage = parseInt(document.getElementById("phantrang").value, 10);
+
+            onClickPagination(Number(curPage), numPage);
+            if (numPage === 0 || numPage === 1) {
+                document.getElementById("Next").style.visibility = "hidden";
+                document.getElementById("Previous").style.visibility = "hidden";
+            }
+            else {
+                document.getElementById("Next").style.visibility = "visible";
+                document.getElementById("Previous").style.visibility = "visible";
             }
         })
     }
@@ -568,6 +602,7 @@
         display === 1 ? type = "get" : type = "post";
         let url = flag === "sort" ? "<c:url value="/api-sort-filter-search" />" : "<c:url value="/api-paging-shop" />";
         $.ajax({
+            async: false,
             url: url,
             type: type,
             data: {
@@ -577,6 +612,7 @@
                 min: min,
                 max: max,
                 sort: sort,
+                searching: searching,
                 startPos: startPos,
             },
             success: function(value) {
@@ -610,6 +646,7 @@
                     min: min,
                     max: max,
                     sort: sort,
+                    searching: searching,
                     startPos: startPos,
                 },
                 success: function(value) {
@@ -640,6 +677,7 @@
                 min: min,
                 max: max,
                 sort: sort,
+                searching: searching,
                 startPos: startPos,
             },
             success: function(value) {
@@ -666,18 +704,31 @@
     }
 
     window.onload = function () {
-        let i = 0;
-        let html = "";
-        let temp = this.pagination(1, numPage);
-        for (i; i < temp.length; i++) {
-            if (i === 0) {
-                html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
-            }
-            else {
-                html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
-            }
+        let redi = ${empty redi ? -1 : redi};
+        let colorRedi = ${empty colorRedi ? -1 : colorRedi};
+        if (redi !== -1) {
+            let id = "cate-" + redi;
+            document.getElementById(id).click();
         }
-        document.getElementById("paging").innerHTML = html;
+        if (colorRedi !== -1) {
+            let id = "colo-" + colorRedi;
+            document.getElementById(id).click();
+        }
+
+        else {
+            let i = 0;
+            let html = "";
+            let temp = this.pagination(1, numPage);
+            for (i; i < temp.length; i++) {
+                if (i === 0) {
+                    html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
+                }
+                else {
+                    html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
+                }
+            }
+            document.getElementById("paging").innerHTML = html;
+        }
     }
 
     function pagination(c, m) {
