@@ -18,11 +18,12 @@ public class AccountBusiness {
         }
     }
 
-    public static boolean UpdateInfo(String firstname,String lastname ,int id,AddressDTO addressDTO)
+    public static boolean UpdateInfo(String firstname,String lastname,String phone ,int id,AddressDTO addressDTO)
     {
         UsersEntity users =(UsersEntity) SingletonServiceUltils.getUserDAOImpl().getOneById(id);
         String address = addressDTO.toString();
         users.setFirstName(firstname);
+        users.setPhone(phone);
         users.setLastName(lastname);
         users.setAddress(address);
         UsersEntity userUpdate = SingletonServiceUltils.getUserDAOImpl().update(users);

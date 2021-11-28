@@ -46,10 +46,11 @@ public class MyAccountController extends HttpServlet {
                 String commune = req.getParameter("commune");
                 String district = req.getParameter("district");
                 String province = req.getParameter("province");
+                String phone = req.getParameter("phone");
 
                 AddressDTO addressDTO = new AddressDTO(number,street,commune,district,province);
                 int id= userAccountDTO.getId();
-                if(AccountBusiness.UpdateInfo(firstname,lastname,id,addressDTO)==true)
+                if(AccountBusiness.UpdateInfo(firstname,lastname,phone,id,addressDTO)==true)
                 {
                     userAccountDTO.setFirstname(firstname);
                     userAccountDTO.setLastname(lastname);
