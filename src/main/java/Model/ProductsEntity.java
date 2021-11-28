@@ -28,7 +28,10 @@ public class ProductsEntity {
     private Set<ReviewsEntity> reviewsEntities;
 
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(mappedBy = "productsEntities",fetch = FetchType.LAZY)
+    @ManyToMany()
+    @JoinTable(name = "product_tags",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     public Set<TagsEntity> getTagsEntities(){
         return this.tagsEntities;
     }
@@ -57,7 +60,10 @@ public class ProductsEntity {
     }
 
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(mappedBy = "productsEntities",fetch =FetchType.LAZY)
+    @ManyToMany()
+    @JoinTable(name = "products_colors",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id"))
     public Set<ColorsEntity> getColorsEntities(){
         return this.colorsEntities;
     }

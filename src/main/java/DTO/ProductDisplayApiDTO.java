@@ -3,6 +3,7 @@ package DTO;
 import Model.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 public class ProductDisplayApiDTO implements Comparable<ProductDisplayApiDTO>{
@@ -20,6 +21,7 @@ public class ProductDisplayApiDTO implements Comparable<ProductDisplayApiDTO>{
     private String categoriesName;
     private int categoriesId;
     private Set<String> colorsName;
+    private List<Integer> colorsId;
     private int totalReviews;
     private int avgReview;
 
@@ -29,7 +31,7 @@ public class ProductDisplayApiDTO implements Comparable<ProductDisplayApiDTO>{
     public ProductDisplayApiDTO(int id, String name, String description, BigDecimal regularPrice, BigDecimal discountPrice,
                                 Integer quantity, String image, Integer discount_percent, String information,
                                 Set<String> tagsName, boolean productStatus, String categoriesName, int categoriesId, Set<String> colorsName,
-                                int totalReviews, int avgReview) {
+                                int totalReviews, int avgReview, List<Integer> colorsId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,6 +48,16 @@ public class ProductDisplayApiDTO implements Comparable<ProductDisplayApiDTO>{
         this.colorsName = colorsName;
         this.totalReviews = totalReviews;
         this.avgReview = avgReview;
+        this.colorsId = colorsId;
+    }
+
+
+    public List<Integer> getColorsId() {
+        return colorsId;
+    }
+
+    public void setColorsId(List<Integer> colorsId) {
+        this.colorsId = colorsId;
     }
 
     public int getCategoriesId() {

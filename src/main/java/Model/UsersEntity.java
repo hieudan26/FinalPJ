@@ -20,8 +20,8 @@ public class UsersEntity {
     private Set<ReviewsEntity> reviewsEntities;
     private Set<SalesOrdersEntity> salesOrdersEntities;
     private Set<ProductsEntity> productsEntities;
-    private  Set<SessionsEntity> sessionsEntities;
     private  AccountsEntity accountsEntity;
+
 
     //one to many user-->review
     @OneToMany(mappedBy = "usersEntity",fetch = FetchType.LAZY)

@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity
@@ -8,10 +9,12 @@ import java.math.BigInteger;
 public class OrderProductsEntity {
     private int id;
     private String name;
+    private String colorname;
+    private String image;
     private String description;
-    private Integer price;
+    private BigDecimal price;
     private int quantity;
-    private Integer subtotal;
+    private BigDecimal subtotal;
     private SalesOrdersEntity salesOrdersEntity;
 
 
@@ -26,6 +29,7 @@ public class OrderProductsEntity {
         this.salesOrdersEntity =salesOrdersEntity;
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -41,8 +45,28 @@ public class OrderProductsEntity {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "colorname", nullable = false, length = 255)
+    public String getColorname() {
+        return colorname;
+    }
+
+    public void setColorname(String colorname) {
+        this.colorname = colorname;
+    }
+    @Basic
+    @Column(name = "image", nullable = true, length = 255)
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Basic
@@ -57,11 +81,11 @@ public class OrderProductsEntity {
 
     @Basic
     @Column(name = "price", nullable = false, precision = 0)
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -77,11 +101,11 @@ public class OrderProductsEntity {
 
     @Basic
     @Column(name = "subtotal", nullable = false, precision = 0)
-    public Integer getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Integer subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 

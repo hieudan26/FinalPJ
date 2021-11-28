@@ -518,7 +518,7 @@
                                                         <i class="fa fa-star" style="color: #bcbebf"></i>
                                                     </c:forEach>
                                                 </div>
-                                                <h5 class="title"><a href="singleproduct?productCode=${item.getId()}">${item.getName()}
+                                                <h5 class="title"><a href="singleproduct?productId=${item.getId()}">${item.getName()}
                                                 </a>
                                                 </h5>
                                                 <span class="price">
@@ -533,7 +533,8 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+<%--                                    window.location.href='/AddorCheckRedirectController?productId=${item.getId()}&amp;quantity=1&amp;colorId=${item.getColorsId().get(0)--%>
+                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -606,7 +607,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -679,7 +680,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productId=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -752,7 +753,7 @@
                                                     </c:choose>
                                                 </span>
                                             </div>
-                                            <button onclick="window.location.href='singleproduct?productCode=${item.getId()}'" title="Add To Cart" class=" add-to-cart">Add
+                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                                 To Cart</button>
                                         </div>
                                     </div>
@@ -858,6 +859,18 @@
 <!-- Modal end -->
 
 <script type="text/javascript">
+
+    function onClickAddToCart(idItem, quantity, idColor) {
+        if (quantity === 0) {
+            event.preventDefault();
+            alert("We apologize for this inconvenience." +
+                "\nThe item is currently out of stock, please comeback later");
+        }
+        else {
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+            window.location.href = href;
+        }
+    }
 
     window.onload = function()
     {

@@ -24,6 +24,9 @@ public class ShopController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        String redi = request.getParameter("redi");
+        String colorRedi = request.getParameter("colorRedi");
+
         List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();
         List<ColorsEntity> colorsEntityList = SingletonServiceUltils.getColorDAOImpl().getAll();
         List<TagsEntity> tagsEntityList = SingletonServiceUltils.getTagDAOImpl().getAll();
@@ -31,7 +34,7 @@ public class ShopController extends HttpServlet {
         List<CategoriesShopDTO> categoriesShopDTOList = this.handleCategoriesShopDTOList(categoriesEntityList);
         List<ColorShopDTO> colorShopDTOList = this.handleColorShopDTO(colorsEntityList);
         List<TagShopDTO> tagShopDTOList = this.handleTagShopDTO(tagsEntityList);
-        List<ProductDisplayApiDTO> productDisplayApiDTOList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProduct(1000,0));
+        List<ProductDisplayApiDTO> productDisplayApiDTOList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProduct(9,0));
 
         List<ProductDisplayApiDTO> maxList = TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getAll());
         ProductDisplayApiDTO max = Collections.max(maxList);
@@ -45,6 +48,8 @@ public class ShopController extends HttpServlet {
         request.setAttribute("tagShopDTOList", tagShopDTOList);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("max", maxValue);
+        request.setAttribute("redi", redi);
+        request.setAttribute("colorRedi", colorRedi);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("shop-left-sidebar.jsp");
         requestDispatcher.forward(request, response);
