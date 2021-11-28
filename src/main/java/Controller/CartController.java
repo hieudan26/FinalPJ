@@ -8,6 +8,7 @@ import DTO.ProductDisplayDTO;
 import DTO.UserAccountDTO;
 import Model.OrderProductsEntity;
 import Model.ProductsEntity;
+import Model.SalesOrdersEntity;
 import Utils.ApplicationUtils;
 import Utils.SingletonServiceUltils;
 
@@ -107,15 +108,24 @@ public class CartController extends HttpServlet {
             }
         }
         else {
-            List<OrderProductsEntity> orderProductsEntityList = SingletonServiceUltils.getOrderProductDAOImpl().getOrderProductListWithUserId(userAccountDTO.getId());
-            productDisplayCartDTOList = new ArrayList<ProductDisplayCartDTO>();
-            for (OrderProductsEntity o:
-                    orderProductsEntityList) {
-                int colorId = SingletonServiceUltils.getColorDAOImpl().getColorIdByName(o.getColorname());
-                int productId = SingletonServiceUltils.getProductDAOImpl().getProductIdByName(o.getName());
-                System.out.println("COLOR:" + colorId);
-                ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productId, o.getImage(), o.getName(), colorId, o.getColorname(), o.getPrice(), o.getQuantity());
-                productDisplayCartDTOList.add(productDisplayCartDTO);
+            if(req.getAttribute("productDisplayCartDTOList") == null) {
+                List<OrderProductsEntity> orderProductsEntityList = SingletonServiceUltils.getOrderProductDAOImpl().getOrderProductListWithUserId(userAccountDTO.getId());
+                if(orderProductsEntityList.isEmpty()) {
+                    RequestDispatcher requestDispatcher = req.getRequestDispatcher("empty-cart.jsp");
+                    requestDispatcher.forward(req, resp);
+                    return;
+                }
+                productDisplayCartDTOList = new ArrayList<ProductDisplayCartDTO>();
+                for (OrderProductsEntity o:
+                        orderProductsEntityList) {
+                    int colorId = SingletonServiceUltils.getColorDAOImpl().getColorIdByName(o.getColorname());
+                    int productId = SingletonServiceUltils.getProductDAOImpl().getProductIdByName(o.getName());
+                    ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productId, o.getImage(), o.getName(), colorId, o.getColorname(), o.getPrice(), o.getQuantity());
+                    productDisplayCartDTOList.add(productDisplayCartDTO);
+                }
+            }
+            else {
+                productDisplayCartDTOList = (List<ProductDisplayCartDTO>) req.getAttribute("productDisplayCartDTOList");
             }
         }
         double sum = 0;
@@ -128,43 +138,61 @@ public class CartController extends HttpServlet {
         total = BigDecimal.valueOf(sum);
         req.setAttribute("productDisplayCartDTOList", productDisplayCartDTOList);
         req.setAttribute("total", total);
+
+
+
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("cart.jsp");
         requestDispatcher.forward(req, resp);
     }
     private  List<ProductDisplayCartDTO> makeProductDTO(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException, ServletException{
+
         Cookie[] cookies = req.getCookies();
         List<ProductDisplayCartDTO> productDisplayCartDTOList = new ArrayList<ProductDisplayCartDTO>();
-        for (Cookie cookie: cookies
-        ) {
-            if(cookie.getName().equals("products")) {
-                String[] context = cookie.getValue().split("p");
-                for (String s: context
-                ) {
-                    // idx:0 means productId, idx=1 means colorId
-                    String[] productAndColor = s.split("q");
-                    ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(Integer.parseInt(productAndColor[0]));
-                    String colorName = SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(Integer.parseInt(productAndColor[1]));
-                    ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productsEntity.getId(), productsEntity.getImage(), productsEntity.getName(),
-                            productsEntity.getRegularPrice(), Integer.parseInt(productAndColor[1]), colorName);
-                    productDisplayCartDTOList.add(productDisplayCartDTO);
+        UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(req);
+        if(userAccountDTO == null) {
+            for (Cookie cookie: cookies
+            ) {
+                if(cookie.getName().equals("products")) {
+                    String[] context = cookie.getValue().split("p");
+                    for (String s: context
+                    ) {
+                        // idx:0 means productId, idx=1 means colorId
+                        String[] productAndColor = s.split("q");
+                        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(Integer.parseInt(productAndColor[0]));
+                        String colorName = SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(Integer.parseInt(productAndColor[1]));
+                        ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productsEntity.getId(), productsEntity.getImage(), productsEntity.getName(),
+                                productsEntity.getRegularPrice(), Integer.parseInt(productAndColor[1]), colorName);
+                        productDisplayCartDTOList.add(productDisplayCartDTO);
+                    }
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    resp.addCookie(cookie);
+                    break;
                 }
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-                resp.addCookie(cookie);
-                break;
+            }
+            for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
+                int quantity = 1;
+                for (int j = i + 1; j < productDisplayCartDTOList.size(); j++) {
+                    if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId() &&
+                            productDisplayCartDTOList.get(i).getColorDTO().getId() ==  productDisplayCartDTOList.get(j).getColorDTO().getId()) {
+                        quantity++;
+                        productDisplayCartDTOList.remove(j);
+                        j--;
+                        productDisplayCartDTOList.get(i).setQuantity(quantity);
+                    }
+                }
             }
         }
-        for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
-            int quantity = 1;
-            for (int j = i + 1; j < productDisplayCartDTOList.size(); j++) {
-                if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId() &&
-                 productDisplayCartDTOList.get(i).getColorDTO().getId() ==  productDisplayCartDTOList.get(j).getColorDTO().getId()) {
-                    quantity++;
-                    productDisplayCartDTOList.remove(j);
-                    j--;
-                    productDisplayCartDTOList.get(i).setQuantity(quantity);
-                }
+        else {
+            List<OrderProductsEntity> orderProductsEntityList = SingletonServiceUltils.getOrderProductDAOImpl().getOrderProductListWithUserId(userAccountDTO.getId());
+            productDisplayCartDTOList = new ArrayList<ProductDisplayCartDTO>();
+            for (OrderProductsEntity o:
+                    orderProductsEntityList) {
+                int colorId = SingletonServiceUltils.getColorDAOImpl().getColorIdByName(o.getColorname());
+                int productId = SingletonServiceUltils.getProductDAOImpl().getProductIdByName(o.getName());
+                ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productId, o.getImage(), o.getName(), colorId, o.getColorname(), o.getPrice(), o.getQuantity());
+                productDisplayCartDTOList.add(productDisplayCartDTO);
             }
         }
         return productDisplayCartDTOList;
@@ -182,7 +210,17 @@ public class CartController extends HttpServlet {
                     cookie.setPath("/");
                     response.addCookie(cookie);
                 }
+                if(cookie.getName().equals("numOfProducts")) {
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                }
             }
+        }
+        else {
+            int userId = userAccountDTO.getId();
+            SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+            SingletonServiceUltils.getOrderProductDAOImpl().clearAllBySaleOrderId(salesOrdersEntity.getId());
         }
         response.sendRedirect("/cart");
     }
@@ -198,22 +236,39 @@ public class CartController extends HttpServlet {
         String[] inputQuantityList = b.split(",");
         List<ProductDisplayCartDTO> productDisplayCartDTOList = makeProductDTO(request, response);
         String productIds = "";
-
-        for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
-            productDisplayCartDTOList.get(i).setQuantity(Integer.parseInt(inputQuantityList[i]));
-            for (int j = 0; j < Integer.parseInt(inputQuantityList[i]); j++) {
-                if(productIds.isEmpty()) {
-                    productIds += productDisplayCartDTOList.get(i).getId() + "q" + productDisplayCartDTOList.get(i).getColorDTO().getId();
-                }
-                else {
-                    productIds = productIds + "p" + productDisplayCartDTOList.get(i).getId() + "q" + productDisplayCartDTOList.get(i).getColorDTO().getId();
+        UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
+        if(userAccountDTO == null) {
+            for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
+                productDisplayCartDTOList.get(i).setQuantity(Integer.parseInt(inputQuantityList[i]));
+                for (int j = 0; j < Integer.parseInt(inputQuantityList[i]); j++) {
+                    if(productIds.isEmpty()) {
+                        productIds += productDisplayCartDTOList.get(i).getId() + "q" + productDisplayCartDTOList.get(i).getColorDTO().getId();
+                    }
+                    else {
+                        productIds = productIds + "p" + productDisplayCartDTOList.get(i).getId() + "q" + productDisplayCartDTOList.get(i).getColorDTO().getId();
+                    }
                 }
             }
+            Cookie cookie = new Cookie("products", productIds);
+            cookie.setMaxAge(60 * 60 * 24);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
+
+
+            request.setAttribute("productDisplayCartDTOList", productDisplayCartDTOList);
+            response.sendRedirect("/cart");
         }
-        Cookie cookie = new Cookie("products", productIds);
-        cookie.setMaxAge(60 * 60 * 24);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-        request.setAttribute("productDisplayCartDTOList", productDisplayCartDTOList);
+        else {
+            int userId = userAccountDTO.getId();
+            SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+            for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
+                int qty = Integer.parseInt(inputQuantityList[i]);
+                int diff = qty - productDisplayCartDTOList.get(i).getQuantity();
+                SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(salesOrdersEntity.getId(), productDisplayCartDTOList.get(i).getId(), productDisplayCartDTOList.get(i).getColorDTO().getId(), diff);
+                productDisplayCartDTOList.get(i).setQuantity(qty);
+            }
+            response.sendRedirect("/cart");
+        }
     }
 }
