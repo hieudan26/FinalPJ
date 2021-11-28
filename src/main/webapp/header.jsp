@@ -57,13 +57,16 @@
                         <a onclick="onClickHeaderCartList();" href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                             <i class="pe-7s-shopbag"></i>
-                            <c:if test="${cookie.products.value != null}">
-                                <c:set var="temp" value="${cookie.products.value.split('p')}" />
-                                <c:set var="numProduct" value="${0}" />
-                                <c:forEach var="item" items="${temp}" >
-<%--                                    <c:out value="${item}" />--%>
-                                    <c:set var="numProduct" value="${numProduct + 1}"></c:set>
-                                </c:forEach>
+<%--                            <c:if test="${cookie.products.value != null}">--%>
+<%--                                <c:set var="temp" value="${cookie.products.value.split('p')}" />--%>
+<%--                                <c:set var="numProduct" value="${0}" />--%>
+<%--                                <c:forEach var="item" items="${temp}" >--%>
+<%--&lt;%&ndash;                                    <c:out value="${item}" />&ndash;%&gt;--%>
+<%--                                    <c:set var="numProduct" value="${numProduct + 1}"></c:set>--%>
+<%--                                </c:forEach>--%>
+                            <c:if test="${cookie.numOfProducts.value != null}">
+                                <c:set var="numProduct" value="${cookie.numOfProducts.value}" />
+
 <%--                                <c:set var="same" value="0" />--%>
 <%--                                <c:set var="i" value="0" />--%>
 <%--                                <c:if test="${numProduct > 1}" >--%>
@@ -79,7 +82,7 @@
 <%--                                        <c:set var="i" value="${i+1}" />--%>
 <%--                                    </c:forEach>--%>
 <%--                                </c:if>--%>
-                                <span class="header-action-num">${numProduct - same}</span>
+                                    <span class="header-action-num">${numProduct}</span>
                             </c:if>
                         </a>
                         <a href="#offcanvas-mobile-menu"products

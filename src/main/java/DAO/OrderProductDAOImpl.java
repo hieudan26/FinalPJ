@@ -172,4 +172,25 @@ public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntit
             return orderProductsEntityList;
         }
     }
+
+    public void clearAllBySaleOrderId(int soid) {
+        Transaction transaction = null;
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        try{
+            transaction = session.beginTransaction();
+
+            String hbm = "DELETE FROM OrderProductsEntity ope WHERE ope.salesOrdersEntity.id=:soid";
+            Query<OrderProductsEntity> query = session.createQuery(hbm);
+            query.setParameter("soid", soid);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }
