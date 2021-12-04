@@ -6,7 +6,9 @@
     <welcome-file-list>
         <welcome-file>HomeController</welcome-file>
     </welcome-file-list>
-
+    <session-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>Controller.HomeController</servlet-class>
