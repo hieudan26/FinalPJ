@@ -74,8 +74,12 @@ public class LoginController extends HttpServlet {
         if (requestUri != null) {
             resp.sendRedirect(requestUri);
         } else {
-            resp.sendRedirect(req.getContextPath() + "/");
+            if(userAccount.getRoles().size() ==1)
+                resp.sendRedirect(req.getContextPath() + "/");
+            else if(userAccount.getRoles().size() ==2)
+                resp.sendRedirect(req.getContextPath() + "/admin");
             UsersEntity usersEntity = SingletonServiceUltils.getUserDAOImpl().getOneById(userAccount.getId());
+
             if(usersEntity.getAddress()!=null)
             {
                 AddressDTO addressDTO=new AddressDTO(usersEntity.getAddress());
