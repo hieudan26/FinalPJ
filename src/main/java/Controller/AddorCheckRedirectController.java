@@ -32,6 +32,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @WebServlet(name = "AddorCheckRedirectController", urlPatterns = {"/AddorCheckRedirectController", "/AddorCheckRedirectController/editQuantity"})
@@ -101,7 +102,14 @@ public class AddorCheckRedirectController extends HttpServlet {
             response.addCookie(cookie);
 
             String[] str = cookie.getValue().split("p");
-            cookie = new Cookie("numOfProducts", String.valueOf(str.length));
+            HashMap<String,Integer> hashmap = new HashMap<String,Integer>();
+
+            //use for loop to pull the elements of array to hashmap's key
+            for (int j = 0; j < str.length; j++) {
+                hashmap.put(str[j], j);
+            }
+
+            cookie = new Cookie("numOfProducts", String.valueOf(hashmap.keySet().size()));
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
             response.addCookie(cookie);
