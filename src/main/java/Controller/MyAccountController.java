@@ -16,6 +16,8 @@ import java.io.IOException;
 public class MyAccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         UserAccountDTO userAccountDTO =(UserAccountDTO) req.getSession().getAttribute("loginedUser");
         if(userAccountDTO == null)
             resp.sendRedirect("/login");
@@ -32,6 +34,8 @@ public class MyAccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         String path = "/login";
         Boolean isSuccess = false;
         String error="";
@@ -46,13 +50,17 @@ public class MyAccountController extends HttpServlet {
                 String commune = req.getParameter("commune");
                 String district = req.getParameter("district");
                 String province = req.getParameter("province");
+                String phone = req.getParameter("phone");
+                String img = req.getParameter("urlImage");
 
                 AddressDTO addressDTO = new AddressDTO(number,street,commune,district,province);
                 int id= userAccountDTO.getId();
-                if(AccountBusiness.UpdateInfo(firstname,lastname,id,addressDTO)==true)
+                if(AccountBusiness.UpdateInfo(firstname,lastname,id,phone,img,addressDTO)==true)
                 {
                     userAccountDTO.setFirstname(firstname);
                     userAccountDTO.setLastname(lastname);
+                    userAccountDTO.setImage(img);
+                    userAccountDTO.setPhone(phone);
                     isSuccess = true;
                     req.getSession().removeAttribute("loginedUser");
                     req.removeAttribute("address");

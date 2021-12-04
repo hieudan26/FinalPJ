@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,7 @@ public class ProductsEntity {
     private CategoriesEntity categoriesEntity;
     private Set<ColorsEntity> colorsEntities;
     private Set<ReviewsEntity> reviewsEntities;
+    private Date adddate;
 
     @Fetch(FetchMode.SELECT)
     @ManyToMany()
@@ -175,6 +177,16 @@ public class ProductsEntity {
     }
     public void setPublish(Boolean publish) {
         this.publish = publish;
+    }
+
+    @Basic
+    @Column(name = "adddate", nullable = true)
+    public Date getAdddate() {
+        return adddate;
+    }
+
+    public void setAdddate(Date transdate) {
+        this.adddate = transdate;
     }
 
     @Override

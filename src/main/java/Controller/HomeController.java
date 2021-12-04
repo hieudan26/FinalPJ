@@ -20,7 +20,6 @@ public class HomeController extends HttpServlet {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
-
         //Create new list all category
         //Call method getAll to return list in Class STATIC CategoryDAO
         List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();
@@ -41,6 +40,7 @@ public class HomeController extends HttpServlet {
         req.setAttribute("Top8Product_categoriesTop4EntityList_tab2", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(1).getId(), 8)));
         req.setAttribute("Top8Product_categoriesTop4EntityList_tab3", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(2).getId(), 8)));
         req.setAttribute("Top8Product_categoriesTop4EntityList_tab4", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID(categoriesTop4EntityList.get(3).getId(), 8)));
+
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
         dispatcher.forward(req,resp);

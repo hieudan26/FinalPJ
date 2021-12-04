@@ -14,12 +14,12 @@
                         <ul>
                             <li class="dropdown"><a href="<c:url value="/home" />">Home</a>
                             </li>
-                            <li><a href="about.jsp">About</a></li>
+                            <li><a href="/about">About</a></li>
                             <li class="position-static"><a href="<c:url value="/shop" />">Shop</a>
                             </li>
-                            <li class=""><a href="coming-soon.jsp">Blog</a>
+                            <li class=""><a href="/comingsoon">Blog</a>
                             </li>
-                            <li><a href="contact.jsp">Contact</a></li>
+                            <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,9 +35,9 @@
                             <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
                                     class="pe-7s-users"></i></button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a class="dropdown-item" href="my-account.jsp">My account</a></li>
+                                <li><a class="dropdown-item" href="<c:url value='/myaccount'/>">My account</a></li>
                                 <c:if test="${sessionScope.loginedUser != null}">
-                                    <li><a class="dropdown-item" href="checkout.jsp">Checkout</a></li>
+                                    <li><a class="dropdown-item" href="/CheckOutController">Checkout</a></li>
                                 </c:if>
                                 <c:choose>
                                     <c:when test="${sessionScope.loginedUser == null}">
@@ -50,9 +50,6 @@
                             </ul>
                         </div>
                         <!-- Single Wedge Start -->
-                        <a href="#offcanvas-wishlist" class="header-action-btn offcanvas-toggle">
-                            <i class="pe-7s-like"></i>
-                        </a>
                         <!-- Single Wedge End -->
                         <a onclick="onClickHeaderCartList();" href="#offcanvas-cart"
                            class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
@@ -100,50 +97,7 @@
 <div class="offcanvas-overlay"></div>
 
 <!-- OffCanvas Wishlist Start -->
-<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist">
-    <div class="inner">
-        <div class="head">
-            <span class="title">Wishlist</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <div class="body customScroll">
-            <ul class="minicart-product-list">
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/1.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand-Made Garlic Mortar</a>
-                        <span class="quantity-price">1 x <span class="amount">$21.86</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/2.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Handmade Ceramic Pottery</a>
-                        <span class="quantity-price">1 x <span class="amount">$13.28</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="single-product.jsp" class="image"><img src="assets/images/product-image/3.jpg"
-                                                                    alt="Cart product Image"></a>
-                    <div class="content">
-                        <a href="single-product.jsp" class="title">Hand Painted Bowls</a>
-                        <span class="quantity-price">1 x <span class="amount">$17.34</span></span>
-                        <a href="#" class="remove">×</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="foot">
-            <div class="buttons">
-                <a href="wishlist.jsp" class="btn btn-dark btn-hover-primary mt-30px">view wishlist</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- OffCanvas Wishlist End -->
 <!-- OffCanvas Cart Start -->
 <div id="offcanvas-cart" class="offcanvas offcanvas-cart">
@@ -160,9 +114,9 @@
         </div>
         <div class="foot">
             <div class="buttons mt-30px">
-                <a href="cart.jsp" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                <a href="/cart" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
                 <c:if test="${sessionScope.loginedUser != null}">
-                    <a href="checkout.jsp" class="btn btn-outline-dark current-btn">checkout</a>
+                    <a href="<c:url value='/CheckOutController'/>" class="btn btn-outline-dark current-btn">checkout</a>
                 </c:if>
             </div>
         </div>
@@ -178,15 +132,15 @@
 
         <div class="offcanvas-menu mb-4">
             <ul>
-                <li><a href="#"><span class="menu-text">Home</span></a>
+                <li><a href="<c:url value='/home'/>"><span class="menu-text">Home</span></a>
                 </li>
-                <li><a href="about.jsp">About</a></li>
+                <li><a href="<c:url value='/about'/>">About</a></li>
 
-                <li><a href="shop-left-sidebar.jsp"><span class="menu-text">Shop</span></a>
+                <li><a href="<c:url value='/shop'/>"><span class="menu-text">Shop</span></a>
                 </li>
-                <li><a href="coming-soon.jsp"><span class="menu-text">Blog</span></a>
+                <li><a href="<c:url value='/comingsoon'/>"><span class="menu-text">Blog</span></a>
                 </li>
-                <li><a href="contact.jsp">Contact Us</a></li>
+                <li><a href="<c:url value='/contact'/>">Contact Us</a></li>
             </ul>
         </div>
         <!-- OffCanvas Menu End -->

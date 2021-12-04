@@ -18,17 +18,29 @@ public class AccountBusiness {
         }
     }
 
-    public static boolean UpdateInfo(String firstname,String lastname ,int id,AddressDTO addressDTO)
+    public static boolean UpdateInfo(String firstname,String lastname ,int id,String phone,String img,AddressDTO addressDTO)
     {
         UsersEntity users =(UsersEntity) SingletonServiceUltils.getUserDAOImpl().getOneById(id);
         String address = addressDTO.toString();
         users.setFirstName(firstname);
         users.setLastName(lastname);
         users.setAddress(address);
+        users.setPhone(phone);
+        users.setImage(img);
         UsersEntity userUpdate = SingletonServiceUltils.getUserDAOImpl().update(users);
         return userUpdate!=null;
     }
-
+    public static boolean UpdateInfoVer2(String firstname,String lastname,String phone ,int id,AddressDTO addressDTO)
+    {
+        UsersEntity users =(UsersEntity) SingletonServiceUltils.getUserDAOImpl().getOneById(id);
+        String address = addressDTO.toString();
+        users.setFirstName(firstname);
+        users.setPhone(phone);
+        users.setLastName(lastname);
+        users.setAddress(address);
+        UsersEntity userUpdate = SingletonServiceUltils.getUserDAOImpl().update(users);
+        return userUpdate!=null;
+    }
     public static AccountsEntity CheckPassword(int id, String old_pass)
     {
         UsersEntity users = SingletonServiceUltils.getUserDAOImpl().getOneById(id);

@@ -23,6 +23,7 @@ class RegisterController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String message="";
         boolean isSuccess = false;
         try {
@@ -52,14 +53,14 @@ class RegisterController extends HttpServlet{
                 message = "email is existed";
             }
             else {
-                Boolean hasRegister = RegisterBusiness.regiterUser(username,password,email);
+                Boolean hasRegister = RegisterBusiness.regiterUser(username,password,email,1);
                 message = "Please check your mail to active account!!";
                 isSuccess =  true;
             }
         }catch (Exception e){
             System.out.println("Registe failed: "+e);
         }
-       DirectEror(message,isSuccess,req,resp);
+        DirectEror(message,isSuccess,req,resp);
     }
 
     public void DirectEror(String Message,boolean isSuccess,HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{

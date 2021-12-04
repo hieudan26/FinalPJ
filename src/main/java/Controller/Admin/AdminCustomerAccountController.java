@@ -1,6 +1,7 @@
 package Controller.Admin;
 
 import DTO.AddressDTO;
+import Model.RolesEntity;
 import Model.UsersEntity;
 import Utils.SingletonServiceUltils;
 
@@ -22,12 +23,15 @@ public class AdminCustomerAccountController extends HttpServlet {
         try{
             int idCustomer = Integer.parseInt(id);
             UsersEntity users = SingletonServiceUltils.getUserDAOImpl().getOneById(idCustomer);
-            if(users.getImage() == null)
-                users.setImage(IMAGE_NULL_URL);
+
             if(users != null){
+                if(users.getImage() == null)
+                    users.setImage(IMAGE_NULL_URL);
                 AddressDTO addressDTO = new AddressDTO(users.getAddress());
+                RolesEntity role = users.getAccountsEntity().getRolesEntity();
                 req.setAttribute("users",users);
                 req.setAttribute("address",addressDTO);
+                req.setAttribute("role",role.getName());
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/CustomerAccount.jsp");
                 dispatcher.forward(req,resp);
                 return;

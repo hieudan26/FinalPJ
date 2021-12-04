@@ -17,12 +17,13 @@
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arion Admin Dashboard</title>
-    <meta name="description" content="Arion — This is the best dashboard" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Mioca Admin Dashboard</title>
+    <meta name="description" content="Mioca — This is the best dashboard" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="Arion — This is the best dashboard" />
-    <meta name="apple-mobile-web-app-title" content="Arion Admin Dashboard" />
+    <meta name="application-name" content="Mioca — This is the best dashboard" />
+    <meta name="apple-mobile-web-app-title" content="Mioca Admin Dashboard" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="stylesheet" href="<c:url value="../Admin/../Admin/assets/css/bootstrap.min.css"/>" />
@@ -54,6 +55,8 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-storage.js"></script>
     <script src="../Admin/assets/js/vendor/jquery.min.js"></script>
 </head>
 
@@ -457,363 +460,27 @@
                                     <use xlink:href="#icon-menu"></use>
                                 </svg>
                             </button>
-                            <button class="header__toggle-search toggle-search">
-                                <svg class="icon-icon-search">
-                                    <use xlink:href="#icon-search"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="header__search">
-                            <form class="form-search" action="#" method="GET">
-                                <div class="form-search__container"><span class="form-search__icon-left">
-                        <svg class="icon-icon-search">
-                          <use xlink:href="#icon-search"></use>
-                        </svg></span>
-                                    <input class="form-search__input" type="text" placeholder="Search..." />
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="header__col-right col d-flex align-items-center">
-                        <div class="header__language dropdown">
-                            <button class="header__toggle-language" type="button" data-toggle="dropdown" data-tippy-content="Language" data-tippy-placement="bottom">
-                                <svg class="icon-icon-language">
-                                    <use xlink:href="#icon-language"></use>
-                                </svg> <span class="icon-arrow-down">
-                      <svg class="icon-icon-arrow-down">
-                        <use xlink:href="#icon-arrow-down"></use>
-                      </svg></span>
-                            </button>
-                            <div class="lang-menu dropdown-menu">
-                                <button class="lang-menu__button dropdown-menu__item" tabindex="0">
-                                    <img class="lang-menu__icon" src="../Admin/assets/img/content/flags/us.svg" alt="#" /><span class="lang-menu__text">En</span>
-                                </button>
-                                <button class="lang-menu__button dropdown-menu__item" tabindex="0">
-                                    <img class="lang-menu__icon" src="../Admin/assets/img/content/flags/gb.svg" alt="#" /><span class="lang-menu__text">Gb</span>
-                                </button>
-                                <button class="lang-menu__button dropdown-menu__item" tabindex="0">
-                                    <img class="lang-menu__icon" src="../Admin/assets/img/content/flags/ru.svg" alt="#" /><span class="lang-menu__text">Ru</span>
-                                </button>
-                                <button class="lang-menu__button dropdown-menu__item" tabindex="0">
-                                    <img class="lang-menu__icon" src="../Admin/assets/img/content/flags/cn.svg" alt="#" /><span class="lang-menu__text">Cn</span>
-                                </button>
-                                <div class="lang-menu__separate"></div><a class="lang-menu__button lang-menu__button--all dropdown-menu__item" href="#" tabindex="0">Learn</a>
-                            </div>
-                        </div>
-                        <div class="header__tools">
-                            <div class="header__notes header__tools-item">
-                                <a class="header__tools-toggle header__tools-toggle--message" href="#" data-tippy-content="Notifications" data-tippy-placement="bottom" data-toggle="dropdown">
-                                    <svg class="icon-icon-message">
-                                        <use xlink:href="#icon-message"></use>
-                                    </svg> <span class="badge-signal"></span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <div class="dropdown-menu__top dropdown-menu__item"><span class="dropdown-menu__title">Notifications</span><span class="badge badge--red">5</span><a class="dropdown-menu__clear-all" href="#" role="button">Clear All</a>
-                                    </div>
-                                    <div class="dropdown-menu__items scrollbar-thin scrollbar-visible" data-simplebar="data-simplebar">
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__note" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-green">
-                                                        <svg class="icon-icon-cart">
-                                                            <use xlink:href="#icon-cart"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <h4 class="dropdown-menu__item-title">New Order Received</h4><span class="dropdown-menu__item-time">25 min ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__note" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-orange">
-                                                        <svg class="icon-icon-bill">
-                                                            <use xlink:href="#icon-bill"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <h4 class="dropdown-menu__item-title">New invoice received</h4><span class="dropdown-menu__item-time">5 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__note" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-teal">
-                                                        <svg class="icon-icon-truck">
-                                                            <use xlink:href="#icon-truck"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <h4 class="dropdown-menu__item-title">new batch is shipped</h4><span class="dropdown-menu__item-time">10 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__note" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-green">
-                                                        <svg class="icon-icon-cart">
-                                                            <use xlink:href="#icon-cart"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <h4 class="dropdown-menu__item-title">New Order Received</h4><span class="dropdown-menu__item-time">25 min ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__note" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-orange">
-                                                        <svg class="icon-icon-bill">
-                                                            <use xlink:href="#icon-bill"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <h4 class="dropdown-menu__item-title">New invoice received</h4><span class="dropdown-menu__item-time">5 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu__divider"></div><a class="dropdown-menu__item dropdown-menu__link-all" href="#">View all Notifications
-                                    <svg class="icon-icon-keyboard-right">
-                                        <use xlink:href="#icon-keyboard-right"></use>
-                                    </svg></a>
-                                </div>
-                            </div>
-                            <div class="header__messages header__tools-item">
-                                <a class="header__tools-toggle header__tools-toggle--bell" href="#" data-tippy-content="Messages" data-tippy-placement="bottom" data-toggle="dropdown">
-                                    <svg class="icon-icon-bell">
-                                        <use xlink:href="#icon-bell"></use>
-                                    </svg> <span class="badge-signal"></span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <div class="dropdown-menu__top dropdown-menu__item"><span class="dropdown-menu__title">Messages</span><span class="badge badge--red">7</span><a class="dropdown-menu__clear-all" href="#" role="button">Clear All</a>
-                                    </div>
-                                    <div class="dropdown-menu__items scrollbar-thin scrollbar-visible" data-simplebar="data-simplebar">
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-teal">
-                                                        <div class="dropdown-menu__item-icon-text">MA</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-4.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal badge-signal--green"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">Mark Anderson</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">25 min ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-orange-dark">
-                                                        <div class="dropdown-menu__item-icon-text">JT</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-1.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal badge-signal--green"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">Jennifer Tang</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">3 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-orange">
-                                                        <div class="dropdown-menu__item-icon-text">SA</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-5.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">Stephen Allen</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">10 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-red">
-                                                        <div class="dropdown-menu__item-icon-text">WS</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-6.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal badge-signal--red"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">Walter Sanders</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">30 min ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-blue">
-                                                        <div class="dropdown-menu__item-icon-text">SA</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-5.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal badge-signal--green"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">Stephen Allen</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">2h hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-green">
-                                                        <div class="dropdown-menu__item-icon-text">JH</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-7.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">John Hendrix</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">8 hours ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="dropdown-menu__item">
-                                            <a class="dropdown-menu__item-remove" href="#">
-                                                <svg class="icon-icon-cross">
-                                                    <use xlink:href="#icon-cross"></use>
-                                                </svg>
-                                            </a>
-                                            <a class="dropdown-menu__item-block dropdown-menu__message" href="#">
-                                                <div class="dropdown-menu__item-left">
-                                                    <div class="dropdown-menu__item-icon color-orange">
-                                                        <div class="dropdown-menu__item-icon-text">RH</div>
-                                                        <img src="../Admin/assets/img/content/humans/item-8.jpg" alt="#" />
-                                                    </div>
-                                                    <div class="badge-signal badge-signal--red"></div>
-                                                </div>
-                                                <div class="dropdown-menu__item-right">
-                                                    <div class="dropdown-menu__item-column">
-                                                        <h4 class="dropdown-menu__item-title">Ryan Henderson</h4>
-                                                        <p class="dropdown-menu__text">Nemo enim ipsam voluptatem Nemo enim ipsam voluptatem</p>
-                                                    </div><span class="dropdown-menu__item-time">5 min ago</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu__divider"></div><a class="dropdown-menu__item dropdown-menu__link-all" href="#">View all Messages
-                                    <svg class="icon-icon-keyboard-right">
-                                        <use xlink:href="#icon-keyboard-right"></use>
-                                    </svg></a>
-                                </div>
-                            </div>
-                        </div>
                         <div class="header__profile dropdown">
                             <a class="header__profile-toggle dropdown__toggle" href="#" data-toggle="dropdown">
                                 <div class="header__profile-image"><span class="header__profile-image-text">MA</span>
-                                    <img src="../Admin/assets/img/content/humans/item-4.jpg" alt="#" />
+                                    <img src="<c:url value='${sessionScope.loginedUser.getImage()}'/>" alt="#" />
                                 </div>
-                                <div class="header__profile-text"><span>Mark Anderson</span>
+                                <div class="header__profile-text"><span><c:out value="${sessionScope.loginedUser.getLastname()}"/> <c:out value="${sessionScope.loginedUser.getFirstname()}"/></span>
                                 </div><span class="icon-arrow-down">
                       <svg class="icon-icon-arrow-down">
                         <use xlink:href="#icon-arrow-down"></use>
                       </svg></span>
                             </a>
-                            <div class="profile-dropdown dropdown-menu dropdown-menu--right"><a class="profile-dropdown__item dropdown-menu__item" href="#" tabindex="0"><span class="profile-dropdown__icon">
+                            <div class="profile-dropdown dropdown-menu dropdown-menu--right"><a class="profile-dropdown__item dropdown-menu__item" href="/myaccount" tabindex="0"><span class="profile-dropdown__icon">
                         <svg class="icon-icon-user">
                           <use xlink:href="#icon-user"></use>
-                        </svg></span><span>My Profile</span></a><a class="profile-dropdown__item dropdown-menu__item" href="#" tabindex="0"><span class="profile-dropdown__icon">
-                        <svg class="icon-icon-chat">
-                          <use xlink:href="#icon-chat"></use>
-                        </svg></span><span>My chat</span></a><a class="profile-dropdown__item dropdown-menu__item" href="#" tabindex="0"><span class="profile-dropdown__icon">
-                        <svg class="icon-icon-task">
-                          <use xlink:href="#icon-task"></use>
-                        </svg></span><span>Tasks</span></a><a class="profile-dropdown__item dropdown-menu__item" href="#" tabindex="0"><span class="profile-dropdown__icon">
-                        <svg class="icon-icon-settings">
-                          <use xlink:href="#icon-settings"></use>
-                        </svg></span><span>Settings</span></a>
-                                <div class="dropdown-menu__divider"></div><a class="profile-dropdown__item dropdown-menu__item" href="#" tabindex="0"><span class="profile-dropdown__icon">
+                        </svg></span><span>My Profile</span></a><a class="profile-dropdown__item dropdown-menu__item" href="/logout" tabindex="0"><span class="profile-dropdown__icon">
                         <svg class="icon-icon-logout">
                           <use xlink:href="#icon-logout"></use>
-                        </svg></span><span>Logout</span></a>
-                            </div>
+                        </svg></span><span>Logout</span></a></div>
                         </div>
                     </div>
                 </div>
@@ -825,37 +492,35 @@
         <div class="sidebar__container">
             <div class="sidebar__top">
                 <div class="container container--sm">
-                    <a class="sidebar__logo" href="index.html">
+                    <a class="sidebar__logo" href="/admin">
                         <img class="sidebar__logo-icon" src="../Admin/assets/img/content/logotype.svg" alt="#" width="44" />
-                        <div class="sidebar__logo-text">arion</div>
+                        <div class="sidebar__logo-text">Mioca</div>
                     </a>
                 </div>
             </div>
             <div class="sidebar__content" data-simplebar="data-simplebar">
                 <nav class="sidebar__nav">
                     <ul class="sidebar__menu">
-                        <li class="sidebar__menu-item"><a class="sidebar__link active" href="index.html" aria-expanded="true"><span class="sidebar__link-icon">
+                        <li class="sidebar__menu-item"><a class="sidebar__link active" href="/admin" aria-expanded="true"><span class="sidebar__link-icon">
                                 <svg class="icon-icon-dashboard">
                                     <use xlink:href="#icon-dashboard"></use>
                                 </svg></span><span class="sidebar__link-text">Dashboard</span></a>
                         </li>
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#customer-manage" aria-expanded="false"><span class="sidebar__link-icon">
-                                <svg class="icon-icon-cart">
-                                    <use xlink:href="#icon-cart"></use>
-                                </svg></span><span class="sidebar__link-text">Customer Manage</span><span class="sidebar__link-arrow">
+                        <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/product" data-toggle="collapse" data-target="#customer-manage" aria-expanded="false"><span class="sidebar__link-icon">
+                                <svg class="icon-icon-contacts">
+                                    <use xlink:href="#icon-contacts"></use>
+                                </svg></span><span class="sidebar__link-text">Account Manage</span><span class="sidebar__link-arrow">
                                 <svg class="icon-icon-keyboard-down">
                                     <use xlink:href="#icon-keyboard-down"></use>
                                 </svg></span></a>
                             <div class="collapse" id="customer-manage">
                                 <ul class="sidebar__collapse-menu">
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="customers.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Customers</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="customer-account.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Account</span></a>
+                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/customer"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Customers</span></a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#product-manage" aria-expanded="false"><span class="sidebar__link-icon">
+                        <li class="sidebar__menu-item"><a class="sidebar__link" href="/product" data-toggle="collapse" data-target="#product-manage" aria-expanded="false"><span class="sidebar__link-icon">
                                 <svg class="icon-icon-cart">
                                     <use xlink:href="#icon-cart"></use>
                                 </svg></span><span class="sidebar__link-text">Product Manage</span><span class="sidebar__link-arrow">
@@ -864,95 +529,48 @@
                                 </svg></span></a>
                             <div class="collapse" id="product-manage">
                                 <ul class="sidebar__collapse-menu">
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="products.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Products</span></a>
+                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/product"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Products</span></a>
                                     </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="product-add.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Add Product</span></a>
+                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/addproduct"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Add Product</span></a>
                                     </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="product-add.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Edit Product</span></a>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar__menu-item"><a class="sidebar__link" href="/review" data-toggle="collapse" data-target="#others-manage" aria-expanded="false"><span class="sidebar__link-icon">
+                                <svg class="icon-icon-list">
+                                    <use xlink:href="#icon-list"></use>
+                                </svg></span><span class="sidebar__link-text">Others Manage</span><span class="sidebar__link-arrow">
+                                <svg class="icon-icon-keyboard-down">
+                                    <use xlink:href="#icon-keyboard-down"></use>
+                                </svg></span></a>
+                            <div class="collapse" id="others-manage">
+                                <ul class="sidebar__collapse-menu">
+                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/categories"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Categories</span></a>
                                     </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="reviews.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Reviews</span></a>
+                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/review"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Reviews</span></a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#orders-manange" aria-expanded="false"><span class="sidebar__link-icon">
-                                <svg class="icon-icon-cart">
-                                    <use xlink:href="#icon-cart"></use>
+                        <li class="sidebar__menu-item"><a class="sidebar__link" href="admin/product" data-toggle="collapse" data-target="#orders-manange" aria-expanded="false"><span class="sidebar__link-icon">
+                                <svg class="icon-icon-folder">
+                                    <use xlink:href="#icon-folder"></use>
                                 </svg></span><span class="sidebar__link-text">Orders Manage</span><span class="sidebar__link-arrow">
                                 <svg class="icon-icon-keyboard-down">
                                     <use xlink:href="#icon-keyboard-down"></use>
                                 </svg></span></a>
                             <div class="collapse" id="orders-manange">
                                 <ul class="sidebar__collapse-menu">
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="orders.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Orders</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="order-details.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Order Details</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="order-invoice.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Order Invoice</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="order-status.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Order Status</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="order-history.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Order History</span></a>
+                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/order"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Orders</span></a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="products.html" data-toggle="collapse" data-target="#admin" aria-expanded="false"><span class="sidebar__link-icon">
-                                <svg class="icon-icon-cart">
-                                    <use xlink:href="#icon-cart"></use>
-                                </svg></span><span class="sidebar__link-text">Admin</span><span class="sidebar__link-arrow">
-                                <svg class="icon-icon-keyboard-down">
-                                    <use xlink:href="#icon-keyboard-down"></use>
-                                </svg></span></a>
-                            <div class="collapse" id="admin">
-                                <ul class="sidebar__collapse-menu">
-
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="#" data-toggle="collapse" data-target="#Auth" aria-expanded="false"><span class="sidebar__link-icon">
+                        <li class="sidebar__menu-item"><a class="sidebar__link" href="/admin/createaccount" ><span class="sidebar__link-icon">
                       <svg class="icon-icon-password">
                         <use xlink:href="#icon-password"></use>
-                      </svg></span><span class="sidebar__link-text">Authentication</span><span class="sidebar__link-arrow">
-                      <svg class="icon-icon-keyboard-down">
-                        <use xlink:href="#icon-keyboard-down"></use>
-                      </svg></span></a>
-                            <div class="collapse" id="Auth">
-                                <ul class="sidebar__collapse-menu">
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-login.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Login</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-login-v2.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Login V.2</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-login-v3.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Login V.3</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-create.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Create Account</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-create-v2.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Create Account V.2</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-create-v3.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Create Account V.3</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-lock.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Lock</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-lock-v2.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Lock V.2</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-lock-v3.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Lock V.3</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-forgot.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Forgot</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-forgot-v2.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Forgot V.2</span></a>
-                                    </li>
-                                    <li class="sidebar__menu-item"><a class="sidebar__link" href="auth-forgot-v3.html"><span class="sidebar__link-signal"></span><span class="sidebar__link-text">Forgot V.3</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="404.html" aria-expanded="false"><span class="sidebar__link-icon"></span><span class="sidebar__link-text">404</span></a>
-                        </li>
-                        <li class="sidebar__menu-item"><a class="sidebar__link" href="ui-kit.html" aria-expanded="false"><span class="sidebar__link-icon">
-                      <svg class="icon-icon-settings">
-                        <use xlink:href="#icon-settings"></use>
-                      </svg></span><span class="sidebar__link-text">UI Kit</span></a>
+                      </svg></span><span class="sidebar__link-text">Authentication</span></a>
                         </li>
                     </ul>
                 </nav>

@@ -21,13 +21,23 @@ public class SecurityConfig {
     private static void init() {
         // Cấu hình cho vai trò "user".
         List<String> urlPatterns1 = new ArrayList<String>();
-        //urlPatterns1.add("/home");
-        //urlPatterns1.add("/account");
+        urlPatterns1.add("/CheckOutController");
+        urlPatterns1.add("/myaccount");
         mapConfig.put(ROLE_USER, urlPatterns1);
 
         // Cấu hình cho vai trò "admin".
         List<String> urlPatterns2 = new ArrayList<String>();
-        urlPatterns2.add("/manager");
+        urlPatterns2.add("/admin");
+        urlPatterns2.add("/admin/addproduct");
+        urlPatterns2.add("/admin/categories");
+        urlPatterns2.add("/admin/createaccount");
+        urlPatterns2.add("/admin/customeraccount");
+        urlPatterns2.add("/admin/customer");
+        urlPatterns2.add("/admin/editproduct");
+        urlPatterns2.add("/admin/order");
+        urlPatterns2.add("/admin/product");
+        urlPatterns2.add("/admin/review");
+
         mapConfig.put(ROLE_ADMIN, urlPatterns2);
     }
 

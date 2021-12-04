@@ -39,4 +39,31 @@ public class CategoryDAOImpl extends AbstractDAO<Integer, CategoriesEntity> impl
         }
         return categoriesEntityList;
     }
+
+    @Override
+    public boolean CheckNameExist(String name){
+        Transaction transaction = null;
+        Session session =HibernateUtils.getSessionFactory().openSession();
+        List<CategoriesEntity> catesEntityList = new ArrayList<>();
+        try{
+
+            transaction = session.beginTransaction();
+            Query<CategoriesEntity> catesEntityQuery = session.createQuery("FROM CategoriesEntity cate " +
+                    "WHERE cate.name =: name");
+            catesEntityQuery.setParameter("name",name);
+            catesEntityList = catesEntityQuery.getResultList();
+        }catch (Exception e){
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            transaction.commit();
+            session.close();
+        }
+        if(catesEntityList.size() == 0)
+            return false;
+        else
+            return true;
+    }
 }

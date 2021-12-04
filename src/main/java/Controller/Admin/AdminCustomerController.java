@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/admin/customer")
-public class AdminCustomerContrller extends HttpServlet {
+public class AdminCustomerController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/Customer.jsp");
@@ -28,14 +28,13 @@ public class AdminCustomerContrller extends HttpServlet {
                 int idCustomer = Integer.parseInt(id);
                 UsersEntity users = SingletonServiceUltils.getUserDAOImpl().getOneById(idCustomer);
                 if(users != null){
-                    users.setActive(false);
+                    Boolean ban = users.getBanned();
+                    users.setBanned(!ban);
                     SingletonServiceUltils.getUserDAOImpl().update(users);
                 }
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }
-
-        resp.sendRedirect("/admin/customer");
     }
 }

@@ -11,5 +11,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductStatusDAO extends GenericDAO<Integer, ProductStatusesEntity>{
-
+    ProductStatusesEntity getByBoolean (boolean id);
 }

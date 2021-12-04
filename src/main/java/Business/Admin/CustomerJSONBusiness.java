@@ -18,6 +18,7 @@ public class CustomerJSONBusiness {
             CustomerJSON temp_user = getCustomer(user);
             customerJSONList.add(temp_user);
         }
+        customerJSONList.sort((CustomerJSON a,CustomerJSON b)-> a.getId() - b.getId());
         return customerJSONList;
     }
     public static CustomerJSON getCustomer(UsersEntity user){
@@ -29,14 +30,14 @@ public class CustomerJSONBusiness {
             String name = user.getFirstName() + " "+ user.getLastName();
             name = name.replace("null","");
             String Image = IMAGE_NULL_URL;
-            String active = "InActive";
+            String active = "Live";
 
-            //int Oders = SingletonServiceUltils.getOrderProductDAOImpl()
+            int Oders = SingletonServiceUltils.getCcTransactionDAOImpl().getAllbyUserIdandStatus(user.getId()).size();
 
             if(name.equals(" "))
                 name ="none";
-            if(user.getActive()!=null && user.getActive() == true)
-                active = "Active";
+            if(user.getBanned()!=null && user.getBanned() == true)
+                active = "Banned";
             if(user.getAddress() != null)
             {
                 AddressDTO addressDTO = new AddressDTO(user.getAddress());
@@ -52,8 +53,7 @@ public class CustomerJSONBusiness {
             userJSON.setName(name);
             userJSON.setStatus(active);
             userJSON.setMail(user.getEmail());
-            //userJSON.setOrders();
-            //userJSON.setRegister("");
+            userJSON.setOrders(Oders);
             return userJSON;
         }
         return null;

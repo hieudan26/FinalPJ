@@ -12,4 +12,5 @@ import java.util.List;
 public interface CategoryDAO extends GenericDAO<Integer, CategoriesEntity> {
     //get top 4 categories popular in shop
     List<CategoriesEntity> top4PopularCategories();
+    boolean CheckNameExist(String name);
 }

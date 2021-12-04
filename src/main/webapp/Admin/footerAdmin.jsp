@@ -27,8 +27,6 @@
 <script src="../Admin/assets/js/vendor/jqvmap/jquery.vmap.world.js"></script>
 <script src="../Admin/assets/js/vendor/jqvmap/jquery.vmap.sampledata.js"></script>
 <script src="../Admin/assets/js/vendor/jquery.star-rating-svg.min.js"></script>
-<script src="../Admin/assets/js/vendor/calendar/flatpickr/flatpickr.min.js"></script>
-<script src="../Admin/assets/js/vendor/calendar/flatpickr/en.js"></script>
 <script src="../Admin/assets/js/vendor/select2.min.js"></script>
 <script src="../Admin/assets/js/vendor/editors/quill.min.js"></script>
 <script src="../Admin/assets/js/vendor/filepond/filepond-plugin-image-preview.min.js"></script>

@@ -16,6 +16,10 @@ public class UserAccountDTO {
     private String lastname;
     private String firstname;
     private Set<String> roles;
+    private  AddressDTO address;
+    private  String phone;
+    private String image;
+
 
     public UserAccountDTO() {
     }
@@ -31,13 +35,23 @@ public class UserAccountDTO {
             this.roles.add(role);
         }
     }
+    public UserAccountDTO(int id, String email, String lastname, String firstname, Set<String> roles, AddressDTO address, String phone) {
+        this.id = id;
+        this.email = email;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.roles = roles;
+        this.address = address;
+        this.phone = phone;
+    }
 
     public UserAccountDTO(UsersEntity user, RolesEntity role) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.firstname = user.getFirstName();
         this.lastname = user.getLastName();
-
+        this.image = user.getImage();
+        this.phone = user.getPhone();
         this.roles = new HashSet<String>();
         if(role != null)
         {
@@ -48,6 +62,13 @@ public class UserAccountDTO {
 
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public int getId() {
         return id;
@@ -79,6 +100,21 @@ public class UserAccountDTO {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Set<String> getRoles() {

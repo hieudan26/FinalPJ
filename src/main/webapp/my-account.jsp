@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="assets/css/style.min.css"> -->
 
     <!-- Main Style -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-storage.js"></script>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/myaccout.css" />
 </head>
@@ -93,7 +95,7 @@
                 <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
                     <ul role="tablist" class="nav flex-column dashboard-list">
                         <li><a href="#dashboard" id="dashbordtab" data-bs-toggle="tab" class="nav-link active">Dashboard</a></li>
-                        <li><a id="Orderstab" href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
+                        <li><a id="Orderstab" onclick="loadOrder()" href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
                         <li><a id="Addresstab" href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
                         <li><a id="UpdateIn4" href="#update-information" data-bs-toggle="tab" class="nav-link">Update information</a></li>
                         <li><a id="changePassword" href="#change-password" data-bs-toggle="tab" class="nav-link">Change password</a></li>
@@ -105,7 +107,16 @@
                 <!-- Tab panes -->
                 <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
                     <div class="tab-pane fade show active" id="dashboard">
-                        <h4>Dashboard </h4>
+                        <h4>
+                            <c:if test="${sessionScope.loginedUser.getImage()==null || sessionScope.loginedUser.getImage()==''}">
+                                <img style="width: 100px;height: 100px; border-radius: 50%; margin: 0 auto" src="assets/images/noimage.png">
+                            </c:if>
+                            <c:if test="${sessionScope.loginedUser.getImage()!=null && sessionScope.loginedUser.getImage()!=''}">
+                                <img style="width: 100px;height: 100px; border-radius: 50%;" src="${sessionScope.loginedUser.getImage()}">
+                            </c:if>
+                            Dashboard (<c:out value="${sessionScope.loginedUser.getLastname()}"/>  <c:out value="${sessionScope.loginedUser.getFirstname()}"/>)
+                        </h4>
+
                         <p role="tablist">From your account dashboard. you can easily check &amp; view your <a onclick="onTab(event, 'Orders')" href="#orders">recent
                             orders</a>, manage your <a onclick="onTab(event, 'Address')" href="#">shipping and billing addresses</a> and <a
                                 onclick="onTab(event, 'changePassword')" href="#">Edit your password </a> and <a onclick="onTab(event, 'UpdateIn4')" href="#">account details.</a></p>
@@ -119,33 +130,24 @@
                     <div class="tab-pane fade" id="orders">
                         <h4>Orders</h4>
                         <div class="table_page table-responsive">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Order</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>May 10, 2018</td>
-                                    <td><span class="success">Completed</span></td>
-                                    <td>$25.00 for 1 item </td>
-                                    <td><a href="cart.jsp" class="view">view</a></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>May 10, 2018</td>
-                                    <td>Processing</td>
-                                    <td>$17.00 for 1 item </td>
-                                    <td><a href="cart.jsp" class="view">view</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <c:if test="${sessionScope.loginedUser!=null}">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </c:if>
+
+
                         </div>
                     </div>
                     <div class="tab-pane" id="address">
@@ -172,31 +174,44 @@
                                     <form action="/myaccount" method="post">
                                         <div class="default-form-box mb-20">
                                             <label>First Name</label>
-                                            <input required title="Wrong name We only accept character A-z and max 50 character" pattern="[A-Za-z\s]{1,50}" type="text" name="firstname" value="<c:out value="${sessionScope.loginedUser.getFirstname()}"/>">
+                                            <input required title="Wrong name We only accept character A-z and max 50 character" minlength="1" maxlength="50" type="text" name="firstname" value="<c:out value="${sessionScope.loginedUser.getFirstname()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20" >
                                             <label>Last Name</label>
-                                            <input required title="Wrong name We only accept character A-z and max 50 character" pattern="[A-Za-z\s]{1,50}" type="text" name="lastname" value="<c:out value="${sessionScope.loginedUser.getLastname()}"/>">
+                                            <input required title="Wrong name We only accept character A-z and max 50 character" minlength="1" maxlength="50" type="text" name="lastname" value="<c:out value="${sessionScope.loginedUser.getLastname()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
-                                            <label>Number</label>
-                                            <input required title="Wrong Number We only accept character 0-9 and max 10 character" pattern="[0-9]{,10}" type="text" name="number" value="<c:out value="${requestScope.address.getNumber()}"/>">
+                                            <label>Phone Number</label>
+                                            <input required title="Wrong Number We only accept character 0-9 and max 10 character" minlength="9" maxlength="12" type="text" name="phone" value="<c:out value="${sessionScope.loginedUser.getPhone()}"/>">
+                                        </div>
+                                        <div class="default-form-box mb-20">
+                                            <label>Number House</label>
+                                            <input required title="Wrong Number We only accept character 0-9 and max 10 character" minlength="1" maxlength="50"  type="text" name="number" value="<c:out value="${requestScope.address.getNumber()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Street</label>
-                                            <input required title="Wrong Street We only accept character A-z and 0-9 and max 50 character" pattern="[A-Za-z0-9\s]{1,50}" type="text" name="street" value="<c:out value="${requestScope.address.getStreet()}"/>">
+                                            <input required title="Wrong Street We only accept character A-z and 0-9 and max 50 character" minlength="1" maxlength="50" type="text" name="street" value="<c:out value="${requestScope.address.getStreet()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Commune</label>
-                                            <input required title="Wrong Commune We only accept character A-z and 0-9 and max 50 character" pattern="[A-Za-z0-9\s]{1,50}" type="text" name="commune" value="<c:out value="${requestScope.address.getCommune()}"/>">
+                                            <input required title="Wrong Commune We only accept character A-z and 0-9 and max 50 character" minlength="1" maxlength="50" type="text" name="commune" value="<c:out value="${requestScope.address.getCommune()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>District</label>
-                                            <input required title="Wrong District We only accept character A-z and 0-9 and max 50 character"  pattern="[A-Za-z0-9\s]{3,50}" type="text" name="district" value="<c:out value="${requestScope.address.getDistrict()}"/>">
+                                            <input required title="Wrong District We only accept character A-z and 0-9 and max 50 character"  minlength="1" maxlength="50" type="text" name="district" value="<c:out value="${requestScope.address.getDistrict()}"/>">
                                         </div>
                                         <div class="default-form-box mb-20">
                                             <label>Province</label>
-                                            <input required title="Wrong Province We only accept character A-z and max 50 character" pattern="[A-Za-z\s]{3,50}" type="text" name="province" value="<c:out value="${requestScope.address.getProvince()}"/>">
+                                            <input required title="Wrong Province We only accept character A-z and max 50 character" minlength="1" maxlength="50" type="text" name="province" value="<c:out value="${requestScope.address.getProvince()}"/>">
+                                        </div>
+                                        <div class="default-form-box mb-20">
+                                            <label>Image</label>
+                                            <label style="width:100%;" for="img" class="input-preview"></label>
+                                            <input hidden type="file" name="img"  id="img" class="input-preview__src" value="${sessionScope.loginedUser.getImage()}"/>
+                                        </div>
+                                        <input hidden required type="text" name="urlImage"  id="urlImage" class="input-preview__src" value="${sessionScope.loginedUser.getImage()}"/>
+                                        <div id="loading" class="spinner-border hidden-load" role="status">
+                                            <span class="sr-only">Loading...</span>
                                         </div>
                                         <div class="save_button mt-3">
                                             <button class="btn" type="submit">Save</button>
@@ -297,7 +312,25 @@
         document.getElementById("changePassword").classList.add("active");
     </script>
 </c:if>
+<script>
+    function loadOrder() {
+        $.ajax({
+            url: "/OrderAPI",
+            type: "get",
+            data: {},
+            success: function (response) {
+                var row = document.querySelector('tbody');
+                row.innerHTML = response;
 
+            },
+            error: function (xhr) {
+                alert("Loading data not success. Please comeback later !!")
+            }
+
+        })
+    }
+
+</script>
 <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 <!-- <script src="assets/js/vendor/vendor.min.js"></script>
 <script src="assets/js/plugins/plugins.min.js"></script> -->
@@ -305,5 +338,6 @@
 <!-- Main Js -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/myaccount.js"></script>
+<script src="assets/js/myaccountfirebase.js"></script>
 </body>
 </html>

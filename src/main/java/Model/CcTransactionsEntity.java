@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -9,7 +10,8 @@ import java.util.Date;
 public class CcTransactionsEntity {
     private int id;
     private Date transdate;
-    private Integer amount;
+    private BigDecimal amount;
+    private String status;
     private SalesOrdersEntity salesOrdersEntity;
 
     //many to one cc-->sale_oder
@@ -25,6 +27,7 @@ public class CcTransactionsEntity {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy =GenerationType.IDENTITY )
     public int getId() {
         return id;
     }
@@ -43,13 +46,24 @@ public class CcTransactionsEntity {
         this.transdate = transdate;
     }
 
+
+    @Basic
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
     @Basic
     @Column(name = "amount", nullable = false, precision = 0)
-    public Integer getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

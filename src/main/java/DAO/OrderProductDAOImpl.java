@@ -18,7 +18,6 @@ import java.util.List;
 public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntity> implements OrderProductDAO {
     @Override
     public List<OrderProductsEntity> getAllbySaleOrderId(int saleid){
-
         Transaction transaction = null;
         Session session =HibernateUtils.getSessionFactory().openSession();
         List<OrderProductsEntity> orderProductsEntityList= new ArrayList<>();
@@ -44,15 +43,15 @@ public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntit
         return orderProductsEntityList;
     }
     @Override
-    public Long SumSubTotalBySaleId(int saleid){
+    public BigDecimal SumSubTotalBySaleId(int saleid){
 
         Transaction transaction = null;
         Session session =HibernateUtils.getSessionFactory().openSession();
-        long sum=0;
+        BigDecimal sum=null;
         try{
 
             transaction = session.beginTransaction();
-            Query<Long> orderProductsEntityQuery = session.createQuery("select sum(o.subtotal) FROM OrderProductsEntity o where o.salesOrdersEntity.id=:sId ");
+            Query<BigDecimal> orderProductsEntityQuery = session.createQuery("select sum(o.subtotal) FROM OrderProductsEntity o where o.salesOrdersEntity.id=:sId ");
             orderProductsEntityQuery.setParameter("sId",saleid);
             sum= orderProductsEntityQuery.getSingleResult();
             transaction.commit();
@@ -193,4 +192,32 @@ public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntit
             session.close();
         }
     }
+    @Override
+    public Long sumQuantitybySaleId(int saleid)
+    {
+        Transaction transaction = null;
+        Session session =HibernateUtils.getSessionFactory().openSession();
+        long sum=0;
+        try{
+            transaction = session.beginTransaction();
+            Query<Long> salesOrdersEntityQuery = session.createQuery(" select sum(od.quantity) from  OrderProductsEntity od where  od.salesOrdersEntity.id=:sId");
+            salesOrdersEntityQuery.setParameter("sId",saleid);
+            sum = salesOrdersEntityQuery.getSingleResult();
+            transaction.commit();
+
+        }catch (Exception e){
+
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+
+            session.close();
+        }
+
+        return sum;
+    }
+
+
 }
