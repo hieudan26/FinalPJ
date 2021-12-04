@@ -242,7 +242,7 @@
                                                     <input type="hidden" name="colorId" value="${product.getColorDTO().getId()}">
                                                     <input type="hidden" name="quantity" value="${product.getQuantity()}">
                                                     <button><i class="fa fa-pencil"></i></button>
-                                                    <a href="#"><i class="fa fa-times"></i></a>
+                                                    <button formaction="AddorCheckRedirectController/removeProduct"><i class="fa fa-times"></i></button>
                                                 </td>
                                             </tr>
                                         </form>

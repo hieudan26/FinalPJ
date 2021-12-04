@@ -32,10 +32,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-@WebServlet(name = "AddorCheckRedirectController", urlPatterns = {"/AddorCheckRedirectController", "/AddorCheckRedirectController/editQuantity"})
+@WebServlet(name = "AddorCheckRedirectController", urlPatterns = {"/AddorCheckRedirectController", "/AddorCheckRedirectController/editQuantity", "/AddorCheckRedirectController/removeProduct"})
 public class AddorCheckRedirectController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +43,9 @@ public class AddorCheckRedirectController extends HttpServlet {
             switch (path) {
                 case "/AddorCheckRedirectController/editQuantity":
                     editQuantityOfProduct(request, response);
+                    break;
+                case "/AddorCheckRedirectController/removeProduct":
+                    removeProduct(request, response);
                     break;
                 default:
                     processRequest(request, response, "");
@@ -216,6 +218,67 @@ public class AddorCheckRedirectController extends HttpServlet {
                 int userId = userAccountDTO.getId();
                 SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
                 SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId), diffQuantity);
+            }
+            response.sendRedirect("/cart");
+        }
+    }
+    private void removeProduct(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String productId = request.getParameter("productId");
+        String colorId = request.getParameter("colorId");
+        UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
+        String contextJoined = "";
+        int num = 0;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie: cookies
+        ) {
+            if(cookie.getName().equals("products")) {
+                String[] context = cookie.getValue().split("p");
+                List<String> list = new ArrayList<String>(Arrays.asList(context));
+                String productAndColor = productId + "q" + colorId;
+                list.removeAll(Collections.singleton(productAndColor));
+                context = list.toArray(new String[0]);
+                contextJoined = String.join("p", context);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+            if(cookie.getName().equals("numOfProducts")) {
+                num = Integer.parseInt(cookie.getValue()) - 1;
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+
+        }
+        if(userAccountDTO == null) {
+            if(contextJoined.length() >= 3) {
+
+                Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
+                cookie.setMaxAge(60 * 60 * 24);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+
+                cookie = new Cookie("products", contextJoined);
+                cookie.setMaxAge(60 * 60 * 24);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                response.sendRedirect("/cart");
+            }
+            else {
+                response.sendRedirect("/cart/clear");
+            }
+        }
+        else {
+            int userId = userAccountDTO.getId();
+            SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+            SingletonServiceUltils.getOrderProductDAOImpl().deleteSingleProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId));
+            if(num != 0) {
+                Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
+                cookie.setMaxAge(60 * 60 * 24);
+                cookie.setPath("/");
+                response.addCookie(cookie);
             }
             response.sendRedirect("/cart");
         }
