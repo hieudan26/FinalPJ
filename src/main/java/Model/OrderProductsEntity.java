@@ -15,6 +15,7 @@ public class OrderProductsEntity {
     private BigDecimal price;
     private int quantity;
     private BigDecimal subtotal;
+
     private SalesOrdersEntity salesOrdersEntity;
 
 
@@ -49,6 +50,8 @@ public class OrderProductsEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
     @Basic
     @Column(name = "colorname", nullable = false, length = 255)

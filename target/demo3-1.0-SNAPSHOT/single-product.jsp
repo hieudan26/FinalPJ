@@ -159,7 +159,7 @@
                                 <button id="btn_buyNow" class="add-cart buy-button" name="action" value="buyNow">Buy It Now</button>
                             </div>
                             <div class="pro-details-compare-wishlist pro-details-wishlist ">
-                                <a href="wishlist.jsp"><i class="pe-7s-like"></i></a>
+                                <a href="/comingsoon"><i class="pe-7s-like"></i></a>
                             </div>
                         </div>
                     </form>
@@ -369,14 +369,14 @@
                                             </c:forEach>
                                         </span>
                                     <div class="actions">
-                                        <a href="wishlist.jsp" class="action wishlist" title="Wishlist"><i
+                                        <a href="/comingsoon" class="action wishlist" title="Wishlist"><i
                                                 class="pe-7s-like"></i></a>
                                         <a onclick="onClickLoadData(${item.getId()}, 2);" href="#"
                                            class="action quickview" data-link-action="quickview" title="Quick view"
                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <i class="pe-7s-look"></i>
                                         </a>
-                                        <a href="compare.jsp" class="action compare" title="Compare"><i
+                                        <a href="/comingsoon" class="action compare" title="Compare"><i
                                                 class="pe-7s-refresh-2"></i></a>
                                     </div>
                                 </div>

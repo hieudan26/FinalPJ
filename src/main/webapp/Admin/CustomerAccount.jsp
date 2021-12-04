@@ -42,14 +42,9 @@
             </div>
             <div class="page-tools__right">
                 <div class="page-tools__right-row">
-                    <div class="page-tools__right-item"><a class="button-icon" href="#" data-modal="#accountEdit"><span class="button-icon__icon">
+                    <div class="page-tools__right-item" onclick="bancustom(${requestScope.users.getId()})"><a class="button-icon" href="#"><span class="button-icon__icon">
                       <svg class="icon-icon-task">
                         <use xlink:href="#icon-task"></use>
-                      </svg></span></a>
-                    </div>
-                    <div class="page-tools__right-item" onclick="bancustom(${requestScope.users.getId()})"><a class="button-icon" href="#"><span class="button-icon__icon">
-                      <svg class="icon-icon-trash">
-                        <use xlink:href="#icon-trash"></use>
                       </svg></span></a>
                     </div>
                 </div>
@@ -59,6 +54,9 @@
             <div class="customer-account__item-1 customer-profile customer-card card">
                 <div class="card__wrapper">
                     <div class="card__container">
+                        <div class="customer-profile__balance">
+                            <div id="role-name" class="label label--primary label--lg" style="background-color:burlywood;"><c:out value="${requestScope.role}"/></div>
+                        </div>
                         <div class="card__body">
                             <div class="customer-profile__avatar">
                                 <svg viewBox="0 0 252 272" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -112,6 +110,12 @@
                                 </c:if>
                                 <c:if test="${requestScope.users.getActive() == null || requestScope.users.getActive() == false}">
                                     <div class="label label--primary label--lg non-active-color">Unactive</div>
+                                </c:if>
+                                <c:if test="${requestScope.users.getBanned() == null || requestScope.users.getBanned() == false}">
+                                    <div class="label label--primary label--lg active-color">Live</div>
+                                </c:if>
+                                <c:if test="${requestScope.users.getBanned() != null && requestScope.users.getBanned() == true}">
+                                    <div class="label label--primary label--lg non-active-color">Banned</div>
                                 </c:if>
                             </div>
                         </div>
@@ -226,7 +230,95 @@
                     </div>
                 </div>
             </div>
+            <div class="customer-account__item-5 customer-shipping customer-card card">
+                <div class="card__wrapper">
+                    <div class="card__container">
+                        <div class="card__header">
+                            <div class="card__header-left">
+                                <h3 class="card__header-title">Orders List</h3>
+                            </div>
+                            <div class="customer-card__header-right">
+                                <button class="customer-card__btn-task">
+                                    <svg class="icon-icon-task">
+                                        <use xlink:href="#icon-task"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card__body">
+                            <div class="table-wrapper">
+                                <div class="table-wrapper__content table-collapse scrollbar-thin scrollbar-visible" data-simplebar>
+                                    <table  class="table table--lines">
+                                        <colgroup>
+                                            <col width="150px">
+                                            <col width="16%">
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                            <col>
+                                        </colgroup>
+                                        <thead class="table__header">
+                                        <tr class="table__header-row">
+                                            </th>
+                                            <th class="d-none d-lg-table-cell"><span>Order ID</span>
+                                            </th>
+                                            <th class="table__th-sort"><span class="align-middle">Total</span>
+                                            </th>
+                                            <th class="table__th-sort"><span class="align-middle">Date</span>
+                                            </th>
+                                            <th class="table__th-sort d-none d-sm-table-cell"><span class="align-middle">Status</span>
+                                            </th>
+                                            <th class="table__actions">Detail</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="order-table">
 
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-wrapper__footer">
+                                    <div class="row">
+                                        <div class="table-wrapper__show-result col text-grey" id="info-show">
+                                        </div>
+                                        <div class="table-wrapper__pagination col-auto">
+                                            <ol class="pagination">
+                                                <li class="pagination__item" id="previous">
+                                                    <a class="pagination__arrow pagination__arrow--prev" >
+                                                        <svg class="icon-icon-keyboard-left">
+                                                            <use xlink:href="#icon-keyboard-left"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                                <li class="pagination__item active" id="pagination_first"  data-value=1><a class="pagination__link">1</a>
+                                                </li>
+                                                <li class="pagination__item pagination__item--dots" id="pagination_space_1">...</li>
+                                                <li class="pagination__item" id="pagination_2" data-value = 2><a class="pagination__link" >2</a>
+                                                </li>
+                                                <li class="pagination__item" id="pagination_3" data-value = 3><a class="pagination__link" >3</a>
+                                                </li>
+                                                <li class="pagination__item" id="pagination_4" data-value = 4><a class="pagination__link" >4</a>
+                                                </li>
+                                                <li class="pagination__item pagination__item--dots" id="pagination_space_2">...</li>
+                                                <li class="pagination__item" id="pagination_last" data-value = 10><a class="pagination__link" >10</a>
+                                                </li>
+                                                <li class="pagination__item" id="next">
+                                                    <a class="pagination__arrow pagination__arrow--next">
+                                                        <svg class="icon-icon-keyboard-right">
+                                                            <use xlink:href="#icon-keyboard-right"></use>
+                                                        </svg>
+                                                    </a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
@@ -242,4 +334,5 @@
         location.reload();
     }
 </script>
+<script src="../Admin/assets/js/custom/customerAccount.js"></script>
 <jsp:include page="footerAdmin.jsp"/>

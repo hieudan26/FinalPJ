@@ -15,7 +15,7 @@
                     <div id="mc_embed_signup" class="subscribe-form">
                         <form id="mc-embedded-subscribe-form" class="validate" novalidate="" target="_blank"
                               name="mc-embedded-subscribe-form" method="post"
-                              action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef"
+                              action="#"
                         >
                             <div id="mc_embed_signup_scroll" class="mc-form">
                                 <input class="email" type="email" required=""
@@ -27,7 +27,7 @@
                                 <div class="clear">
                                     <!-- submit -->
                                     <button id="mc-embedded-subscribe" class="button" type="button" name="subscribe"
-                                            value="" onclick="window.location.href='error404.jsp'"> Submit</button>
+                                            value="" onclick="window.location.href='/404"> Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -51,10 +51,10 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="about.jsp">About us</a></li>
-                                        <li class="li"><a class="single-link" href="privacy-policy.jsp">Privacy
+                                        <li class="li"><a class="single-link" href="/about">About us</a></li>
+                                        <li class="li"><a class="single-link" href="/privacy">Privacy
                                             Policy</a></li>
-                                        <li class="li"><a class="single-link" href="faq.jsp">FAQ</a></li>
+                                        <li class="li"><a class="single-link" href="/faq">FAQ</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -68,12 +68,11 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="my-account.jsp"> My account</a>
+                                        <li class="li"><a class="single-link" href="/myaccount"> My account</a>
                                         </li>
-                                        <li class="li"><a class="single-link" href="cart.jsp">My orders</a></li>
+                                        <li class="li"><a class="single-link" href="/cart">My orders</a></li>
                                         <!-- <li class="li"><a class="single-link"
                                                 href="shop-left-sidebar.jsp">Shipping</a></li> -->
-                                        <li class="li"><a class="single-link" href="wishlist.jsp">Wish list</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -87,10 +86,10 @@
                             <div class="footer-links">
                                 <div class="footer-row">
                                     <ul class="align-items-center">
-                                        <li class="li"><a class="single-link" href="index.jsp">Home</a></li>
+                                        <li class="li"><a class="single-link" href="/home">Home</a></li>
                                         <li class="li"><a class="single-link"
-                                                          href="shop-left-sidebar.jsp">Bestsellers</a></li>
-                                        <li class="li"><a class="single-link" href="contact.jsp">Contact Us</a>
+                                                          href="/shop">Bestsellers</a></li>
+                                        <li class="li"><a class="single-link" href="/contact">Contact Us</a>
                                         </li>
                                     </ul>
                                 </div>

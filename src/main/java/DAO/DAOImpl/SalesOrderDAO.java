@@ -13,4 +13,8 @@ import java.util.List;
 public interface SalesOrderDAO extends GenericDAO<Integer, SalesOrdersEntity>{
 
     SalesOrdersEntity getOnebyId(int cartid);
+
+    SalesOrdersEntity getOnebyUserId(int userId);
+
+    List<SalesOrdersEntity> getAllbyUserId(int userId);
 }

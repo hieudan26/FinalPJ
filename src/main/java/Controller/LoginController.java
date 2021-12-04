@@ -1,8 +1,11 @@
 package Controller;
 
 import Business.LoginBusiness;
+import DTO.AddressDTO;
 import DTO.UserAccountDTO;
+import Model.UsersEntity;
 import Utils.ApplicationUtils;
+import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +35,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String userName = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -49,6 +53,12 @@ public class LoginController extends HttpServlet {
             return;
         }
 
+        if(LoginBusiness.checkBanned(userName))
+        {
+            String errorMessage = "Your account has been banned! Please contact with Admin!";
+            DirectEror(errorMessage,req,resp);
+            return;
+        }
         ApplicationUtils.storeLoginedUser(req, userAccount);
         //
         int redirectId = -1;
@@ -65,6 +75,16 @@ public class LoginController extends HttpServlet {
             resp.sendRedirect(requestUri);
         } else {
             resp.sendRedirect(req.getContextPath() + "/");
+            UsersEntity usersEntity = SingletonServiceUltils.getUserDAOImpl().getOneById(userAccount.getId());
+            if(usersEntity.getAddress()!=null)
+            {
+                AddressDTO addressDTO=new AddressDTO(usersEntity.getAddress());
+                userAccount.setAddress(addressDTO);
+                userAccount.setPhone(usersEntity.getPhone());
+                userAccount.setImage(usersEntity.getImage());
+                req.getSession().setAttribute("loginedUser",userAccount);
+
+            }
         }
     }
     public void DirectEror(String errorMessage,HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{

@@ -111,9 +111,6 @@
                                         <input type="password" name="password" placeholder="Password" required/>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
-                                                <input type="checkbox" />
-                                                <a class="flote-none" href="javascript:void(0)">Remember me</a>
-                                                <!-- forgot-password.jsp -->
                                                 <a href="#" onclick="forgotPassword(event);">Forgot Password?</a>
                                             </div>
                                             <button type="submit"><span>Login</span></button>
@@ -146,10 +143,6 @@
                                         <input id="passwordforget" type="password" name="password" placeholder="Password" required/>
                                         <input id="repasswordforget"  type="password" name="retypepassword" placeholder="Retype password" required/>
                                         <div class="button-box" style="text-align: center;">
-                                            <div class="login-toggle-btn">
-                                                <input type="checkbox" />
-                                                <a class="flote-none" href="javascript:void(0)">Remember me</a>
-                                            </div>
                                             <button type="submit"><span>Reset</span></button>
                                         </div>
                                     </form>

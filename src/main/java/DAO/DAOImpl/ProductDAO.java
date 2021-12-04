@@ -30,4 +30,6 @@ public interface ProductDAO extends GenericDAO<Integer, ProductsEntity>{
     //Get all product by id of category and dont sort - mean random
     List<ProductsEntity> getAllProductByCategoryID(int categoryID);
 
+
+
 }

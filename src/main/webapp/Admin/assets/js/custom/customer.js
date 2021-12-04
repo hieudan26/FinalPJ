@@ -6,7 +6,7 @@ var customer1 = {
     Location:"HCM, Viet Nam",
     Orders: 100,
     Register: "12.07.2018",
-    Status:"Active"
+    Status:"Live"
 }
 const customer_table = document.getElementById("customer-table");
 const show = document.getElementById("customer-table");
@@ -26,33 +26,27 @@ var max_page_num =1 ;
 var num = 10;
 var curent_page = 1 ;
 function RenderFirst(customer){
+    let active = "color-red";
+    if(customer.Status == "Live"){
+        active ="color-green";
+    }
     let content =  " \n<tr class=\"table__row\">\n" +
-    "                                    <td class=\"table__td\">\n" +
-    "                                        <div class=\"table__checkbox table__checkbox--all\">\n" +
-    "                                            <label class=\"checkbox\">\n" +
-    "                                                <input type=\"checkbox\" data-checkbox=\"product\"><span class=\"checkbox__marker\"><span class=\"checkbox__marker-icon\">\n" +
-    "                              <svg class=\"icon-icon-checked\">\n" +
-    "                                <use xlink:href=\"#icon-checked\"></use>\n" +
-    "                              </svg></span></span>\n" +
-    "                                            </label>\n" +
-    "                                        </div>\n" +
-    "                                    </td>\n" +
+    "                                    <td class=\"table__td text-light-theme\">#"+customer.Id+"</td>\n" +
     "                                    <td class=\"table__td\">\n" +
     "                                        <div class=\"media-item media-item--medium\">\n" +
-    "                                            <a class=\"media-item__icon color-red\" href=\"customer-account.html\">\n" +
+    "                                            <a class=\"media-item__icon color-red\" href=\"/admin/customeraccount?Id="+customer.Id+"\">\n" +
     "                                                <div class=\"media-item__icon-text\">"+"img"+"</div>\n" +
     "                                                <img class=\"media-item__thumb\" src=\""+customer.Image+"\" alt=\"#\">\n" +
     "                                            </a>\n" +
     "                                            <div class=\"media-item__right\">\n" +
-    "                                                <h5 class=\"media-item__title\"><a href=\"customer-account.html\">"+customer.Name+"</a></h5><a class=\"text-sm text-grey\" href=\"mailto:#\">"+customer.mail+"</a>\n" +
+    "                                                <h5 class=\"media-item__title\"><a href=\"/admin/customeraccount?Id="+customer.Id+"\">"+customer.Name+"</a></h5><a class=\"text-sm text-grey\" href=\"mailto:#\">"+customer.mail+"</a>\n" +
     "                                            </div>\n" +
     "                                        </div>\n" +
     "                                    </td>\n" +
     "                                    <td class=\"table__td text-light-theme\">"+customer.Location+"</td>\n" +
     "                                    <td class=\"table__td text-dark-theme\">"+customer.Orders+"</td>\n" +
-    "                                    <td class=\"table__td text-light-theme\">"+customer.Register+"</td>\n" +
     "                                    <td class=\"table__td d-none d-sm-table-cell\">\n" +
-    "                                        <div class=\"table__status\"><span class=\"table__status-icon color-green\"></span>"+customer.Status+"</div>\n" +
+    "                                        <div class=\"table__status\"><span class=\"table__status-icon "+active+"\"></span>"+customer.Status+"</div>\n" +
     "                                    </td>\n" +
     "                                    <td class=\"table__td table__actions\">\n" +
     "                                        <div class=\"items-more\">\n" +
@@ -70,9 +64,9 @@ function RenderFirst(customer){
         "                                    </svg></span>Details</a>\n" +
         "                                                        </li>\n" +
         "                                                        <li class=\" dropdown-items__item ban_customer\" data-value="+customer.Id+"><a class=\"dropdown-items__link\"><span class=\"dropdown-items__link-icon\">\n" +
-        "                                    <svg class=\"icon-icon-trash\">\n" +
-        "                                      <use xlink:href=\"#icon-trash\"></use>\n" +
-        "                                    </svg></span>Ban</a>\n" +
+        "                                    <svg class=\"icon-icon-task\">\n" +
+        "                                      <use xlink:href=\"#icon-task\"></use>\n" +
+        "                                    </svg></span>Change Status</a>\n" +
         "                                                        </li>\n" +
     "                                                    </ul>\n" +
     "                                                </div>\n" +
@@ -80,40 +74,31 @@ function RenderFirst(customer){
     "                                        </div>\n" +
     "                                    </td>\n" +
     "                                </tr>\n" +
-    "                                <tr class=\"table__space\">"+
-    "                                    <td colspan=\"7\"></td>"+
-    "                                 </tr>"+
     "  ";
     return content;
 }
 function Render(customer){
+    let active = "color-red";
+    if(customer.Status == "Live"){
+        active ="color-green";
+    }
     let content =  " \n<tr class=\"table__row\">\n" +
-        "                                    <td class=\"table__td\">\n" +
-        "                                        <div class=\"table__checkbox table__checkbox--all\">\n" +
-        "                                            <label class=\"checkbox\">\n" +
-        "                                                <input type=\"checkbox\" data-checkbox=\"product\"><span class=\"checkbox__marker\"><span class=\"checkbox__marker-icon\">\n" +
-        "                              <svg class=\"icon-icon-checked\">\n" +
-        "                                <use xlink:href=\"#icon-checked\"></use>\n" +
-        "                              </svg></span></span>\n" +
-        "                                            </label>\n" +
-        "                                        </div>\n" +
-        "                                    </td>\n" +
+        "                                    <td class=\"table__td text-light-theme\">#"+customer.Id+"</td>\n" +
         "                                    <td class=\"table__td\">\n" +
         "                                        <div class=\"media-item media-item--medium\">\n" +
-        "                                            <a class=\"media-item__icon color-red\" href=\"customer-account.html\">\n" +
+        "                                            <a class=\"media-item__icon color-red\" href=\"/admin/customeraccount?Id="+customer.Id+"\">\n" +
         "                                                <div class=\"media-item__icon-text\">"+"img"+"</div>\n" +
         "                                                <img class=\"media-item__thumb\" src=\""+customer.Image+"\" alt=\"#\">\n" +
         "                                            </a>\n" +
         "                                            <div class=\"media-item__right\">\n" +
-        "                                                <h5 class=\"media-item__title\"><a href=\"customer-account.html\">"+customer.Name+"</a></h5><a class=\"text-sm text-grey\" href=\"mailto:#\">"+customer.mail+"</a>\n" +
+        "                                                <h5 class=\"media-item__title\"><a href=\"/admin/customeraccount?Id="+customer.Id+"\">"+customer.Name+"</a></h5><a class=\"text-sm text-grey\" href=\"mailto:#\">"+customer.mail+"</a>\n" +
         "                                            </div>\n" +
         "                                        </div>\n" +
         "                                    </td>\n" +
         "                                    <td class=\"table__td text-light-theme\">"+customer.Location+"</td>\n" +
         "                                    <td class=\"table__td text-dark-theme\">"+customer.Orders+"</td>\n" +
-        "                                    <td class=\"table__td text-light-theme\">"+customer.Register+"</td>\n" +
         "                                    <td class=\"table__td d-none d-sm-table-cell\">\n" +
-        "                                        <div class=\"table__status\"><span class=\"table__status-icon color-green\"></span>"+customer.Status+"</div>\n" +
+        "                                        <div class=\"table__status\"><span class=\"table__status-icon "+active+"\"></span>"+customer.Status+"</div>\n" +
         "                                    </td>\n" +
         "                                    <td class=\"table__td table__actions\">\n" +
         "                                        <div class=\"items-more\">\n" +
@@ -131,9 +116,9 @@ function Render(customer){
     "                                    </svg></span>Details</a>\n" +
     "                                                        </li>\n" +
     "                                                        <li class=\" dropdown-items__item ban_customer\" data-value="+customer.Id+"><a class=\"dropdown-items__link\"><span class=\"dropdown-items__link-icon\">\n" +
-    "                                    <svg class=\"icon-icon-trash\">\n" +
-    "                                      <use xlink:href=\"#icon-trash\"></use>\n" +
-    "                                    </svg></span>Ban</a>\n" +
+    "                                    <svg class=\"icon-icon-task\">\n" +
+    "                                      <use xlink:href=\"#icon-task\"></use>\n" +
+    "                                    </svg></span>Change Status</a>\n" +
     "                                                        </li>\n" +
     "                                                    </ul>\n" +
     "                                                </div>\n" +
@@ -141,9 +126,7 @@ function Render(customer){
     "                                        </div>\n" +
     "                                    </td>\n" +
     "                                </tr>\n" +
-    "                                <tr class=\"table__space\">"+
-    "                                    <td colspan=\"7\"></td>"+
-    "                                 </tr>"+
+
     "  ";
     return content;
 }
@@ -175,6 +158,45 @@ function RenderLoad(){
     }
 }
 
+
+function RenderSearch(key){
+    let tempindex  =0;
+    listtemp =[];
+    for(let i=0;i<listJSON.length;i++){
+        let tempstring = listJSON[i].Id+"|"+listJSON[i].Name+"|"+listJSON[i].mail+"|"+listJSON[i].Location+"|"+listJSON[i].Status;
+        if(tempstring.toUpperCase().includes(key.toUpperCase())){
+            if(tempindex% num == 0)
+                listtemp[tempindex] =RenderFirst(listJSON[i]);
+            else
+                listtemp[tempindex] =Render(listJSON[i]);
+            tempindex++;
+        }
+    }
+    Init();
+    document.getElementById("number-customer").innerHTML="("+listtemp.length+")";
+}
+
+function RenderActive(){
+    let tempindex  =0;
+    listtemp =[];
+    for(let i=0;i<listJSON.length;i++){
+        if(listJSON[i].Status == "Live"){
+            if(tempindex% num == 0)
+                listtemp[tempindex] =RenderFirst(listJSON[i]);
+            else
+                listtemp[tempindex] =Render(listJSON[i]);
+            tempindex++;
+        }
+    }
+    Init();
+    document.getElementById("number-customer").innerHTML="("+listtemp.length+")";
+}
+
+function RenderAllStatus(){
+    RenderLoad();
+    Init();
+    document.getElementById("number-customer").innerHTML="("+listtemp.length+")";
+}
 function phantrang(index){
     let len = listtemp.length;
     let max =  curent_page * num;
@@ -187,10 +209,14 @@ function phantrang(index){
 
 
     customer_table.innerHTML= "";
-    for(indexitem;indexitem<max;indexitem++)
+    if(listtemp.length != 0)
     {
-        customer_table.innerHTML+=listtemp[indexitem];
+        for(indexitem;indexitem<max;indexitem++)
+        {
+            customer_table.innerHTML+=listtemp[indexitem];
+        }
     }
+
 
     listban = document.getElementsByClassName("ban_customer");
     loadAjax(listban,bancustom);
@@ -209,8 +235,6 @@ function Init(){
     SetNum(1);
     phantrang(1);
     setActiveNum();
-
-
 }
 
 function SetNum(page_num){
@@ -331,7 +355,7 @@ function banFromList(id){
     }
     RenderLoad();
     Init();
-    document.getElementById("number-customer").innerHTML="("+listJSON.length+")";
+    document.getElementById("number-customer").innerHTML="("+listtemp.length+")";
 }
 function bancustom(id){
     $.ajax({
@@ -339,7 +363,10 @@ function bancustom(id){
         data : {
             Id : id
         },
-        url : "/admin/customer"
+        url : "/admin/customer",
+        success: function(data, status) {
+            window.location.href = "/admin/customer";
+        }
     });
     banFromList(id);
 }
@@ -399,6 +426,19 @@ function  show_info(){
     let temp ="<span class=\"d-none d-sm-inline-block\" >Showing</span> "+min+" to "+max+"  <span class=\"d-none d-sm-inline-block\">of "+len+" items</span>"
     show_infos.innerHTML = temp;
 }
+
+function Search(){
+   let temp = document.getElementById("search-box").value;
+    RenderSearch(temp);
+}
+
+
+document.getElementById("active-status").addEventListener("click",()=>{
+    RenderActive();
+});
+document.getElementById("all-status").addEventListener("click",()=>{
+    RenderAllStatus();
+});
 Load();
 
 

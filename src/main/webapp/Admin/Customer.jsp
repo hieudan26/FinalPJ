@@ -82,8 +82,9 @@
                         <svg class="icon-icon-keyboard-down">
                           <use xlink:href="#icon-keyboard-down"></use>
                         </svg></span>
-                                    <div class="dropdown-menu dropdown-menu--right dropdown-menu--fluid js-dropdown-select"><a class="dropdown-menu__item active" href="#" tabindex="0" data-value="All status"><span class="marker-item"></span> All status</a>
-                                        <a class="dropdown-menu__item" href="#" tabindex="0" data-value="Active" class="active-color"><span class="marker-item color-green"></span> Active</a>
+                                    <div class="dropdown-menu dropdown-menu--right dropdown-menu--fluid js-dropdown-select">
+                                        <a id="all-status" class="dropdown-menu__item active" href="#" tabindex="0" data-value="All status"><span class="marker-item"></span>All status</a>
+                                        <a id="active-status" class="dropdown-menu__item" href="#" tabindex="0" data-value="Live" class="active-color"><span class="marker-item color-green"></span>Live</a>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +100,7 @@
                                                 <use xlink:href="#icon-search"></use>
                                             </svg>
                                         </div>
-                                        <input class="input" type="text" placeholder="Search Customer">
+                                        <input id="search-box" class="input" type="text" placeholder="Search Customer" oninput="Search();">
                                     </div>
                                 </form>
                             </div>
@@ -109,9 +110,8 @@
             </div>
             <div class="table-wrapper">
                 <div class="table-wrapper__content table-collapse scrollbar-thin scrollbar-visible" data-simplebar>
-                    <table class="table table--spaces">
+                    <table class="table table--lines">
                         <colgroup>
-                            <col width="70px">
                             <col>
                             <col>
                             <col>
@@ -121,23 +121,13 @@
                         </colgroup>
                         <thead class="table__header">
                         <tr class="table__header-row">
-                            <th>
-                                <div class="table__checkbox table__checkbox--all">
-                                    <label class="checkbox">
-                                        <input class="js-checkbox-all" type="checkbox" data-checkbox-all="product"><span class="checkbox__marker"><span class="checkbox__marker-icon">
-                              <svg class="icon-icon-checked">
-                                <use xlink:href="#icon-checked"></use>
-                              </svg></span></span>
-                                    </label>
-                                </div>
+                            <th class="table__th-sort"><span class="align-middle">ID</span><span class="sort sort--down"></span>
                             </th>
                             <th class="table__th-sort"><span class="align-middle">Customer Name</span><span class="sort sort--down"></span>
                             </th>
                             <th class="table__th-sort"><span class="align-middle">Location</span><span class="sort sort--down"></span>
                             </th>
                             <th class="table__th-sort"><span class="align-middle">Orders</span><span class="sort sort--down"></span>
-                            </th>
-                            <th class="table__th-sort"><span class="align-middle">Registered</span><span class="sort sort--down"></span>
                             </th>
                             <th class="table__th-sort d-none d-sm-table-cell"><span class="align-middle">Status</span><span class="sort sort--down"></span>
                             </th>

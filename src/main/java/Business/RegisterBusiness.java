@@ -9,9 +9,9 @@ import Utils.SingletonServiceUltils;
 import Utils.TokenUltils;
 
 public class RegisterBusiness {
-    public static boolean regiterUser(String username, String password,String email){
+    public static boolean regiterUser(String username, String password,String email,int roleid){
 
-        RolesEntity role = SingletonServiceUltils.getRoleDAOImpl().getOneByID(1);
+        RolesEntity role = SingletonServiceUltils.getRoleDAOImpl().getOneByID(roleid);
 
         if(role == null)
         {
@@ -30,7 +30,7 @@ public class RegisterBusiness {
         user.setEmail(email);
         user.setActive(false);
         user.setAccountsEntity(acc);
-
+        user.setBanned(false);
         AccountsEntity account = (AccountsEntity) SingletonServiceUltils.getAccountDAOImpl().insert(acc);
 
         if(account != null)

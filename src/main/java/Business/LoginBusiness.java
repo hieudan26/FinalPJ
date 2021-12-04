@@ -26,4 +26,13 @@ public class LoginBusiness {
         else
             return acc.getUsersEntity().getActive();
     }
+
+    public static boolean checkBanned(String username)
+    {
+        AccountsEntity acc = SingletonServiceUltils.getAccountDAOImpl().getOneByUsername(username);
+        if(acc == null || acc.getUsersEntity().getBanned() == null)
+            return false;
+        else
+            return acc.getUsersEntity().getBanned();
+    }
 }
