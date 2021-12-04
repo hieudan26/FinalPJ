@@ -3,6 +3,8 @@ package Controller;
 import Business.LoginBusiness;
 import DTO.AddressDTO;
 import DTO.UserAccountDTO;
+import Model.OrderProductsEntity;
+import Model.SalesOrdersEntity;
 import Model.UsersEntity;
 import Utils.ApplicationUtils;
 import Utils.SingletonServiceUltils;
@@ -10,10 +12,12 @@ import Utils.SingletonServiceUltils;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -70,7 +74,29 @@ public class LoginController extends HttpServlet {
 
 
         String requestUri = ApplicationUtils.getRedirectAfterLoginUrl(redirectId);
-
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie: cookies
+        ) {
+            if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                resp.addCookie(cookie);
+            }
+        }
+        UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(req);
+        if(userAccountDTO != null) {
+            int userId = userAccountDTO.getId();
+            SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+            if(salesOrdersEntity != null) {
+                List<OrderProductsEntity> orderProductsEntities = SingletonServiceUltils.getOrderProductDAOImpl().getAllbySaleOrderId(salesOrdersEntity.getId());
+                if(!orderProductsEntities.isEmpty()) {
+                    Cookie cookie = new Cookie("numOfProducts", String.valueOf(orderProductsEntities.size()));
+                    cookie.setMaxAge(60 * 60 * 24);
+                    cookie.setPath("/");
+                    resp.addCookie(cookie);
+                }
+            }
+        }
         if (requestUri != null) {
             resp.sendRedirect(requestUri);
         } else {

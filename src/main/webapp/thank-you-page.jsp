@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -70,7 +71,7 @@
                     <p class="dsc_cmpted">Thank you for ordering in our store. You will receive a confirmation
                         email shortly.</p>
                     <div class="btn_cmpted">
-                        <a href="shop-left-sidebar.jsp" class="shop-btn" title="Go To Shop">Continue Shopping </a>
+                        <a href="<c:url value="/shop" />" class="shop-btn" title="Go To Shop">Continue Shopping </a>
                     </div>
                 </div>
             </div>

@@ -728,7 +728,7 @@
                 "\nThe item is currently out of stock, please comeback later");
         }
         else {
-            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor + '&path=home';
             window.location.href = href;
         }
     }

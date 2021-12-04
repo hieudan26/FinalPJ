@@ -321,7 +321,7 @@
                                     <a href="#" class="selected m-0">
                                         <i class="fa fa-angle-right"></i>
                                         All
-                                        <span>(${AllProduct.size()})</span>
+                                        <span>(${allProductSize})</span>
                                     </a>
                                 </li>
                                 <c:forEach var="item" items="${categoriesShopDTOList}">
@@ -345,7 +345,7 @@
                                     <a href="#" class="selected m-0">
                                         <i class="fa fa-angle-right"></i>
                                         All
-                                        <span>(${AllProduct.size()})</span>
+                                        <span>(${allProductSize})</span>
                                     </a>
                                 </li>
                                 <c:forEach var="item" items="${colorShopDTOList}">
@@ -466,7 +466,8 @@
                 "\nThe item is currently out of stock, please comeback later");
         }
         else {
-            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor + "&path=shop&redi=" + cateId + "&colorRedi=" + colorId + "&tagRedi=" + tagId;
             window.location.href = href;
         }
     }
@@ -706,12 +707,19 @@
     window.onload = function () {
         let redi = ${empty redi ? -1 : redi};
         let colorRedi = ${empty colorRedi ? -1 : colorRedi};
+        let tagRedi = ${empty tagRedi ? -1 : tagRedi};
+
         if (redi !== -1) {
             let id = "cate-" + redi;
             document.getElementById(id).click();
         }
         if (colorRedi !== -1) {
             let id = "colo-" + colorRedi;
+            document.getElementById(id).click();
+        }
+        if (tagRedi !== -1) {
+            let id = "tags-" + tagRedi;
+            let id_temp = ".tags-" + tagRedi;
             document.getElementById(id).click();
         }
 

@@ -117,10 +117,11 @@
                             <col>
                             <col>
                             <col>
+                            <col>
                         </colgroup>
                         <thead class="table__header">
                         <tr class="table__header-row">
-                            <th class="table__th-sort"><span class="align-middle">ID</span>
+                            <th class="d-none d-lg-table-cell"><span class="align-middle">ID</span>
                             </th>
                             <th class="table__th-sort"><span class="align-middle">Product Name</span>
                             </th>
@@ -128,11 +129,11 @@
                             </th>
                             <th class="table__th-sort"><span class="align-middle">Price</span>
                             </th>
-                            <th class="table__th-sort"><span class="align-middle">Date</span>
+                            <th class="d-none d-lg-table-cell"><span class="align-middle">Date</span>
                             </th>
                             <th class="table__th-sort d-none d-sm-table-cell"><span class="align-middle">Status</span>
                             </th>
-                            <th class="table__actions"></th>
+                            <th class="table__actions">Action</th>
                         </tr>
                         </thead>
                         <tbody id="product-table">

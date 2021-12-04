@@ -103,7 +103,7 @@ public class HeaderCartAPI extends HttpServlet {
                         "           <a href=\"/singleproduct?productId=" + item.getId() + "\" class=\"title\">" + item.getName() + "</a>\n" +
                         "           <span class=\"quantity-price\">Color: <a href=\"shop?colorRedi=" + item.getColorDTO().getId() + "\" style=\"cursor: pointer\" class=\"title\">" + item.getColorDTO().getName() + "</a></span>\n" +
                         "           <span class=\"quantity-price\">" + item.getQuantity() + " x <span class=\"amount\">$" + item.getPrice() + "</span></span>\n" +
-                        "           <a onclick=\"\" href=\"#\" class=\"remove\">x</a>\n" +
+                        "           <a onclick=\"\" href=\"AddorCheckRedirectController/removeProduct?productId=" + item.getId() + "&colorId=" + item.getColorDTO().getId() + "\" class=\"remove\">x</a>\n" +
                         "       </div>\n" +
                         "    </li>");
             }
