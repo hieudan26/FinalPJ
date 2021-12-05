@@ -28,13 +28,14 @@ public class AdminAddProductController extends HttpServlet {
             List<TagsEntity> tagsEntityList = SingletonServiceUltils.getTagDAOImpl().getAll();
             List<ColorsEntity> colorsEntityList = SingletonServiceUltils.getColorDAOImpl().getAll();
 
-                req.setAttribute("listcolor",colorsEntityList);
-                req.setAttribute("listtag",tagsEntityList);
-                req.setAttribute("listcate",categoriesEntityList);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/AddProduct.jsp");
-                dispatcher.forward(req,resp);
-                return;
-        }catch (Exception e){
+            req.setAttribute("listcolor",colorsEntityList);
+            req.setAttribute("listtag",tagsEntityList);
+            req.setAttribute("listcate",categoriesEntityList);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/AddProduct.jsp");
+            dispatcher.forward(req,resp);
+            return;
+        }
+        catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
@@ -121,8 +122,15 @@ public class AdminAddProductController extends HttpServlet {
     }
 
     public void DirectEror(String Message,boolean isSuccess,HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{
+        List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();
+        List<TagsEntity> tagsEntityList = SingletonServiceUltils.getTagDAOImpl().getAll();
+        List<ColorsEntity> colorsEntityList = SingletonServiceUltils.getColorDAOImpl().getAll();
+
         req.setAttribute("Message", Message);
         req.setAttribute("isSuccess", isSuccess);
+        req.setAttribute("listcolor",colorsEntityList);
+        req.setAttribute("listtag",tagsEntityList);
+        req.setAttribute("listcate",categoriesEntityList);
         RequestDispatcher dispatcher //
                 = req.getServletContext().getRequestDispatcher("/Admin/AddProduct.jsp");
         dispatcher.forward(req, resp);
