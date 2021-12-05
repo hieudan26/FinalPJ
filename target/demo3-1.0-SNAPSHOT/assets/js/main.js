@@ -382,7 +382,7 @@
         }
         $button.parent().find("input").val(newVal);
     });
-    var inputQuantity = +document.getElementById('qty').value
+    // var inputQuantity = +document.getElementById('qty').value
 
 
 
