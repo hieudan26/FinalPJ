@@ -115,7 +115,7 @@ public class AdminAddProductController extends HttpServlet {
                 BigDecimal PriceDiscount = BigDecimal.valueOf(tempPriceDiscount);
                 productsEntity.setDiscountPrice(PriceDiscount);
             }
-            productsEntity.setPublish(false);
+            productsEntity.setPublish(true);
             productsEntity.setAdddate(Date.from(date.atZone(ZoneId.systemDefault()).toInstant()));
             SingletonServiceUltils.getProductDAOImpl().insert(productsEntity);
             DirectEror(message, true, req, resp);
