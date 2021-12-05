@@ -38,6 +38,9 @@ import java.util.*;
 public class AddorCheckRedirectController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String path = request.getServletPath();
         try {
             switch (path) {
@@ -58,6 +61,9 @@ public class AddorCheckRedirectController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response, "");
     }
 

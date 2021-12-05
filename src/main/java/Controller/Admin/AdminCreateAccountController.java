@@ -14,15 +14,18 @@ import java.io.IOException;
 @WebServlet("/admin/createaccount")
 public class AdminCreateAccountController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/CreateAdmin.jsp");
-            dispatcher.forward(req,resp);
-            return;
-
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/CreateAdmin.jsp");
+        dispatcher.forward(req,resp);
+        return;
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String message="";
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
         boolean isSuccess = false;
         try {

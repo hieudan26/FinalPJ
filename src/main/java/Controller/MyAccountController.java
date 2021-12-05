@@ -16,8 +16,9 @@ import java.io.IOException;
 public class MyAccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         UserAccountDTO userAccountDTO =(UserAccountDTO) req.getSession().getAttribute("loginedUser");
         if(userAccountDTO == null)
             resp.sendRedirect("/login");
@@ -34,8 +35,9 @@ public class MyAccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String path = "/login";
         Boolean isSuccess = false;
         String error="";
