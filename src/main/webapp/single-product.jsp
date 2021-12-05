@@ -148,16 +148,16 @@
                         </c:if>
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
+                                <input id="cart-plus" class="cart-plus-minus-box" type="text" name="quantity" value="1">
                             </div>
                             <div class="pro-details-cart">
                                 <button id="btn_addCart" class="add-cart buy-button" name="action" value="addCart">
                                     Add To Cart
                                 </button>
                             </div>
-                            <div class="pro-details-cart">
-                                <button id="btn_buyNow" class="add-cart buy-button" name="action" value="buyNow">Buy It Now</button>
-                            </div>
+<%--                            <div class="pro-details-cart">--%>
+<%--                                <button id="btn_buyNow" class="add-cart buy-button" name="action" value="buyNow">Buy It Now</button>--%>
+<%--                            </div>--%>
                             <div class="pro-details-compare-wishlist pro-details-wishlist ">
                                 <a href="/comingsoon"><i class="pe-7s-like"></i></a>
                             </div>
@@ -352,7 +352,7 @@
                 <c:forEach items="${Top8Product_categories}" var="item">
                     <div class="new-product-item swiper-slide">
                             <%--FORM--%>
-                        <form action="OrderProductController">
+                        <div>
                             <!-- Single Prodect -->
                             <div class="product">
                                 <div class="thumb">
@@ -409,7 +409,7 @@
                                 <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
                                     To Cart</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
 
                 </c:forEach>
@@ -497,16 +497,16 @@
     $("body").on("click", "#dec", function() {
         if (numberQuantity > 1) {
             numberQuantity--;
-            alert(numberQuantity);
+            document.getElementById("inc").style.pointerEvents = "auto";
         }
     })
 
     $("body").on("click", "#inc", function() {
         if (numberQuantity < ${MaxInc}) {
-            numberQuantity++;
-            alert(numberQuantity)
+            numberQuantity = numberQuantity + 1;
         }
-        else {
+
+        if (numberQuantity == ${MaxInc}){
             document.getElementById("inc").style.pointerEvents = "none";
         }
     })
@@ -518,7 +518,7 @@
                 "\nThe item is currently out of stock, please comeback later");
         }
         else {
-            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor;
+            let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor + '&path=single&curProductId=${productId}';
             window.location.href = href;
         }
     }
@@ -537,6 +537,14 @@
             $('#btn_buyNow').attr('disabled',true);
             $('#btn_addCart').css("background-color", "#0d6efd");
             $('#btn_buyNow').css("background-color", "#0d6efd");
+        }
+
+        if (${MaxInc <= 0}) {
+            document.getElementById("cart-plus").value = "0";
+            document.getElementById("inc").style.pointerEvents = "none";
+        }
+        else if (${MaxInc <= 1}){
+            document.getElementById("inc").style.pointerEvents = "none";
         }
     };
 

@@ -20,6 +20,7 @@ public class HomeController extends HttpServlet {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
+
         //Create new list all category
         //Call method getAll to return list in Class STATIC CategoryDAO
         List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();

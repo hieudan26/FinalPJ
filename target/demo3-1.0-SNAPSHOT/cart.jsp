@@ -113,7 +113,7 @@
                                                     <input type="hidden" name="colorId" value="${product.getColorDTO().getId()}">
                                                     <input type="hidden" name="quantity" value="${product.getQuantity()}">
                                                     <button><i class="fa fa-pencil"></i></button>
-                                                    <a href="#"><i class="fa fa-times"></i></a>
+                                                    <button formaction="<c:url value='AddorCheckRedirectController/removeProduct' />"><i class="fa fa-times"></i></button>
                                                 </td>
                                             </tr>
                                         </form>
@@ -224,6 +224,11 @@
             </div>
         </div>
         <script>
+            // function onRemove() {
+            //     let href = "AddorCheckRedirectController/removeProduct";
+            //     window.location.href = href;
+            // }
+
             function alreadyExistingFunc() {
                 var values = $("input[name='inputQuantity']")
                     .map(function(){return $(this).val();}).get();

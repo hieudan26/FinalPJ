@@ -35,6 +35,7 @@ public class ProductController extends HttpServlet {
 
         int categoryId = productsEntity.getCategoriesEntity().getId();
 
+        req.setAttribute("productId", productId);
         req.setAttribute("singleProductDTO", singleProductDTO);
         req.setAttribute("Top8Product_categories", TopLimitProductBusiness.handleDataTopLimitProducts_productDisplayApiDTO(SingletonServiceUltils.getProductDAOImpl().getTopLimitProductByCategorytID_Except(categoryId, productId, 8)));
         req.setAttribute("MaxInc", singleProductDTO.getQuantity());

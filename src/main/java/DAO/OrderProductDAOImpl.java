@@ -69,6 +69,32 @@ public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntit
         }
         return sum;
     }
+    public int deleteSingleProduct(int saleOrderId, int productId, int colorId) {
+        Transaction transaction = null;
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+
+            SalesOrdersEntity salesOrdersEntity = session.load(SalesOrdersEntity.class, saleOrderId);
+            ProductsEntity productsEntity = session.load(ProductsEntity.class, productId);
+
+            Query<OrderProductsEntity> orderProductsEntityQuery = session.createQuery("DELETE FROM OrderProductsEntity o where o.salesOrdersEntity.id=:sId and o.name =:pname and o.colorname=:cname");
+            orderProductsEntityQuery.setParameter("sId", salesOrdersEntity.getId());
+            orderProductsEntityQuery.setParameter("pname", productsEntity.getName());
+            orderProductsEntityQuery.setParameter("cname", SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(colorId));
+
+            orderProductsEntityQuery.executeUpdate();
+            transaction.commit();
+        } catch(Exception e) {
+            if(transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            session.close();
+            return -1;
+        }
+    }
     public int addOrderProduct(int saleOrderId, int productId, int colorId, int quantity) {
         Transaction transaction = null;
         Session session = HibernateUtils.getSessionFactory().openSession();
