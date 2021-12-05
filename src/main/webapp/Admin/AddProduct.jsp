@@ -167,7 +167,7 @@
                                         <div class="input-group input-group--prepend">
                                             <div class="input-group__prepend"><span class="input-group__symbol">+</span>
                                             </div>
-                                            <input name="quantity" class="input" type="number" min="1000" max="1000000000" placeholder="" value="100000" required>
+                                            <input name="quantity" class="input" type="number" min="0" max="1000000000" placeholder="" value="100000" required>
                                         </div>
                                     </div>
                                     <div class="col-12 form-group form-group--lg">
