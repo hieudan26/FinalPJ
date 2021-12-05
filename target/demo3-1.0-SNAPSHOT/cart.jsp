@@ -92,7 +92,8 @@
                                 </thead>
                                 <tbody id="tbodyProduct">
                                     <c:forEach var="product" items="${productDisplayCartDTOList}">
-                                        <form action="AddorCheckRedirectController/editQuantity">
+                                        <form action="<c:url value="AddorCheckRedirectController/editQuantity" />">
+                                            <input type="hidden" name="path" value="cart">
                                             <tr>
                                                 <td class="product-thumbnail">
                                                     <a href="#"><img class="img-responsive ml-15px"

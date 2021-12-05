@@ -201,4 +201,24 @@
             }
         })
     }
+
+    function onRemove(productId, colorId, quantity) {
+        event.preventDefault();
+        $.ajax({
+            url: "<c:url value="/api-remove-product-header" />",
+            type: "get",
+            data: {
+                productId: productId,
+                colorId: colorId,
+                quantity: quantity,
+            },
+            success: function (response) {
+                document.getElementById("cartList").innerHTML = response;
+                window.location.reload(true);
+            },
+            error: function (xhr) {
+                alert("Loading data not success. Please comeback later <3")
+            }
+        })
+    }
 </script>

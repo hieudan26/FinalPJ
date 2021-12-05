@@ -61,15 +61,24 @@ public class AddorCheckRedirectController extends HttpServlet {
         processRequest(request, response, "");
     }
 
+    public void updateIncreQuantityProduct(int productId, int quantity)
+    {
+        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
+        productsEntity.setQuantity(productsEntity.getQuantity() + quantity);
+        SingletonServiceUltils.getProductDAOImpl().update(productsEntity);
+    }
+
     private void removeProduct(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String productId = request.getParameter("productId");
         String colorId = request.getParameter("colorId");
+        String quantity = request.getParameter("quantity");
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
         String contextJoined = "";
         int num = 0;
         Cookie[] cookies = request.getCookies();
+        updateIncreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(quantity));
         for (Cookie cookie: cookies
         ) {
             if(cookie.getName().equals("products")) {
@@ -133,6 +142,9 @@ public class AddorCheckRedirectController extends HttpServlet {
             String temp = "/singleproduct?productId=" + curProductId;
             response.sendRedirect(temp);
         }
+        else if (path.trim().equals("cart")) {
+            response.sendRedirect("/cart");
+        }
         else {
             String redi = request.getParameter("redi");
             String colorRedi = request.getParameter("colorRedi");
@@ -140,6 +152,13 @@ public class AddorCheckRedirectController extends HttpServlet {
             String temp = "/shop?redi=" + redi +"&colorRedi=" + colorRedi + "&tagRedi=" + tagRedi;
             response.sendRedirect(temp);
         }
+    }
+
+    public void updateDecreQuantityProduct(int productId, int quantity)
+    {
+        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
+        productsEntity.setQuantity(productsEntity.getQuantity() - quantity);
+        SingletonServiceUltils.getProductDAOImpl().update(productsEntity);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String quantityInCart)
@@ -198,6 +217,7 @@ public class AddorCheckRedirectController extends HttpServlet {
             cookie.setPath("/");
             response.addCookie(cookie);
 
+            updateDecreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(quantity));
             redirectCurrentPage(request, response);
         }
         else {
@@ -227,6 +247,7 @@ public class AddorCheckRedirectController extends HttpServlet {
                 cookie.setPath("/");
                 response.addCookie(cookie);
 
+                updateDecreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(quantity));
                 redirectCurrentPage(request, response);
             }
         }
@@ -240,6 +261,7 @@ public class AddorCheckRedirectController extends HttpServlet {
         String inputQuantity = request.getParameter("inputQuantity");
         Integer diffQuantity = (Integer.parseInt(inputQuantity) - Integer.parseInt(quantity));
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
+        updateDecreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(diffQuantity));
 
         if(diffQuantity > 0) {
             if(userAccountDTO == null)
@@ -248,7 +270,8 @@ public class AddorCheckRedirectController extends HttpServlet {
                 int userId = userAccountDTO.getId();
                 SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
                 SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId), diffQuantity);
-                redirectCurrentPage(request, response);
+
+                response.sendRedirect("/cart");
             }
         }
         else {
@@ -301,7 +324,7 @@ public class AddorCheckRedirectController extends HttpServlet {
                 SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
                 SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId), diffQuantity);
             }
-            redirectCurrentPage(request, response);
+            response.sendRedirect("/cart");
         }
     }
 }

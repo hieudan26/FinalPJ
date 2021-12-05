@@ -20,6 +20,8 @@ import java.util.List;
 public class CheckOutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session=request.getSession();
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
         String Scartid= request.getParameter("cartid");
@@ -35,6 +37,16 @@ public class CheckOutController extends HttpServlet {
                     session.setAttribute("sumsubtotal", sumsubtotal);
                     session.setAttribute("orderProductDTOList", orderProductDTOList);
                     session.setAttribute("salesOrdersEntity", salesOrdersEntity);
+                }
+
+                Cookie[] cookies = request.getCookies();
+                for (Cookie cookie: cookies
+                ) {
+                    if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
+                        cookie.setMaxAge(0);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                    }
                 }
 
                 RequestDispatcher rd=request.getRequestDispatcher("checkout.jsp");

@@ -41,6 +41,7 @@ public class AdminAddProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        String message = "Add successfully";
         try{
             String productImage= req.getParameter("urlimage");
             String productName = req.getParameter("name");
@@ -60,6 +61,12 @@ public class AdminAddProductController extends HttpServlet {
                 for(String item: productColors){
                     System.out.println(item);
                 }
+            }
+
+            if (SingletonServiceUltils.getProductDAOImpl().getProductIdByName(productName) != -1) {
+                message = "product name is existing";
+                this.DirectEror(message, false, req, resp);
+                return;
             }
 
             CategoriesEntity cate = SingletonServiceUltils.getCategoryDAOImpl().findById(Integer.parseInt(productCategory));
@@ -105,11 +112,20 @@ public class AdminAddProductController extends HttpServlet {
             productsEntity.setPublish(false);
             productsEntity.setAdddate(Date.from(date.atZone(ZoneId.systemDefault()).toInstant()));
             SingletonServiceUltils.getProductDAOImpl().insert(productsEntity);
-            doGet(req,resp);
+            DirectEror(message, true, req, resp);
             return;
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void DirectEror(String Message,boolean isSuccess,HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{
+        req.setAttribute("Message", Message);
+        req.setAttribute("isSuccess", isSuccess);
+        RequestDispatcher dispatcher //
+                = req.getServletContext().getRequestDispatcher("/Admin/AddProduct.jsp");
+        dispatcher.forward(req, resp);
+        return;
     }
 }

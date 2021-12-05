@@ -256,5 +256,10 @@
         </div>
     </div>
 </div>
+<script>
+    <c:if test="${requestScope.Message != null && requestScope.Message != '' }">
+    alert("${requestScope.Message}");
+    </c:if>
+</script>
 <script src="../Admin/assets/js/custom/firebase.js"></script>
 <jsp:include page="footerAdmin.jsp"/>

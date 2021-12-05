@@ -5,6 +5,7 @@ import DTO.ProductDisplayCartDTO;
 import DTO.UserAccountDTO;
 import Model.OrderProductsEntity;
 import Model.ProductsEntity;
+import Model.SalesOrdersEntity;
 import Utils.ApplicationUtils;
 import Utils.SingletonServiceUltils;
 
@@ -13,12 +14,13 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/api-header-cart-list", "/api-header-cart-list-numberproduct"})
-public class HeaderCartAPI extends HttpServlet {
+@WebServlet(urlPatterns = {"/api-remove-product-header"})
+public class RemoveProductHeaderAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -86,8 +88,11 @@ public class HeaderCartAPI extends HttpServlet {
                 }
             }
         }
+
+        this.removeProductHeader(request, response);
         this.handleHeaderCartList(response, productDisplayCartDTOList);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -111,7 +116,74 @@ public class HeaderCartAPI extends HttpServlet {
         }
     }
 
-    private void test() {
-        System.out.println("Hello world");
+    public void updateIncreQuantityProduct(int productId, int quantity)
+    {
+        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
+        productsEntity.setQuantity(productsEntity.getQuantity() + quantity);
+        SingletonServiceUltils.getProductDAOImpl().update(productsEntity);
+    }
+
+    private void removeProductHeader(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("text/html;charset=UTF-8");
+        String productId = request.getParameter("productId");
+        String colorId = request.getParameter("colorId");
+        String quantity = request.getParameter("quantity");
+
+        UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
+        updateIncreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(quantity));
+        String contextJoined = "";
+        int num = 0;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie: cookies
+        ) {
+            if(cookie.getName().equals("products")) {
+                String[] context = cookie.getValue().split("p");
+                List<String> list = new ArrayList<String>(Arrays.asList(context));
+                String productAndColor = productId + "q" + colorId;
+                list.removeAll(Collections.singleton(productAndColor));
+                context = list.toArray(new String[0]);
+                contextJoined = String.join("p", context);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+            if(cookie.getName().equals("numOfProducts")) {
+                num = Integer.parseInt(cookie.getValue()) - 1;
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+
+        }
+        if(userAccountDTO == null) {
+            if(contextJoined.length() >= 3) {
+
+                Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
+                cookie.setMaxAge(60 * 60 * 24);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+
+                cookie = new Cookie("products", contextJoined);
+                cookie.setMaxAge(60 * 60 * 24);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                //response.sendRedirect("/cart");
+            }
+            else {
+                //response.sendRedirect("/cart/clear");
+            }
+        }
+        else {
+            int userId = userAccountDTO.getId();
+            SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+            SingletonServiceUltils.getOrderProductDAOImpl().deleteSingleProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId));
+            if(num != 0) {
+                Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
+                cookie.setMaxAge(60 * 60 * 24);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+            //response.sendRedirect("/cart");
+        }
     }
 }
