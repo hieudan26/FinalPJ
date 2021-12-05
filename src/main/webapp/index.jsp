@@ -178,7 +178,7 @@
                         <c:forEach items="${categoriesEntityList}" var="categoriesEntity">
                             <li class="nav-item swiper-slide" onclick="onClickLoadData(${categoriesEntity.id}, 1);">
                                 <a data-bs-toggle="tab" class="nav-link">
-                                    <img src="<c:url value="assets/images/icons/fabric-icon.png" />" alt="">
+                                    <img src="<c:url value="${categoriesEntity.getImage()}" />" alt="">
                                     <span onclick="onChangeBG(this.id)" id="${categoriesEntity.id}"> ${categoriesEntity.name}</span>
                                 </a>
                             </li>

@@ -461,6 +461,10 @@ public class ProductDAOImpl extends AbstractDAO<Integer, ProductsEntity> impleme
 
             session.close();
         }
+
+        if (productsEntity == null) {
+            return -1;
+        }
         return productsEntity.getId();
     }
 

@@ -55,6 +55,14 @@ public class CartController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    public void updateIncreQuantityProduct(int productId, int quantity)
+    {
+        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
+        productsEntity.setQuantity(productsEntity.getQuantity() + quantity);
+        SingletonServiceUltils.getProductDAOImpl().update(productsEntity);
+    }
+
     private void processingCart(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException, ServletException {
         resp.setContentType("text/html;charset=UTF-8");
@@ -203,9 +211,36 @@ public class CartController extends HttpServlet {
         if(userAccountDTO == null) {
             Cookie[] cookies = request.getCookies();
             String context = "";
-            for (Cookie cookie: cookies
-            ) {
+            ArrayList<ProductDisplayCartDTO> productDisplayCartDTOList = new ArrayList<ProductDisplayCartDTO>();
+            for (Cookie cookie: cookies) {
                 if(cookie.getName().equals("products")) {
+                    String[] contextCookie = cookie.getValue().split("p");
+                    for (String s: contextCookie) {
+                        // idx:0 means productId, idx=1 means colorId
+                        String[] productAndColor = s.split("q");
+                        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(Integer.parseInt(productAndColor[0]));
+                        String colorName = SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(Integer.parseInt(productAndColor[1]));
+                        ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productsEntity.getId(), productsEntity.getImage(), productsEntity.getName(),
+                                productsEntity.getRegularPrice(), Integer.parseInt(productAndColor[1]), colorName);
+                        productDisplayCartDTOList.add(productDisplayCartDTO);
+                    }
+                    for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
+                        int quantity = 1;
+                        for (int j = i + 1; j < productDisplayCartDTOList.size(); j++) {
+                            if(productDisplayCartDTOList.get(i).getId() == productDisplayCartDTOList.get(j).getId()
+                                    && productDisplayCartDTOList.get(i).getColorDTO().getId() == productDisplayCartDTOList.get(j).getColorDTO().getId()) {
+                                quantity++;
+                                productDisplayCartDTOList.remove(j);
+                                j--;
+                                productDisplayCartDTOList.get(i).setQuantity(quantity);
+                            }
+                        }
+                    }
+
+                    for (ProductDisplayCartDTO item : productDisplayCartDTOList) {
+                        this.updateIncreQuantityProduct(item.getId(), item.getQuantity());
+                    }
+
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);
@@ -220,6 +255,12 @@ public class CartController extends HttpServlet {
         else {
             int userId = userAccountDTO.getId();
             SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+
+            for (OrderProductsEntity item : SingletonServiceUltils.getOrderProductDAOImpl().getAllbySaleOrderId(salesOrdersEntity.getId())) {
+                int id = SingletonServiceUltils.getProductDAOImpl().getProductIdByName(item.getName());
+                this.updateIncreQuantityProduct(id, item.getQuantity());
+            }
+
             SingletonServiceUltils.getOrderProductDAOImpl().clearAllBySaleOrderId(salesOrdersEntity.getId());
         }
         response.sendRedirect("/cart");

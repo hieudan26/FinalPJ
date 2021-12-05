@@ -136,7 +136,7 @@
                                     <li>
                                         <svg class="icon-icon-phone">
                                             <use xlink:href="#icon-phone"></use>
-                                        </svg> <a href="tel:#">+1 (070) 123-4567</a>
+                                        </svg> <a href="tel:#"><c:out  value="${requestScope.users.getPhone()}"/></a>
                                     </li>
                                 </ul>
                             </div>

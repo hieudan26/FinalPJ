@@ -128,6 +128,8 @@
 
                     <%--FORM--%>
                     <form action="AddorCheckRedirectController" method="get">
+                        <input hidden type="text" name="path" value="single" >
+                        <input hidden type="text" name="curProductId" value="${singleProductDTO.getId()}">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
                         <c:if test="${singleProductDTO.getColorDTOList().size() != 0}">
                             <input type="text" hidden id="colorId" name="colorId" value="${singleProductDTO.getColorDTOList().get(0).getId()}" >
