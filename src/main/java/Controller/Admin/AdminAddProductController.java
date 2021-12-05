@@ -23,6 +23,9 @@ import java.util.Set;
 @WebServlet("/admin/addproduct")
 public class AdminAddProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         try{
             List<CategoriesEntity> categoriesEntityList = SingletonServiceUltils.getCategoryDAOImpl().getAll();
             List<TagsEntity> tagsEntityList = SingletonServiceUltils.getTagDAOImpl().getAll();
@@ -41,6 +44,8 @@ public class AdminAddProductController extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
         String message = "Add successfully";
         try{

@@ -12,6 +12,9 @@ import java.io.IOException;
 public class ContactController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/contact.jsp");
         dispatcher.forward(req,resp);
     }

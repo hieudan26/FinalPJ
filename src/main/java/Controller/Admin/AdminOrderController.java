@@ -14,6 +14,9 @@ import java.io.IOException;
 @WebServlet("/admin/order")
 public class AdminOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/Admin/Order.jsp");
         dispatcher.forward(req,resp);
         System.out.println("heloo"+req.getSession().getAttribute("loginedUser"));
@@ -21,6 +24,9 @@ public class AdminOrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String id =   req.getParameter("Id");
         if(id != null){
             int idproduct = Integer.parseInt(id);

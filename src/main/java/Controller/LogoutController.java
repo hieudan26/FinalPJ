@@ -10,6 +10,9 @@ import java.io.IOException;
 public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession(false);
         Cookie[] cookies = req.getCookies();
         for (Cookie cookie: cookies

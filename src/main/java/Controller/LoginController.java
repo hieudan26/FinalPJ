@@ -23,6 +23,9 @@ import java.util.List;
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         UserAccountDTO user = ApplicationUtils.getLoginedUser(req);
         if(user != null)
         {
@@ -39,6 +42,8 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
         String userName = req.getParameter("username");
         String password = req.getParameter("password");

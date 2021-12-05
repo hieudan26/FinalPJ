@@ -22,6 +22,9 @@ import static Constant.WebConstant.IMAGE_NULL_URL;
 @WebServlet("/admin/editproduct")
 public class AdminEditProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("Id");
         System.out.println("hello"+id);
         try{
@@ -62,6 +65,8 @@ public class AdminEditProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("idproduct");
         int idProduct = Integer.parseInt(id);

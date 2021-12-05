@@ -15,6 +15,9 @@ public @WebServlet("/forgetpass")
 class ForgetPasswordController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String email = req.getParameter("mail");
         String newPass = req.getParameter("newpass");
 
@@ -37,6 +40,9 @@ class ForgetPasswordController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String message="";
         Boolean isSuccess =false;
         try {

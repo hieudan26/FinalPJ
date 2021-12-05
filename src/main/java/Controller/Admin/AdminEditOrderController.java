@@ -22,6 +22,9 @@ import static Constant.WebConstant.IMAGE_NULL_URL;
 @WebServlet("/admin/editorder")
 public class AdminEditOrderController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("Id");
         try{
             int idtrans = Integer.parseInt(id);
@@ -53,6 +56,9 @@ public class AdminEditOrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String id =   req.getParameter("Id");
         String status = req.getParameter("status");
         if(id != null){
