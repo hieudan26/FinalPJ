@@ -16,8 +16,8 @@
                 <img class="auth-logo__icon" src="../Admin/assets/img/content/logotype.svg" width="44" alt="#" />
                 <div class="auth-logo__text">arion</div>
             </div>
-            <img class="page-auth__screen-bg auth-bg-image-light" src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t39.30808-6/255437074_2690442647768064_3239204446502871189_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=gbsDAxiULxUAX94aTDy&_nc_ht=scontent.fsgn13-2.fna&oh=a09810140fab2ef0344709047e8c04ae&oe=61A4D76E" alt="#">
-            <img class="page-auth__screen-bg auth-bg-image-dark" src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t39.30808-6/255437074_2690442647768064_3239204446502871189_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=gbsDAxiULxUAX94aTDy&_nc_ht=scontent.fsgn13-2.fna&oh=a09810140fab2ef0344709047e8c04ae&oe=61A4D76E" alt="#">
+            <img class="page-auth__screen-bg auth-bg-image-light" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
+            <img class="page-auth__screen-bg auth-bg-image-dark" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
         </div>
         <div class="auth-card card">
             <div class="card__wrapper">
@@ -28,8 +28,8 @@
                             <div class="auth-logo__text">Mioca</div>
                         </div>
                     </div>
-                    <img class="auth-card__bg auth-bg-image-light" src="https://scontent.fsgn9-1.fna.fbcdn.net/v/t39.30808-6/255437074_2690442647768064_3239204446502871189_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=t5xXe3wLkX8AX-T_6hY&_nc_ht=scontent.fsgn9-1.fna&oh=0c9f1e7f268ee7088fcd710d484ddfef&oe=61ACC06E" alt="#">
-                    <img class="auth-card__bg auth-bg-image-dark" src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t39.30808-6/255437074_2690442647768064_3239204446502871189_n.jpg?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=gbsDAxiULxUAX94aTDy&_nc_ht=scontent.fsgn13-2.fna&oh=a09810140fab2ef0344709047e8c04ae&oe=61A4D76E" alt="#">
+                    <img class="auth-card__bg auth-bg-image-light" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
+                    <img class="auth-card__bg auth-bg-image-dark" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
                 </div>
                 <form class="auth-card__right" action="<c:url  value="/admin/createaccount"/>" method="POST">
                     <div class="auth-card__top">
