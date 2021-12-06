@@ -112,6 +112,12 @@ public class MailUtils {
     public void sendMailBilling(CcTransactionsEntity trans, List<OrderProductDTO> listProdut, String name){
         String token = TokenUltils.getToken(useremail);
         String idTrans = "#"+trans.getId();
+        String totaltrans ="\n<tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
+                "                                                                                            <td style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; border-top-width: 1px; border-top-color: #eee; border-top-style: solid; margin: 0; padding: 5px 0;\" valign=\"top\"><b> Total: </b>" +
+                "                                                                                            </td>\n" +
+                "                                                                                            <td class=\"alignright\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; text-align: right; border-top-width: 1px; border-top-color: #eee; border-top-style: solid; margin: 0; padding: 5px 0;\" align=\"right\" valign=\"top\"><b>$"+trans.getAmount()+"\n" +
+                "                                                                                           </b> </td>\n" +
+                "                                                                                        </tr>";
         String product="";
         for (OrderProductDTO item: listProdut) {
             product +="\n<tr style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;\">\n" +
@@ -151,6 +157,7 @@ public class MailUtils {
                 "                                                                                <td style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 5px 0;\" valign=\"top\">\n" +
                 "                                                                                    <table class=\"invoice-items\" cellpadding=\"0\" cellspacing=\"0\" style=\"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; margin: 0;\">\n" +
                 "                                                                                       "+product+" \n"+
+                "                                                                                       "+totaltrans+" \n"+
                 "                                                                                    </table>\n" +
                 "                                                                                </td>\n" +
                 "                                                                            </tr>\n" +
