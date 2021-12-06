@@ -96,7 +96,7 @@ public class CartController extends HttpServlet {
                             ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(Integer.parseInt(productAndColor[0]));
                             String colorName = SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(Integer.parseInt(productAndColor[1]));
                             ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productsEntity.getId(), productsEntity.getImage(), productsEntity.getName(),
-                                    productsEntity.getRegularPrice(), Integer.parseInt(productAndColor[1]), colorName);
+                                    productsEntity.getDiscountPrice(), Integer.parseInt(productAndColor[1]), colorName);
                             productDisplayCartDTOList.add(productDisplayCartDTO);
                         }
                         break;
@@ -180,7 +180,7 @@ public class CartController extends HttpServlet {
                         ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(Integer.parseInt(productAndColor[0]));
                         String colorName = SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(Integer.parseInt(productAndColor[1]));
                         ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productsEntity.getId(), productsEntity.getImage(), productsEntity.getName(),
-                                productsEntity.getRegularPrice(), Integer.parseInt(productAndColor[1]), colorName);
+                                productsEntity.getDiscountPrice(), Integer.parseInt(productAndColor[1]), colorName);
                         productDisplayCartDTOList.add(productDisplayCartDTO);
                     }
                     cookie.setMaxAge(0);
@@ -231,7 +231,7 @@ public class CartController extends HttpServlet {
                         ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(Integer.parseInt(productAndColor[0]));
                         String colorName = SingletonServiceUltils.getColorDAOImpl().getNameColorbyColorsId(Integer.parseInt(productAndColor[1]));
                         ProductDisplayCartDTO productDisplayCartDTO = new ProductDisplayCartDTO(productsEntity.getId(), productsEntity.getImage(), productsEntity.getName(),
-                                productsEntity.getRegularPrice(), Integer.parseInt(productAndColor[1]), colorName);
+                                productsEntity.getDiscountPrice(), Integer.parseInt(productAndColor[1]), colorName);
                         productDisplayCartDTOList.add(productDisplayCartDTO);
                     }
                     for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
@@ -313,8 +313,6 @@ public class CartController extends HttpServlet {
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
             response.addCookie(cookie);
-
-
 
             request.setAttribute("productDisplayCartDTOList", productDisplayCartDTOList);
             response.sendRedirect("/cart");

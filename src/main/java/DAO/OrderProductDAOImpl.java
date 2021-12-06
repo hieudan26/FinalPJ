@@ -118,7 +118,7 @@ public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntit
             // else: create new cart
             if(orderProductsEntity != null) {
                 orderProductsEntity.setQuantity(orderProductsEntity.getQuantity() + quantity);
-                orderProductsEntity.setSubtotal(orderProductsEntity.getPrice().multiply(BigDecimal.valueOf(orderProductsEntity.getQuantity())));
+                orderProductsEntity.setSubtotal(productsEntity.getDiscountPrice().multiply(BigDecimal.valueOf(orderProductsEntity.getQuantity())));
 
                 session.update(orderProductsEntity);
 
@@ -143,7 +143,7 @@ public class OrderProductDAOImpl extends AbstractDAO<Integer, OrderProductsEntit
                 orderProductsEntity.setSalesOrdersEntity(salesOrdersEntity);
                 orderProductsEntity.setName(productsEntity.getName());
                 orderProductsEntity.setColorname(colorsEntity.getName());
-                orderProductsEntity.setPrice(productsEntity.getRegularPrice());
+                orderProductsEntity.setPrice(productsEntity.getDiscountPrice());
                 orderProductsEntity.setDescription(productsEntity.getDescription());
                 orderProductsEntity.setQuantity(quantity);
                 orderProductsEntity.setImage(productsEntity.getImage());
