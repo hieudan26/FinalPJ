@@ -36,7 +36,7 @@ public class PlaceOrderController extends HttpServlet {
             SingletonServiceUltils.getCcTransactionDAOImpl().insert(ccTransactionsEntity);
 
             UserAccountDTO User =(UserAccountDTO)session.getAttribute("loginedUser");
-            String name = User.getLastname() + User.getFirstname();
+            String name = User.getFirstname() + " " + User.getLastname();
             List<OrderProductDTO> listorder = (List<OrderProductDTO>) session.getAttribute("orderProductDTOList");
 
             MailUtils tempmail = new MailUtils(User.getEmail());
@@ -44,12 +44,10 @@ public class PlaceOrderController extends HttpServlet {
             session.removeAttribute("sumsubtotal");
             session.removeAttribute("orderProductDTOList");
             session.removeAttribute("salesOrdersEntity");
-            RequestDispatcher rd=request.getRequestDispatcher("thank-you-page.jsp");
-            rd.forward(request,response);
+            response.sendRedirect("/thankyou");
         }
         else {
-            RequestDispatcher rd=request.getRequestDispatcher("my-account.jsp");
-            rd.forward(request,response);
+            response.sendRedirect("/myaccount");
         }
 
     }

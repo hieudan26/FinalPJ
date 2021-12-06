@@ -66,6 +66,13 @@ public class CartController extends HttpServlet {
         SingletonServiceUltils.getProductDAOImpl().update(productsEntity);
     }
 
+    public void updateDecreQuantityProduct(int productId, int quantity)
+    {
+        ProductsEntity productsEntity = SingletonServiceUltils.getProductDAOImpl().getProductbyID(productId);
+        productsEntity.setQuantity(productsEntity.getQuantity() - quantity);
+        SingletonServiceUltils.getProductDAOImpl().update(productsEntity);
+    }
+
     private void processingCart(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException, ServletException {
         resp.setContentType("text/html;charset=UTF-8");
@@ -283,6 +290,13 @@ public class CartController extends HttpServlet {
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
         if(userAccountDTO == null) {
             for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
+                int diff = Integer.parseInt(inputQuantityList[i]) - productDisplayCartDTOList.get(i).getQuantity();
+                if (diff < 0) {
+                    this.updateIncreQuantityProduct(productDisplayCartDTOList.get(i).getId(), diff * -1);
+                }
+                else {
+                    this.updateDecreQuantityProduct(productDisplayCartDTOList.get(i).getId(), diff);
+                }
                 productDisplayCartDTOList.get(i).setQuantity(Integer.parseInt(inputQuantityList[i]));
                 for (int j = 0; j < Integer.parseInt(inputQuantityList[i]); j++) {
                     if(productIds.isEmpty()) {
@@ -293,6 +307,8 @@ public class CartController extends HttpServlet {
                     }
                 }
             }
+
+
             Cookie cookie = new Cookie("products", productIds);
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
@@ -309,6 +325,12 @@ public class CartController extends HttpServlet {
             for (int i = 0; i < productDisplayCartDTOList.size(); i++) {
                 int qty = Integer.parseInt(inputQuantityList[i]);
                 int diff = qty - productDisplayCartDTOList.get(i).getQuantity();
+                if (diff < 0) {
+                    this.updateIncreQuantityProduct(productDisplayCartDTOList.get(i).getId(), diff * -1);
+                }
+                else {
+                    this.updateDecreQuantityProduct(productDisplayCartDTOList.get(i).getId(), diff);
+                }
                 SingletonServiceUltils.getOrderProductDAOImpl().addOrderProduct(salesOrdersEntity.getId(), productDisplayCartDTOList.get(i).getId(), productDisplayCartDTOList.get(i).getColorDTO().getId(), diff);
                 productDisplayCartDTOList.get(i).setQuantity(qty);
             }

@@ -62,7 +62,7 @@ public class ProductController extends HttpServlet {
         List<ReviewOfUserDTO> reviewOfUserDTOList = new ArrayList<>();
         for (ReviewsEntity item:SingletonServiceUltils.getReviewDAOImpl().getAllbyProductId(productsEntity.getId())) {
             UsersEntity usersEntity = SingletonServiceUltils.getUserDAOImpl().getOneByReviewId(item.getId());
-            String fullname = usersEntity.getFirstName() + usersEntity.getLastName();
+            String fullname = usersEntity.getFirstName() + " " + usersEntity.getLastName();
             String image = usersEntity.getImage();
             int id = usersEntity.getId();
             ReviewOfUserDTO reviewOfUserDTO = new ReviewOfUserDTO(id,
