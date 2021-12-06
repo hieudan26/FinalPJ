@@ -86,7 +86,7 @@ public class PagingShopAPI extends HttpServlet {
                                                                                         this.priceDiscount(item.isProductStatus(), item.getDiscountPrice(), item.getRegularPrice()) +
                         "                                                            </span>\n" +
                         "                                                            <div class=\"actions\">\n" +
-                        "                                                                <a href=\"wishlist.html\" class=\"action wishlist\"\n" +
+                        "                                                                <a href=\"/comingsoon\" class=\"action wishlist\"\n" +
                         "                                                                    title=\"Wishlist\"><i class=\"pe-7s-like\"></i></a>\n" +
                         "                                                                <a onclick=\"onClickLoadData(" + item.getId() + ", 2);\"" +
                         "                                                                    href=\"#\" class=\"action quickview\"\n" +
@@ -94,7 +94,7 @@ public class PagingShopAPI extends HttpServlet {
                         "                                                                    data-bs-toggle=\"modal\"\n" +
                         "                                                                    data-bs-target=\"#exampleModal\"><i\n" +
                         "                                                                        class=\"pe-7s-search\"></i></a>\n" +
-                        "                                                                <a href=\"compare.html\" class=\"action compare\"\n" +
+                        "                                                                <a href=\"/comingsoon\" class=\"action compare\"\n" +
                         "                                                                    title=\"Compare\"><i class=\"pe-7s-refresh-2\"></i></a>\n" +
                         "                                                            </div>\n" +
                         "                                                            <button onclick=\"onClickAddToCart(" + item.getId() + ", " + item.getQuantity() + ", " + item.getColorsId().get(0) + ")\" title=\"Add To Cart\" class=\" add-to-cart\">Add\n" +
@@ -124,12 +124,12 @@ public class PagingShopAPI extends HttpServlet {
                                                                     this.loadThumbOfProduct(item.getTagsName(), item.isProductStatus(), item.getDiscount_percent())  +
                         "                                        </span>\n" +
                         "                                        <div class=\"actions\">\n" +
-                        "                                            <a href=\"wishlist.jsp\" class=\"action wishlist\" title=\"Wishlist\"><i\n" +
+                        "                                            <a href=\"/comingsoon\" class=\"action wishlist\" title=\"Wishlist\"><i\n" +
                         "                                                    class=\"pe-7s-like\"></i></a>\n" +
                         "                                            <a onclick=\"onClickLoadData(" + item.getId() + ", 2);\" href=\"#\" class=\"action quickview\"\n" +
                         "                                               title=\"Quick view\" data-bs-toggle=\"modal\" data-link-action=\"quickview\"\n" +
                         "                                               data-bs-target=\"#exampleModal\"><i class=\"pe-7s-look\"></i></a>\n" +
-                        "                                            <a href=\"compare.jsp\" class=\"action compare\" title=\"Compare\"><i\n" +
+                        "                                            <a href=\"/comingsoon\" class=\"action compare\" title=\"Compare\"><i\n" +
                         "                                                    class=\"pe-7s-refresh-2\"></i></a>\n" +
                         "                                        </div>\n" +
                         "                                    </div>\n" +

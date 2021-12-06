@@ -78,7 +78,7 @@ public class ModalAPI extends HttpServlet {
                     "                                    <button class=\"add-cart\" onclick=\"window.location.href='/singleproduct?productId=" + productDisplayModalDTO.getId() + "'\">Detail</button>\n" +
                     "                                </div>\n" +
                     "                                <div class=\"pro-details-compare-wishlist pro-details-wishlist \">\n" +
-                    "                                    <a href=\"wishlist.html\"><i class=\"pe-7s-like\"></i></a>\n" +
+                    "                                    <a href=\"/comingsoon\"><i class=\"pe-7s-like\"></i></a>\n" +
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"pro-details-categories-info pro-details-same-style d-flex\">\n" +

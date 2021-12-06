@@ -55,12 +55,12 @@ public class Top8ProductAPI extends HttpServlet {
                                                                             this.loadThumbOfProduct(productDisplayApiDTO.getTagsName(), productDisplayApiDTO.isProductStatus(), productDisplayApiDTO.getDiscount_percent())  +
                                 "                                        </span>\n" +
                                 "                                        <div class=\"actions\">\n" +
-                                "                                            <a href=\"wishlist.jsp\" class=\"action wishlist\" title=\"Wishlist\"><i\n" +
+                                "                                            <a href=\"/comingsoon\" class=\"action wishlist\" title=\"Wishlist\"><i\n" +
                                 "                                                    class=\"pe-7s-like\"></i></a>\n" +
                                 "                                            <a onclick=\"onClickLoadData(" + productDisplayApiDTO.getId() + ", 2);\" href=\"#\" class=\"action quickview\"\n" +
                                 "                                               title=\"Quick view\" data-bs-toggle=\"modal\" data-link-action=\"quickview\"\n" +
                                 "                                               data-bs-target=\"#exampleModal\"><i class=\"pe-7s-look\"></i></a>\n" +
-                                "                                            <a href=\"compare.jsp\" class=\"action compare\" title=\"Compare\"><i\n" +
+                                "                                            <a href=\"/comingsoon\" class=\"action compare\" title=\"Compare\"><i\n" +
                                 "                                                    class=\"pe-7s-refresh-2\"></i></a>\n" +
                                 "                                        </div>\n" +
                                 "                                    </div>\n" +

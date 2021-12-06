@@ -61,7 +61,7 @@
 <%--&lt;%&ndash;                                    <c:out value="${item}" />&ndash;%&gt;--%>
 <%--                                    <c:set var="numProduct" value="${numProduct + 1}"></c:set>--%>
 <%--                                </c:forEach>--%>
-                            <c:if test="${cookie.numOfProducts.value != null}">
+                            <c:if test="${cookie.numOfProducts.value != null && cookie.numOfProducts.value != 0}">
                                 <c:set var="numProduct" value="${cookie.numOfProducts.value}" />
 
 <%--                                <c:set var="same" value="0" />--%>

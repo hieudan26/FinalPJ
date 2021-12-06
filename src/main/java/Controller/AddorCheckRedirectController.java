@@ -231,6 +231,11 @@ public class AddorCheckRedirectController extends HttpServlet {
         else {
             int userId = userAccountDTO.getId();
             SalesOrdersEntity salesOrdersEntity = SingletonServiceUltils.getSalesOrderDAOImpl().getOneByUserIdNotCheckOut(userId);
+
+            if (flag == 1) {
+                updateDecreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(quantity));
+            }
+
             if(salesOrdersEntity == null) {
                 java.util.Date utilDate = new java.util.Date();
                 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -255,7 +260,6 @@ public class AddorCheckRedirectController extends HttpServlet {
                 cookie.setPath("/");
                 response.addCookie(cookie);
 
-                //updateDecreQuantityProduct(Integer.valueOf(productId), Integer.valueOf(quantity));
                 redirectCurrentPage(request, response);
             }
         }

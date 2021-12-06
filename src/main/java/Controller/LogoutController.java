@@ -15,8 +15,7 @@ public class LogoutController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession(false);
         Cookie[] cookies = req.getCookies();
-        for (Cookie cookie: cookies
-        ) {
+        for (Cookie cookie: cookies) {
             if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
