@@ -27,7 +27,7 @@
                                 <div class="clear">
                                     <!-- submit -->
                                     <button id="mc-embedded-subscribe" class="button" type="button" name="subscribe"
-                                            value="" onclick="window.location.href='/404"> Submit</button>
+                                            value="" onclick="window.location.href='/404'"> Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -140,4 +140,6 @@
         </div>
     </div>
 </div>
+<div style="bottom: 60px; left: 20px " class="zalo-chat-widget" data-oaid="2896394760101211601" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="300" data-height="300"></div>
+<script src="https://sp.zalo.me/plugins/sdk.js"></script>
 <!-- Footer Area End -->

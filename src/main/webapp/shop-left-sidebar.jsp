@@ -693,15 +693,22 @@
         let i = 0;
         let html = "";
         let temp = this.pagination(curPage, numPage);
+        let index = temp.indexOf(curPage);
+        let index3Cham = temp.indexOf("...");
         for (i; i < temp.length; i++) {
-            if (i === curPage - 1) {
-                html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
+            if (i !== index) {
+                html += "<li class='li'><a class='page-link' style='cursor: pointer'>" + temp[i] + "</a></li>";
             }
-            else {
-                html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
+            else if (i === index3Cham) {
+                html += "<li class='li' style='pointer-events: none'><a class='page-link'>" + temp[i] + "</a></li>";
+            }
+            else if (i === index) {
+                html += "<li class='li'><a class='page-link active' style='cursor: pointer'>" + temp[index] + "</a></li>";
             }
         }
         document.getElementById("paging").innerHTML = html;
+        document.body.scrollTop = 400;
+        document.documentElement.scrollTop = 400;
     }
 
     window.onload = function () {
@@ -727,12 +734,18 @@
             let i = 0;
             let html = "";
             let temp = this.pagination(1, numPage);
+            let index = temp.indexOf("...");
             for (i; i < temp.length; i++) {
                 if (i === 0) {
-                    html += "<li class='li'><a class='page-link active' href='#'>" + temp[i] + "</a></li>";
+                    html += "<li class='li'><a class='page-link active' style='cursor: pointer'>" + temp[i] + "</a></li>";
                 }
                 else {
-                    html += "<li class='li'><a class='page-link' href='#'>" + temp[i] + "</a></li>";
+                    if (i === index) {
+                        html += "<li class='li' style='pointer-events: none'><a class='page-link'>" + temp[i] + "</a></li>";
+                    }
+                    else {
+                        html += "<li class='li'><a class='page-link' style='cursor: pointer'>" + temp[i] + "</a></li>";
+                    }
                 }
             }
             document.getElementById("paging").innerHTML = html;
