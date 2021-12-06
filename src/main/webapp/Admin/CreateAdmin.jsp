@@ -16,8 +16,8 @@
                 <img class="auth-logo__icon" src="../Admin/assets/img/content/logotype.svg" width="44" alt="#" />
                 <div class="auth-logo__text">arion</div>
             </div>
-            <img class="page-auth__screen-bg auth-bg-image-light" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
-            <img class="page-auth__screen-bg auth-bg-image-dark" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
+            <img class="page-auth__screen-bg auth-bg-image-light" src="<c:url value="../assets/images/createAdmin.jpg" />" alt="#">
+            <img class="page-auth__screen-bg auth-bg-image-dark" src="<c:url value="../assets/images/createAdmin.jpg" />" alt="#">
         </div>
         <div class="auth-card card">
             <div class="card__wrapper">
@@ -28,8 +28,8 @@
                             <div class="auth-logo__text">Mioca</div>
                         </div>
                     </div>
-                    <img class="auth-card__bg auth-bg-image-light" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
-                    <img class="auth-card__bg auth-bg-image-dark" src="../assets/images/Aslan%20Team%20-%2019110456%20-%20Ninh%20Phạm%20Trung%20Thành.jpg" alt="#">
+                    <img class="auth-card__bg auth-bg-image-light" src="<c:url value="../assets/images/createAdmin.jpg" />" alt="#">
+                    <img class="auth-card__bg auth-bg-image-dark" src="<c:url value="../assets/images/createAdmin.jpg" />" alt="#">
                 </div>
                 <form class="auth-card__right" action="<c:url  value="/admin/createaccount"/>" method="POST">
                     <div class="auth-card__top">
