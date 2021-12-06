@@ -13,7 +13,6 @@ public class CategoriesEntity {
 
     //one to many category-->product
     @OneToMany(mappedBy = "categoriesEntity",fetch = FetchType.LAZY)
-
     public Set<ProductsEntity> getProductsEntities(){
         return this.productsEntities;
     }

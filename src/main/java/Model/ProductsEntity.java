@@ -52,7 +52,7 @@ public class ProductsEntity {
     }
 
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch =FetchType.LAZY)
+    @ManyToOne(fetch =FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "category_id")
     public CategoriesEntity getCategoriesEntity() {
         return categoriesEntity;
