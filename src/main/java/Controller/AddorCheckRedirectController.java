@@ -70,6 +70,8 @@ public class AddorCheckRedirectController extends HttpServlet {
         else
             quantity = quantityInCart;
         String colorId = request.getParameter("colorId");
+
+
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
         if(userAccountDTO == null) {
             Cookie[] cookies = request.getCookies();

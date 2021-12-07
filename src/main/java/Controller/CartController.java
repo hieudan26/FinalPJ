@@ -200,17 +200,20 @@ public class CartController extends HttpServlet {
     private void clearCart(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException{
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
+        Cookie[] cookies = request.getCookies();
+        String context = "";
+        for (Cookie cookie: cookies
+        ) {
+            if(cookie.getName().equals("numOfProducts")) {
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+        }
         if(userAccountDTO == null) {
-            Cookie[] cookies = request.getCookies();
-            String context = "";
             for (Cookie cookie: cookies
             ) {
-                if(cookie.getName().equals("products")) {
-                    cookie.setMaxAge(0);
-                    cookie.setPath("/");
-                    response.addCookie(cookie);
-                }
-                if(cookie.getName().equals("numOfProducts")) {
+                if (cookie.getName().equals("products")) {
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);
