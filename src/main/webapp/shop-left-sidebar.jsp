@@ -458,6 +458,7 @@
     let numPage = parseInt(${totalPages}, 10);
     let flag = "page"; //sort
     let searching = "";
+    //let scroll = 0;
 
     function onClickAddToCart(idItem, quantity, idColor) {
         if (quantity === 0) {
@@ -466,7 +467,6 @@
                 "\nThe item is currently out of stock, please comeback later");
         }
         else {
-
             let href = '/AddorCheckRedirectController?productId=' + idItem + '&quantity=1&colorId=' + idColor + "&path=shop&redi=" + cateId + "&colorRedi=" + colorId + "&tagRedi=" + tagId;
             window.location.href = href;
         }
@@ -546,7 +546,7 @@
             display === 1 ? temp = "rowList" : temp = "shop-list";
             document.getElementById(temp).innerHTML = data;
             numPage = parseInt(document.getElementById("phantrang").value, 10);
-
+            // scroll = tagId != -1 ? 1 : 0;
             onClickPagination(Number(curPage), numPage);
             if (numPage === 0 || numPage === 1) {
                 document.getElementById("Next").style.visibility = "hidden";
@@ -707,8 +707,11 @@
             }
         }
         document.getElementById("paging").innerHTML = html;
-        document.body.scrollTop = 400;
-        document.documentElement.scrollTop = 400;
+        // if (scroll == 1) {
+        //     document.body.scrollTop = 450;
+        //     document.documentElement.scrollTop = 450;
+        //     scroll = 0;
+        // }
     }
 
     window.onload = function () {
