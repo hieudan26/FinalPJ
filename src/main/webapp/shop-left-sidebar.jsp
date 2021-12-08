@@ -498,6 +498,9 @@
     }
 
     function onClickHandleId(id, flag) {
+        // "colo-" + ID
+        // "tags-" + ID
+        // "cate-" + ID
         let ID = id.slice(5);
         if (ID === "all") {
             ID = "-1";
