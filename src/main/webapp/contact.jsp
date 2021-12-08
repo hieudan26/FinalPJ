@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -119,20 +120,20 @@
                             <h2 class="title" data-aos="fade-up" data-aos-delay="200">Leave a Message</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod incididunt ut labore et dolore magna aliqua. </p>
                         </div>
-                        <form class="contact-form-style" id="contact-form"
-                               method="post">
+                        <form action="<c:url value="/comingsoon" />" class="contact-form-style" id="contact-form"
+                               method="get">
                             <div class="row">
                                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                                    <input name="name" placeholder="Name*" type="text" />
+                                    <input  placeholder="Name*" type="text" />
                                 </div>
                                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                                    <input name="email" placeholder="Email*" type="email" />
+                                    <input  placeholder="Email*" type="email" />
                                 </div>
                                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                                    <input name="subject" placeholder="Subject*" type="text" />
+                                    <input  placeholder="Subject*" type="text" />
                                 </div>
                                 <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
-                                    <textarea name="message" placeholder="Your Message*"></textarea>
+                                    <textarea  placeholder="Your Message*"></textarea>
                                     <button class="btn btn-primary mt-4" data-aos="fade-up" data-aos-delay="200"
                                             type="submit">Send Message</button>
                                 </div>

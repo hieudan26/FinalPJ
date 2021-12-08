@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="newsletter-area ">
     <div class="container line-shape-bottom">
         <div class="row align-items-center">
@@ -131,7 +132,7 @@
                         <div class="col-md-6 text-center text-md-start">
                             <p class="copy-text"> © 2021 <strong>Mioca.</strong> Made With <i class="fa fa-heart"
                                                                                               aria-hidden="true"></i> By <a class="company-name"
-                                                                                                                            href="https://hasthemes.com/">
+                                                                                                                            href="<c:url value="/home" />">
                                 <strong> Aslan Team</strong></a>.</p>
                         </div>
                     </div>
