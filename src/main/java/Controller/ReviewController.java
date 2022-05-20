@@ -6,6 +6,7 @@ import DTO.UserAccountDTO;
 import Model.ProductsEntity;
 import Model.ReviewsEntity;
 import Model.UsersEntity;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -26,6 +27,7 @@ public class ReviewController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CSRFUltils.doAction(request,response);
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

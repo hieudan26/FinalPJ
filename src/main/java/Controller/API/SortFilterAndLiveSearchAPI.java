@@ -3,6 +3,7 @@ package Controller.API;
 import Business.TopLimitProductBusiness;
 import DTO.ProductDisplayApiDTO;
 import Model.ProductsEntity;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.*;
@@ -55,6 +56,7 @@ public class SortFilterAndLiveSearchAPI extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CSRFUltils.doAction(request,response);
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

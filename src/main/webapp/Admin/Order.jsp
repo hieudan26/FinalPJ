@@ -8,6 +8,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<%@ page import="Utils.CSRFUltils" %>
+<%
+    // generate a random CSRF token
+    String csrfToken = CSRFUltils.getToken();
+// place the CSRF token in a cookie
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    response.addCookie(cookie);
+%>
+
+<script type="text/javascript">
+    document.onreadystatechange = function () {
+        var state = document.readyState;
+        if (state == 'complete') {
+            fnInit("csrfToken", "<%= csrfToken %>");
+        }
+    };
+</script>
 <jsp:include page="headerAdmin.jsp"/>
 <main class="page-content">
     <div class="container">
@@ -96,6 +113,7 @@
                     <div class="toolbox__right-row row row--xs flex-nowrap">
                         <div class="col col-lg-auto">
                             <form class="toolbox__search" method="GET">
+                                <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                 <div class="input-group input-group--white input-group--prepend">
                                     <div class="input-group__prepend">
                                         <svg class="icon-icon-search">

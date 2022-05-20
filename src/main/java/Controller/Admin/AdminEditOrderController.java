@@ -3,6 +3,7 @@ package Controller.Admin;
 import DTO.AddressDTO;
 import DTO.InformationProductDTO;
 import Model.*;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -56,6 +57,7 @@ public class AdminEditOrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CSRFUltils.doAction(req,resp);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");

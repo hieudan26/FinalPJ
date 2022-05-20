@@ -8,6 +8,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<%@ page import="Utils.CSRFUltils" %>
+<%
+    // generate a random CSRF token
+    String csrfToken = CSRFUltils.getToken();
+// place the CSRF token in a cookie
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    response.addCookie(cookie);
+%>
+
+<script type="text/javascript">
+    document.onreadystatechange = function () {
+        var state = document.readyState;
+        if (state == 'complete') {
+            fnInit("csrfToken", "<%= csrfToken %>");
+        }
+    };
+</script>
 <jsp:include page="headerAdmin.jsp"/>
 <main class="page-auth">
     <div class="page-auth__center">
@@ -32,6 +49,7 @@
                     <img class="auth-card__bg auth-bg-image-dark" src="<c:url value="../assets/images/createAdmin.jpg" />" alt="#">
                 </div>
                 <form class="auth-card__right" action="<c:url  value="/admin/createaccount"/>" method="POST">
+                    <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                     <div class="auth-card__top">
                         <h1 class="auth-card__title">Create Account</h1>
                     </div>

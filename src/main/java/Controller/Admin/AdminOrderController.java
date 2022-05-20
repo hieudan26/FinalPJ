@@ -1,6 +1,7 @@
 package Controller.Admin;
 
 import Model.ProductsEntity;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -24,6 +25,7 @@ public class AdminOrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CSRFUltils.doAction(req,resp);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");

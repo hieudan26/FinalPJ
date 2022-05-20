@@ -22,7 +22,13 @@ var list_pagination =[pagination_first,pagination_2,pagination_3,pagination_4,pa
 var max_page_num =1 ;
 var num = 10;
 var curent_page = 1 ;
-
+var MyApp = MyApp || {};
+function fnInit(csrfParam, csrfToken) {
+    MyApp.csrfToken = {
+        param : csrfParam,
+        value : csrfToken
+    }
+}
 function Render(order){
     let tempcolor ="orange";
     if(order.Status == "Complete")

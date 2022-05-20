@@ -1,6 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<%@ page import="Utils.CSRFUltils" %>
+<%
+    // generate a random CSRF token
+    String csrfToken = CSRFUltils.getToken();
+// place the CSRF token in a cookie
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    response.addCookie(cookie);
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -107,6 +115,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/login" method="post">
+                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                         <input type="text" name="username" placeholder="Username" required/>
                                         <input type="password" name="password" placeholder="Password" required/>
                                         <div class="button-box">
@@ -124,6 +133,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/register" method="post">
+                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                         <input name="email" placeholder="Email" type="email" required/>
                                         <input type="text" name="username" placeholder="Username" required/>
                                         <input id="password-register" type="password" name="password" placeholder="Password" required/>
@@ -139,6 +149,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/forgetpass" method="post">
+                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                         <input name="email" placeholder="Email" type="email" />
                                         <input id="passwordforget" type="password" name="password" placeholder="Password" required/>
                                         <input id="repasswordforget"  type="password" name="retypepassword" placeholder="Retype password" required/>
@@ -170,6 +181,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
+                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

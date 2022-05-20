@@ -2,6 +2,14 @@
 <%@ page import="Utils.SingletonServiceUltils" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="Utils.CSRFUltils" %>
+<%
+    // generate a random CSRF token
+    String csrfToken = CSRFUltils.getToken();
+// place the CSRF token in a cookie
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    response.addCookie(cookie);
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -128,6 +136,7 @@
 
                     <%--FORM--%>
                     <form action="AddorCheckRedirectController" method="get">
+                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <input hidden type="text" name="path" value="single" >
                         <input hidden type="text" name="curProductId" value="${singleProductDTO.getId()}">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
@@ -288,6 +297,7 @@
                                 <div class="ratting-form">
                                     <%--FROM--%>
                                     <form id="frm_Review" action="ReviewController" method="post">
+                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                         <div class="star-box">
                                             <span>Your rating:</span>
                                             <div class="rating-container">
@@ -439,6 +449,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
+                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

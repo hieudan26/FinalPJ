@@ -6,6 +6,7 @@ import DTO.JSON.CustomerJSON;
 import DTO.ProductDisplayApiDTO;
 import DTO.ProductDisplayDTO;
 import Model.ProductsEntity;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,6 +39,7 @@ public class PagingShopAPI extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CSRFUltils.doAction(request,response);
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

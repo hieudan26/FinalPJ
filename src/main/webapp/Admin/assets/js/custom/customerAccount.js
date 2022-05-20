@@ -23,6 +23,13 @@ var max_page_num =1 ;
 var num = 10;
 var curent_page = 1 ;
 
+var MyApp = MyApp || {};
+function fnInit(csrfParam, csrfToken) {
+    MyApp.csrfToken = {
+        param : csrfParam,
+        value : csrfToken
+    }
+}
 function Render(order){
     let content =  "  <tr class=\"table__row\">\n" +
         "                                    <td class=\"d-none d-lg-table-cell table__td\"><span class=\"text-grey\">#"+order.Id+"</span>\n" +

@@ -25,7 +25,13 @@ const ImageShow = document.getElementById("profileImageAdd-edit");
 const idcategory = document.getElementById("categoryId");
 const namecategory = document.getElementById("categoryName");
 
-
+var MyApp = MyApp || {};
+function fnInit(csrfParam, csrfToken) {
+    MyApp.csrfToken = {
+        param : csrfParam,
+        value : csrfToken
+    }
+}
 
 function Render(category){
     let content = "<tr class=\"table__row\">\n" +
