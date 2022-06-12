@@ -10,7 +10,7 @@ import java.util.Base64;
 
 public class CSRFUltils {
     public static String getToken() throws NoSuchAlgorithmException {
-        // generate random data
+        // tạo ra Anti CSRF token
         SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
         byte[] data = new byte[16];
         secureRandom.nextBytes(data);
@@ -18,8 +18,8 @@ public class CSRFUltils {
         // convert to Base64 string
         return Base64.getEncoder().encodeToString(data);
     }
-    public static Boolean doAction(HttpServletRequest request, HttpServletResponse response) {
-        // get the CSRF cookie
+    public static Boolean doAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // lấy Anti CSRF token từ cookie
         String csrfCookie = null;
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals("csrfToken")) {
@@ -27,11 +27,12 @@ public class CSRFUltils {
             }
         }
 
-        // get the CSRF form field
+        // lấy Anti CSRF token từ field
         String csrfField = request.getParameter("csrfToken");
 
-        // validate CSRF
+        // Kiểm tra Anti CSRF token
         if (csrfCookie == null || csrfField == null || !csrfCookie.equals(csrfField)) {
+                response.sendError(401);
                 return false;
         }
         return true;

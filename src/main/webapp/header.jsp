@@ -6,6 +6,7 @@
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
     javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 <header>

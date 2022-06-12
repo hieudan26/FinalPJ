@@ -82,6 +82,18 @@ public class AddorCheckRedirectController extends HttpServlet {
         String productId = request.getParameter("productId");
         String colorId = request.getParameter("colorId");
         String quantity = request.getParameter("quantity");
+        if(productId.length() >10){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error404.jsp");
+            return;
+        }
+        if(colorId.length() >10){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error404.jsp");
+            return;
+        }
+        if(quantity.length() >10){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error404.jsp");
+            return;
+        }
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
         String contextJoined = "";
         int num = 0;
@@ -173,12 +185,27 @@ public class AddorCheckRedirectController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String productId = request.getParameter("productId");
+        String colorId = request.getParameter("colorId");
         String quantity = "";
+        if(productId.length() >10){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error404.jsp");
+            return;
+        }
+        if(colorId.length() >5){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error404.jsp");
+            return;
+        }
+
         if(quantityInCart == "")
             quantity = request.getParameter("quantity");
         else
             quantity = quantityInCart;
-        String colorId = request.getParameter("colorId");
+
+        if(quantity.length() >10){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/error404.jsp");
+            return;
+        }
+
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(request);
         if(userAccountDTO == null) {
             Cookie[] cookies = request.getCookies();

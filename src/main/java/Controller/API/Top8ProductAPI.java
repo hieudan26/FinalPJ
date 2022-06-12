@@ -27,6 +27,11 @@ public class Top8ProductAPI extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         String s_categoriesEntityID = request.getParameter("ID");
+        try (PrintWriter out = response.getWriter()) {
+            if (s_categoriesEntityID.length() > 10) {
+                out.println("");
+            }
+        }
         int i_categoriesEntityID = Integer.parseInt(s_categoriesEntityID);
         this.loadTop8ProductByCategoryID(response, i_categoriesEntityID);
     }

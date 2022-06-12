@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "XFrameOptionsFilter", urlPatterns = {"/header.jsp", "/Admin/headerAdmin.jsp"})
+@WebFilter(filterName = "XFrameOptionsFilter", urlPatterns = {"/*"})
 public class XFrameOptionsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

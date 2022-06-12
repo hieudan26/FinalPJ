@@ -92,6 +92,7 @@ public class LoginController extends HttpServlet {
         for (Cookie cookie: cookies
         ) {
             if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
                 resp.addCookie(cookie);
@@ -105,6 +106,7 @@ public class LoginController extends HttpServlet {
                 List<OrderProductsEntity> orderProductsEntities = SingletonServiceUltils.getOrderProductDAOImpl().getAllbySaleOrderId(salesOrdersEntity.getId());
                 if(!orderProductsEntities.isEmpty()) {
                     Cookie cookie = new Cookie("numOfProducts", String.valueOf(orderProductsEntities.size()));
+                    cookie.setHttpOnly(true);
                     cookie.setMaxAge(60 * 60 * 24);
                     cookie.setPath("/");
                     resp.addCookie(cookie);
