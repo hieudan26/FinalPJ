@@ -171,10 +171,11 @@ public class AddorCheckRedirectController extends HttpServlet {
             response.sendRedirect("/cart");
         }
         else {
-            String redi = request.getParameter("redi");
-            String colorRedi = request.getParameter("colorRedi");
-            String tagRedi = request.getParameter("tagRedi");
-            String temp = "/shop?redi=" + redi +"&colorRedi=" + colorRedi + "&tagRedi=" + tagRedi;
+//            String redi = request.getParameter("redi");
+//            String colorRedi = request.getParameter("colorRedi");
+//            String tagRedi = request.getParameter("tagRedi");
+//            String temp = "/shop?redi=" + redi +"&colorRedi=" + colorRedi + "&tagRedi=" + tagRedi;
+            String temp = "/shop";
             response.sendRedirect(temp);
         }
     }
