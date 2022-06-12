@@ -127,7 +127,8 @@
                     </div>
 
                     <%--FORM--%>
-                    <form action="AddorCheckRedirectController" method="get">
+<%--                    doi method trong form thành post--%>
+                    <form action="AddorCheckRedirectController" method="post">
                         <input hidden type="text" name="path" value="single" >
                         <input hidden type="text" name="curProductId" value="${singleProductDTO.getId()}">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
@@ -408,8 +409,17 @@
                                             </c:choose>
                                         </span>
                                 </div>
-                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
+<%--                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add--%>
+<%--                                    To Cart</button>--%>
+<%--                                thêm form với method = post--%>
+                                <form action="/AddorCheckRedirectController" method="post">
+                                    <input hidden type="text" name="path" value="single" >
+                                    <input hidden type="text" name="curProductId" value=${item.getId()} >
+                                    <input hidden type="text" name="productId" value=${item.getId()} >
+                                    <input hidden type="text" name="quantity" value=1 >
+                                    <input hidden type="text" name="colorId" value=${item.getColorsId().get(0)} >
+                                    <button type="submit" title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -602,6 +612,19 @@
 
     checked('radio_rate');
 </script>
+<%--validate xử lí xss--%>
+<%--<script>--%>
+<%--    function htmlEncode(str){--%>
+<%--        return String(str).replace(/[^\w. ]/gi, function(c){--%>
+<%--            return '&#'+c.charCodeAt(0)+';';--%>
+<%--        });--%>
+<%--    }--%>
+<%--    function  validateForm(){--%>
+<%--        var validate = document.getElementsByTagName("textarea")[0]--%>
+<%--        validate.value = htmlEncode(validate.value)--%>
+<%--        console.log(validate.value)--%>
+<%--    }--%>
+<%--</script>--%>
 </body>
 
 </html>

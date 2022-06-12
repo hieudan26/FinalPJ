@@ -31,6 +31,10 @@
         <error-code>404</error-code>
         <location>/Error404Controller</location>
     </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/Error404Controller</location>
+    </error-page>
     <servlet>
         <servlet-name>Error404Controller</servlet-name>
         <servlet-class>Controller.Error404Controller</servlet-class>

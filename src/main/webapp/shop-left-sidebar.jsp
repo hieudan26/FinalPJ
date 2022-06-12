@@ -203,89 +203,99 @@
                                                     </c:choose>
                                                 </span>
                                                     </div>
-                                                    <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
-                                                        To Cart</button>
+                                                    <form action="/AddorCheckRedirectController" method="post">
+                                                        <input hidden type="text" name="path" value="shop" >
+                                                        <input hidden type="text" name="redi" value=-1 >
+                                                        <input hidden type="text" name="colorRedi" value=-1 >
+                                                        <input hidden type="text" name="tagRedi" value=-1 >
+                                                        <input hidden type="text" name="productId" value=${item.getId()} >
+                                                        <input hidden type="text" name="quantity" value=1 >
+                                                        <input hidden type="text" name="colorId" value=${item.getColorsId().get(0)} >
+                                                        <button type="submit" title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                                    </form>
+<%--                                                    <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add--%>
+<%--                                                        To Cart</button>--%>
                                                 </div>
                                             </div>
                                         </c:forEach>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="shop-list">
-                                    <c:forEach var="item" items="${AllProduct}" >
-                                        <div class="shop-list-wrapper">
-                                            <div class="row">
-                                                <div class="col-md-5 col-lg-5 col-xl-4">
-                                                    <div class="product">
-                                                        <div class="thumb">
-                                                            <a href="singleproduct?productId=${item.getId()}" class="image">
-                                                                <img src="${item.getImage()}"
-                                                                     alt="Product" />
-                                                                <img class="hover-image"
-                                                                     src="${item.getImage()}"
-                                                                     alt="Product" />
-                                                            </a>
-                                                            <span class="badges">
-                                                                <c:if test="${item.isProductStatus()}">
-                                                                    <span class="sale">-${item.getDiscount_percent()}%</span>
-                                                                </c:if>
-                                                                <c:forEach var="tag" items="${item.getTagsName()}">
-                                                                    <span class="new">${tag.toString().trim()}</span>
-                                                                </c:forEach>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-7 col-lg-7 col-xl-8">
-                                                    <div class="content-desc-wrap">
-                                                        <div class="content">
-                                                            <div class="rating-product">
-                                                                <c:set var="star" scope="session" value="${item.getAvgReview()}" />
-                                                                <c:forEach begin="1" end="${star}" varStatus="loop" >
-                                                                    <i class="fa fa-star" style="color: #ffde00"></i>
-                                                                </c:forEach>
+<%--                                <div class="tab-pane fade" id="shop-list">--%>
+<%--                                    <c:forEach var="item" items="${AllProduct}" >--%>
+<%--                                        <div class="shop-list-wrapper">--%>
+<%--                                            <div class="row">--%>
+<%--                                                <div class="col-md-5 col-lg-5 col-xl-4">--%>
+<%--                                                    <div class="product">--%>
+<%--                                                        <div class="thumb">--%>
+<%--                                                            <a href="singleproduct?productId=${item.getId()}" class="image">--%>
+<%--                                                                <img src="${item.getImage()}"--%>
+<%--                                                                     alt="Product" />--%>
+<%--                                                                <img class="hover-image"--%>
+<%--                                                                     src="${item.getImage()}"--%>
+<%--                                                                     alt="Product" />--%>
+<%--                                                            </a>--%>
+<%--                                                            <span class="badges">--%>
+<%--                                                                <c:if test="${item.isProductStatus()}">--%>
+<%--                                                                    <span class="sale">-${item.getDiscount_percent()}%</span>--%>
+<%--                                                                </c:if>--%>
+<%--                                                                <c:forEach var="tag" items="${item.getTagsName()}">--%>
+<%--                                                                    <span class="new">${tag.toString().trim()}</span>--%>
+<%--                                                                </c:forEach>--%>
+<%--                                                            </span>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+<%--                                                <div class="col-md-7 col-lg-7 col-xl-8">--%>
+<%--                                                    <div class="content-desc-wrap">--%>
+<%--                                                        <div class="content">--%>
+<%--                                                            <div class="rating-product">--%>
+<%--                                                                <c:set var="star" scope="session" value="${item.getAvgReview()}" />--%>
+<%--                                                                <c:forEach begin="1" end="${star}" varStatus="loop" >--%>
+<%--                                                                    <i class="fa fa-star" style="color: #ffde00"></i>--%>
+<%--                                                                </c:forEach>--%>
 
-                                                                <c:forEach begin="${star + 1}" end="5" varStatus="loop" >
-                                                                    <i class="fa fa-star" style="color: #bcbebf"></i>
-                                                                </c:forEach>
-                                                            </div>
-                                                            <h5 class="title">
-                                                                <a href="single-product.jsp">${item.getName()}</a>
-                                                            </h5>
-                                                            <p>${item.getDescription().split("\\.")[0]} </p>
-                                                        </div>
-                                                        <div class="box-inner">
-                                                            <span class="price">
-                                                                <c:choose>
-                                                                    <c:when test="${item.isProductStatus()}">
-                                                                        <span class="new">$${item.getDiscountPrice()}</span>
-                                                                        <span class="old">$${item.getRegularPrice()}</span>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <span class="new">$${item.getRegularPrice()}</span>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-                                                            </span>
-                                                            <div class="actions">
-                                                                <a href="wishlist.jsp" class="action wishlist"
-                                                                   title="Wishlist"><i class="pe-7s-like"></i></a>
-                                                                <a onclick="onClickLoadData(${item.getId()}, 2)"
-                                                                   href="#" class="action quickview"
-                                                                   data-link-action="quickview" title="Quick view"
-                                                                   data-bs-toggle="modal"
-                                                                   data-bs-target="#exampleModal"><i
-                                                                        class="pe-7s-search"></i></a>
-                                                                <a href="compare.jsp" class="action compare"
-                                                                   title="Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                            </div>
-                                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
-                                                                To Cart</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
+<%--                                                                <c:forEach begin="${star + 1}" end="5" varStatus="loop" >--%>
+<%--                                                                    <i class="fa fa-star" style="color: #bcbebf"></i>--%>
+<%--                                                                </c:forEach>--%>
+<%--                                                            </div>--%>
+<%--                                                            <h5 class="title">--%>
+<%--                                                                <a href="single-product.jsp">${item.getName()}</a>--%>
+<%--                                                            </h5>--%>
+<%--                                                            <p>${item.getDescription().split("\\.")[0]} </p>--%>
+<%--                                                        </div>--%>
+<%--                                                        <div class="box-inner">--%>
+<%--                                                            <span class="price">--%>
+<%--                                                                <c:choose>--%>
+<%--                                                                    <c:when test="${item.isProductStatus()}">--%>
+<%--                                                                        <span class="new">$${item.getDiscountPrice()}</span>--%>
+<%--                                                                        <span class="old">$${item.getRegularPrice()}</span>--%>
+<%--                                                                    </c:when>--%>
+<%--                                                                    <c:otherwise>--%>
+<%--                                                                        <span class="new">$${item.getRegularPrice()}</span>--%>
+<%--                                                                    </c:otherwise>--%>
+<%--                                                                </c:choose>--%>
+<%--                                                            </span>--%>
+<%--                                                            <div class="actions">--%>
+<%--                                                                <a href="wishlist.jsp" class="action wishlist"--%>
+<%--                                                                   title="Wishlist"><i class="pe-7s-like"></i></a>--%>
+<%--                                                                <a onclick="onClickLoadData(${item.getId()}, 2)"--%>
+<%--                                                                   href="#" class="action quickview"--%>
+<%--                                                                   data-link-action="quickview" title="Quick view"--%>
+<%--                                                                   data-bs-toggle="modal"--%>
+<%--                                                                   data-bs-target="#exampleModal"><i--%>
+<%--                                                                        class="pe-7s-search"></i></a>--%>
+<%--                                                                <a href="compare.jsp" class="action compare"--%>
+<%--                                                                   title="Compare"><i class="pe-7s-refresh-2"></i></a>--%>
+<%--                                                            </div>--%>
+<%--                                                            <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add--%>
+<%--                                                                To Cart</button>--%>
+<%--                                                        </div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
+<%--                                    </c:forEach>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                     </div>
