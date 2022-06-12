@@ -108,12 +108,14 @@ public class AddorCheckRedirectController extends HttpServlet {
                 list.removeAll(Collections.singleton(productAndColor));
                 context = list.toArray(new String[0]);
                 contextJoined = String.join("p", context);
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
             if(cookie.getName().equals("numOfProducts")) {
                 num = Integer.parseInt(cookie.getValue()) - 1;
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -124,11 +126,13 @@ public class AddorCheckRedirectController extends HttpServlet {
             if(contextJoined.length() >= 3) {
 
                 Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
                 response.addCookie(cookie);
 
                 cookie = new Cookie("products", contextJoined);
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -144,6 +148,7 @@ public class AddorCheckRedirectController extends HttpServlet {
             SingletonServiceUltils.getOrderProductDAOImpl().deleteSingleProduct(salesOrdersEntity.getId(), Integer.parseInt(productId), Integer.parseInt(colorId));
             if(num != 0) {
                 Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -214,6 +219,7 @@ public class AddorCheckRedirectController extends HttpServlet {
             ) {
                 if(cookie.getName().equals("products")) {
                     context += cookie.getValue();
+                    cookie.setHttpOnly(true);
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);
@@ -235,6 +241,7 @@ public class AddorCheckRedirectController extends HttpServlet {
                 context = context + "p" + productIds;
             }
             Cookie cookie = new Cookie("products", context);
+            cookie.setHttpOnly(true);
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24);
             response.addCookie(cookie);
@@ -248,6 +255,7 @@ public class AddorCheckRedirectController extends HttpServlet {
             }
 
             cookie = new Cookie("numOfProducts", String.valueOf(hashmap.keySet().size()));
+            cookie.setHttpOnly(true);
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
             response.addCookie(cookie);
@@ -273,6 +281,7 @@ public class AddorCheckRedirectController extends HttpServlet {
 
                 List<OrderProductsEntity> orderProductsEntities = SingletonServiceUltils.getOrderProductDAOImpl().getAllbySaleOrderId(saleOrderId);
                 Cookie cookie = new Cookie("numOfProducts", String.valueOf(orderProductsEntities.size()));
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -285,6 +294,7 @@ public class AddorCheckRedirectController extends HttpServlet {
 
                 List<OrderProductsEntity> orderProductsEntities = SingletonServiceUltils.getOrderProductDAOImpl().getAllbySaleOrderId(salesOrdersEntity.getId());
                 Cookie cookie = new Cookie("numOfProducts", String.valueOf(orderProductsEntities.size()));
+                cookie.setHttpOnly(true);
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
                 response.addCookie(cookie);
@@ -328,6 +338,7 @@ public class AddorCheckRedirectController extends HttpServlet {
                 ) {
                     if(cookie.getName().equals("products")) {
                         context += cookie.getValue();
+                        cookie.setHttpOnly(true);
                         cookie.setMaxAge(0);
                         response.addCookie(cookie);
                     }
