@@ -98,5 +98,12 @@ E:/Study/Year3rd/Web/Git/FinalPJ/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-url>jdbc:postgresql://localhost:5432/web2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="bmw@localhost" uuid="64f0513c-be3a-4c19-81d7-518fddbb4a8a">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/bmw</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

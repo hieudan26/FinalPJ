@@ -183,6 +183,7 @@ public class CartController extends HttpServlet {
                                 productsEntity.getDiscountPrice(), Integer.parseInt(productAndColor[1]), colorName);
                         productDisplayCartDTOList.add(productDisplayCartDTO);
                     }
+
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     resp.addCookie(cookie);
@@ -250,12 +251,13 @@ public class CartController extends HttpServlet {
                     for (ProductDisplayCartDTO item : productDisplayCartDTOList) {
                         this.updateIncreQuantityProduct(item.getId(), item.getQuantity());
                     }
-
+                     
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);
                 }
                 if(cookie.getName().equals("numOfProducts")) {
+                     
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);

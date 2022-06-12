@@ -75,7 +75,7 @@ public class SecurityFilter implements Filter {
                 return;
             }
         }
-
+        response.addHeader("Set-Cookie", ";Path=/; Secure; HttpOnly");
         chain.doFilter(wrapRequest, response);
         return;
     }
