@@ -1,0 +1,23 @@
+
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éóÑè
+k	java:S117@"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñé€‘úÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(º›°Î
+—
+java:S1186M"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‹¨¯¿
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Ïû©Öûÿÿÿÿ
+V	java:S125"<This block of commented-out lines of code should be removed.(ß˜èùÿÿÿÿ
+c
+java:S2441&"MMake "List" and its parameters serializable or don't store it in the session.(ïç£ì
+b
+java:S2441'"GMake "SalesOrdersEntity" serializable or don't store it in the session.(óß«úÿÿÿÿ
+w
+java:S19895"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ãìÄ
+w
+java:S1989;"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ãìÄ
+t
+java:S1989@"YHandle the following exception that could be thrown by "parseInt": NumberFormatException.(Ñé€‘úÿÿÿÿ
+c
+java:S2441E"MMake "List" and its parameters serializable or don't store it in the session.(ïç£ì
+w
+java:S1989H"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ãìÄ

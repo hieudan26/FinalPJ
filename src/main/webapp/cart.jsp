@@ -110,7 +110,7 @@
                                                 </td>
                                                 <td class="product-subtotal">$${product.getTotal()}</td>
                                                 <td class="product-remove">
-                                                    <input type="hidden" name="productId" value="${product.getId()}" pa>
+                                                    <input type="hidden" name="productId" value="${product.getId()}">
                                                     <input type="hidden" name="colorId" value="${product.getColorDTO().getId()}">
                                                     <input type="hidden" name="quantity" value="${product.getQuantity()}">
                                                     <button><i class="fa fa-pencil"></i></button>

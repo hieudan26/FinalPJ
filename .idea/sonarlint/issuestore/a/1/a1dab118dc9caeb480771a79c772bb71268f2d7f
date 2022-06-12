@@ -1,0 +1,10 @@
+
+P
+java:S1143`"5Remove this return statement from this finally block.(‡—Á„ýÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ä”òª
+M
+java:S1128"2Remove this unused import 'DAO.DAOImpl.ReviewDAO'.(¾ÓÂ·úÿÿÿÿ
+F
+java:S1128"0Remove this unused import 'Model.ReviewsEntity'.(‘¿œ†
+V
+java:S1128"@Remove this unused import 'javax.persistence.NoResultException'.(ŒºíÐ
