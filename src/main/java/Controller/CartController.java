@@ -185,7 +185,7 @@ public class CartController extends HttpServlet {
                     }
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
-                    resp.addCookie(cookie);
+                    resp.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                     break;
                 }
             }
@@ -253,12 +253,12 @@ public class CartController extends HttpServlet {
 
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
-                    response.addCookie(cookie);
+                    response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                 }
                 if(cookie.getName().equals("numOfProducts")) {
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
-                    response.addCookie(cookie);
+                    response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                 }
             }
         }
@@ -312,7 +312,7 @@ public class CartController extends HttpServlet {
             Cookie cookie = new Cookie("products", productIds);
             cookie.setMaxAge(60 * 60 * 24);
             cookie.setPath("/");
-            response.addCookie(cookie);
+            response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
 
             request.setAttribute("productDisplayCartDTOList", productDisplayCartDTOList);
             response.sendRedirect("/cart");

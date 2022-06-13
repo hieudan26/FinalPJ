@@ -94,7 +94,7 @@ public class LoginController extends HttpServlet {
             if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
-                resp.addCookie(cookie);
+                resp.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
             }
         }
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(req);
@@ -107,7 +107,7 @@ public class LoginController extends HttpServlet {
                     Cookie cookie = new Cookie("numOfProducts", String.valueOf(orderProductsEntities.size()));
                     cookie.setMaxAge(60 * 60 * 24);
                     cookie.setPath("/");
-                    resp.addCookie(cookie);
+                    resp.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                 }
             }
         }
