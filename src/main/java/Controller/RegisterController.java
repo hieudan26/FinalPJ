@@ -3,6 +3,7 @@ package Controller;
 import Business.RegisterBusiness;
 import DAO.AccountDAOImpl;
 import DAO.UserDAOImpl;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -26,6 +27,7 @@ class RegisterController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CSRFUltils.doAction(req,resp);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");

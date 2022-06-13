@@ -7,6 +7,7 @@ import Model.OrderProductsEntity;
 import Model.SalesOrdersEntity;
 import Model.UsersEntity;
 import Utils.ApplicationUtils;
+import Utils.CSRFUltils;
 import Utils.SingletonServiceUltils;
 
 import javax.servlet.RequestDispatcher;
@@ -42,6 +43,13 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if (!CSRFUltils.doAction(req, resp)) {
+            String errorMessage = "CSRF not valid";
+            DirectEror(errorMessage,req,resp);
+            return;
+        }
+
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
@@ -70,15 +78,16 @@ public class LoginController extends HttpServlet {
         }
         ApplicationUtils.storeLoginedUser(req, userAccount);
         //
-        int redirectId = -1;
-        try {
-            redirectId = Integer.parseInt(req.getParameter("redirectId"));
-        } catch (Exception e) {
-            System.out.println("request don't have redirectId");
-        }
+//        int redirectId = -1;
+//        try {
+//            redirectId = Integer.parseInt(req.getParameter("redirectId"));
+//        } catch (Exception e) {
+//            System.out.println("request don't have redirectId");
+//        }
 
 
-        String requestUri = ApplicationUtils.getRedirectAfterLoginUrl(redirectId);
+//        String requestUri = ApplicationUtils.getRedirectAfterLoginUrl(redirectId);
+        String requestUri = null;
         Cookie[] cookies = req.getCookies();
         for (Cookie cookie: cookies
         ) {

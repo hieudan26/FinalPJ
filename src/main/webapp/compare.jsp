@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="Utils.CSRFUltils" %>
+<%
+    // generate a random CSRF token
+    String csrfToken = CSRFUltils.getToken();
+// place the CSRF token in a cookie
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    response.addCookie(cookie);
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -68,6 +76,7 @@
         <div class="row">
             <div class="col-12">
                 <form action="#">
+                    <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                     <!-- Compare Table -->
                     <div class="compare-table table-responsive">
                         <table class="table mb-0">
@@ -198,6 +207,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
+                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

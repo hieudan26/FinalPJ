@@ -4,6 +4,7 @@ import Business.AccountBusiness;
 import DTO.AddressDTO;
 import DTO.UserAccountDTO;
 import Utils.ApplicationUtils;
+import Utils.CSRFUltils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,6 +20,11 @@ public class UpdateInfoController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!CSRFUltils.doAction(request, response)) {
+            String errorMessage = "CSRF not valid";
+            DirectEror(false,request,response);
+            return;
+        }
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

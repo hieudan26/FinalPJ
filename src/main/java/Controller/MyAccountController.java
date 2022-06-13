@@ -3,6 +3,7 @@ package Controller;
 import Business.AccountBusiness;
 import DTO.AddressDTO;
 import DTO.UserAccountDTO;
+import Utils.CSRFUltils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +36,7 @@ public class MyAccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CSRFUltils.doAction(req,resp);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");

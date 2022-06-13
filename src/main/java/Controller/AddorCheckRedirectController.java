@@ -11,6 +11,7 @@ import Model.ProductsEntity;
 import Model.SalesOrdersEntity;
 import Model.UsersEntity;
 import Utils.ApplicationUtils;
+import Utils.CSRFUltils;
 import Utils.HibernateUtils;
 import Utils.SingletonServiceUltils;
 import org.checkerframework.checker.units.qual.C;
@@ -61,6 +62,7 @@ public class AddorCheckRedirectController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        CSRFUltils.doAction(request,response);
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

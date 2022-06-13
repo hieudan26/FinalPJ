@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @WebFilter(filterName = "XFrameOptionsFilter", urlPatterns = {"/*"})
 public class XFrameOptionsFilter implements Filter {
     @Override

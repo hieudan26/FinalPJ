@@ -6,6 +6,7 @@ package Controller;
     import DTO.AddressDTO;
     import DTO.UserAccountDTO;
     import Model.AccountsEntity;
+    import Utils.CSRFUltils;
     import Utils.SingletonServiceUltils;
 
     import javax.servlet.RequestDispatcher;
@@ -28,6 +29,7 @@ public class ChangePasswordController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CSRFUltils.doAction(req,resp);
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
