@@ -66,7 +66,23 @@ public class AddorCheckRedirectController extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        processRequest(request, response, "", 1);
+        //them parameter action
+        String action=request.getParameter("action");
+        // chuyen edit va remove qua post
+        if (action.equals("editQuantity"))
+        {
+            editQuantityOfProduct(request, response);
+
+        }
+        else if (action.equals("removeProduct"))
+        {
+            removeProduct(request, response);
+        }
+        else
+        {
+            processRequest(request, response, "", 1);
+
+        }
     }
 
     public void updateIncreQuantityProduct(int productId, int quantity)
