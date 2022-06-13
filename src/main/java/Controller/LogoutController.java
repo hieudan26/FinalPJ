@@ -19,7 +19,7 @@ public class LogoutController extends HttpServlet {
             if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
-                resp.addCookie(cookie);
+                resp.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
             }
         }
         if(session != null)
