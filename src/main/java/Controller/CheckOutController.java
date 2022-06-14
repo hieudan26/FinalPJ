@@ -45,7 +45,7 @@ public class CheckOutController extends HttpServlet {
                     if(cookie.getName().equals("products") || cookie.getName().equals("numOfProducts")) {
                         cookie.setMaxAge(0);
                         cookie.setPath("/");
-                        response.addCookie(cookie);
+                        response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                     }
                 }
 

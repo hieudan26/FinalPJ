@@ -5,12 +5,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @WebFilter(filterName = "XFrameOptionsFilter", urlPatterns = {"/*"})
 public class XFrameOptionsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.addHeader("X-Frame-Options", "DENY");
+        response.addHeader("X-FRAME-OPTIONS", "DENY");
         filterChain.doFilter(servletRequest, response);
     }
 

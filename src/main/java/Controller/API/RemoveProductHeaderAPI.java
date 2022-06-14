@@ -145,13 +145,13 @@ public class RemoveProductHeaderAPI extends HttpServlet {
                 contextJoined = String.join("p", context);
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
-                response.addCookie(cookie);
+                response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
             }
             if(cookie.getName().equals("numOfProducts")) {
                 num = Integer.parseInt(cookie.getValue()) - 1;
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
-                response.addCookie(cookie);
+                response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
             }
 
         }
@@ -161,12 +161,12 @@ public class RemoveProductHeaderAPI extends HttpServlet {
                 Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
-                response.addCookie(cookie);
+                response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
 
                 cookie = new Cookie("products", contextJoined);
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
-                response.addCookie(cookie);
+                response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                 //response.sendRedirect("/cart");
             }
             else {
@@ -181,7 +181,7 @@ public class RemoveProductHeaderAPI extends HttpServlet {
                 Cookie cookie = new Cookie("numOfProducts", String.valueOf(num));
                 cookie.setMaxAge(60 * 60 * 24);
                 cookie.setPath("/");
-                response.addCookie(cookie);
+                response.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
             }
             //response.sendRedirect("/cart");
         }

@@ -95,7 +95,7 @@ public class LoginController extends HttpServlet {
                 cookie.setHttpOnly(true);
                 cookie.setMaxAge(0);
                 cookie.setPath("/");
-                resp.addCookie(cookie);
+                resp.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
             }
         }
         UserAccountDTO userAccountDTO = ApplicationUtils.getLoginedUser(req);
@@ -109,7 +109,7 @@ public class LoginController extends HttpServlet {
                     cookie.setHttpOnly(true);
                     cookie.setMaxAge(60 * 60 * 24);
                     cookie.setPath("/");
-                    resp.addCookie(cookie);
+                    resp.addHeader("Set-Cookie", cookie.getName() + '=' +cookie.getValue() + "; HttpOnly; SameSite=Lax");
                 }
             }
         }

@@ -49,6 +49,7 @@
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/singleproduct.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js"></script>
 </head>
 
 <body>
@@ -582,6 +583,8 @@
             event.preventDefault();
             alert("Please login. If you buy this product you can leave reviews for this product");
             return false;
+        } else {
+            document.getElementById("text_review").value = DOMPurify.sanitize(document.getElementById("text_review").value)
         }
     }
 
