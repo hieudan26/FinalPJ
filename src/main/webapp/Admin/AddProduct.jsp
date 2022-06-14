@@ -8,12 +8,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<%--    Them the meta de dam bao CSP--%>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';" />
+<meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
 <%@ page import="Utils.CSRFUltils" %>
 <%
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
     javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 

@@ -8,12 +8,16 @@
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
     javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
+    <%--    Them the meta de dam bao CSP--%>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';" />
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="robots" content="index, follow" />
@@ -136,7 +140,8 @@
                     </div>
 
                     <%--FORM--%>
-                    <form action="AddorCheckRedirectController" method="get">
+                    <%--                    doi method trong form thành post--%>
+                    <form action="AddorCheckRedirectController" method="post">
                         <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <input hidden type="text" name="path" value="single" >
                         <input hidden type="text" name="curProductId" value="${singleProductDTO.getId()}">
@@ -419,8 +424,18 @@
                                             </c:choose>
                                         </span>
                                 </div>
-                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
+<%--                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add--%>
+<%--                                    To Cart</button>--%>
+
+                                    <%--                                thêm form với method = post--%>
+                                <form action="/AddorCheckRedirectController" method="post">
+                                    <input hidden type="text" name="path" value="single" >
+                                    <input hidden type="text" name="curProductId" value=${item.getId()} >
+                                    <input hidden type="text" name="productId" value=${item.getId()} >
+                                    <input hidden type="text" name="quantity" value=1 >
+                                    <input hidden type="text" name="colorId" value=${item.getColorsId().get(0)} >
+                                    <button type="submit" title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>

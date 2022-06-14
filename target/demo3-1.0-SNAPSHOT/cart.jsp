@@ -6,12 +6,16 @@
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
     javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
 
     <head>
+        <%--    Them the meta de dam bao CSP--%>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self';" />
+        <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="robots" content="index, follow" />
@@ -100,7 +104,8 @@
                                 </thead>
                                 <tbody id="tbodyProduct">
                                     <c:forEach var="product" items="${productDisplayCartDTOList}">
-                                        <form action="<c:url value="AddorCheckRedirectController/editQuantity" />">
+                                        <%--     thay doi phuong thuc thanh post va thay doi duong dan--%>
+                                        <form id="formEditCart" action="<c:url value="/AddorCheckRedirectController" />" method="POST">
                                             <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                             <input type="hidden" name="path" value="cart">
                                             <tr>
@@ -122,8 +127,11 @@
                                                     <input type="hidden" name="productId" value="${product.getId()}">
                                                     <input type="hidden" name="colorId" value="${product.getColorDTO().getId()}">
                                                     <input type="hidden" name="quantity" value="${product.getQuantity()}">
-                                                    <button><i class="fa fa-pencil"></i></button>
-                                                    <button formaction="<c:url value='AddorCheckRedirectController/removeProduct' />"><i class="fa fa-times"></i></button>
+                                                    <%--     Chuyen doi 2 the edit va remove--%>
+                                                    <button name="action" value="editQuantity"><i class="fa fa-pencil"></i></button>
+                                                    <button name="action" value="removeProduct"><i class="fa fa-times"></i></button>
+<%--                                                    <button><i class="fa fa-pencil"></i></button>--%>
+<%--                                                    <button formaction="<c:url value='AddorCheckRedirectController/removeProduct' />"><i class="fa fa-times"></i></button>--%>
                                                 </td>
                                             </tr>
                                         </form>
@@ -239,6 +247,11 @@
             //     let href = "AddorCheckRedirectController/removeProduct";
             //     window.location.href = href;
             // }
+            // viet them ham cho remove
+            document.getElementById("removeProduct").addEventListener("click", function () {
+                document.getElementById("action").value = "removeProduct";
+                $("#formEditCart").submit();
+            })
 
             function alreadyExistingFunc() {
                 var values = $("input[name='inputQuantity']")
