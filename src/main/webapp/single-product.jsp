@@ -16,8 +16,6 @@
 
 <head>
     <%--    Them the meta de dam bao CSP--%>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self';img-src 'self' 'unsafe-inline' https://firebasestorage.googleapis.com/ https://www.google.com/ ;
-    font-src 'self' 'unsafe-inline'  https://fonts.googleapis.com/ ;script-src-elem 'self' 'unsafe-inline'  https://www.google.com/;" />
         <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />    <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="robots" content="index, follow" />
