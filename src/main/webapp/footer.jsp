@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--    Them the meta de dam bao CSP--%>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';" />
-<meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
 <%@ page import="Utils.CSRFUltils" %>
 <%
     // generate a random CSRF token

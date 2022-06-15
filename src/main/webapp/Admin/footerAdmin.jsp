@@ -7,8 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--    Them the meta de dam bao CSP--%>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';" />
-<meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
+
 </div>
 
 <script src="../Admin/assets/js/gsap/gsap.min.js"></script>
