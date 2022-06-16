@@ -38,12 +38,38 @@ public class SortFilterAndLiveSearchAPI extends HttpServlet {
         BigDecimal min = BigDecimal.valueOf(Double.parseDouble(minString));
         BigDecimal max = BigDecimal.valueOf(Double.parseDouble(maxString));
         int startPos = Integer.parseInt(startPosString);
+
+
         int flag = 1;
-        if (searching.isEmpty() || searching.equals("")) {
+        if (searching.isEmpty() || searching.equals("")|| searching.length()>30) {
             flag = 0;
         }
         else {
             searching = searching.toLowerCase(Locale.ROOT);
+        }
+        if (categoryIdString.length() > 10) {
+            return;
+        }
+        if (colorIdString.length() > 10) {
+            return;
+        }
+        if (tagIdString.length() > 10) {
+            return;
+        }
+        if (minString.length() > 10) {
+            return;
+        }
+        if (maxString.length() > 10) {
+            return;
+        }
+        if (sortString.length() > 10) {
+            return;
+        }
+        if (startPosString.length() > 10) {
+            return;
+        }
+        if (searching.length() > 10) {
+            return;
         }
         List<ProductsEntity> productsEntityList
                 = SingletonServiceUltils.getProductDAOImpl().getProductWithMoreCondition(flag, categoryId, colorId, tagId, sort, min, max, searching, 9, startPos);
