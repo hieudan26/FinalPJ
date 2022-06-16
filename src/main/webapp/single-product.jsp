@@ -408,7 +408,7 @@
                                         </c:forEach>
                                     </div>
                                     <h5 class="title">
-                                        <a href="single-product.jsp">${item.getName()}</a>
+                                        <a href="singleproduct?productId=${item.getId()}">${item.getName()}</a>
                                     </h5>
                                     <span class="price">
                                             <c:choose>

@@ -327,7 +327,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="rating-form-style form-submit">
-                                                    <textarea style="line-height: 25px;" name="review" placeholder="Message"></textarea>
+                                                    <textarea id="text_review" style="line-height: 25px;" name="review" placeholder="Message"></textarea>
                                                     <button id="btn_Review" class="btn btn-primary btn-hover-color-primary"
                                                             type="submit" value="${singleProductDTO.getId()}"
                                                             onclick="return disableReview()"
@@ -408,7 +408,7 @@
                                         </c:forEach>
                                     </div>
                                     <h5 class="title">
-                                        <a href="single-product.jsp">${item.getName()}</a>
+                                        <a href="singleproduct?productId=${item.getId()}">${item.getName()}</a>
                                     </h5>
                                     <span class="price">
                                             <c:choose>
