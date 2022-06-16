@@ -215,6 +215,7 @@
                                                     </div>
                                                     <form action="/AddorCheckRedirectController" method="post">
                                                         <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                                                        <input type="hidden" name="action" value="addOne"/>
                                                         <input hidden type="text" name="path" value="shop" >
                                                         <input hidden type="text" name="redi" value=-1 >
                                                         <input hidden type="text" name="colorRedi" value=-1 >

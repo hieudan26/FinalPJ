@@ -78,11 +78,18 @@ public class AddorCheckRedirectController extends HttpServlet {
         {
             removeProduct(request, response);
         }
+
+        else if (action.equals("addOne"))
+        {
+            processRequest(request, response, "", 1);
+
+        }
         else
         {
             processRequest(request, response, "", 1);
 
         }
+
     }
 
     public void updateIncreQuantityProduct(int productId, int quantity)

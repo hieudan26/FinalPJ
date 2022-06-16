@@ -428,6 +428,7 @@
                                     <%--                                thêm form với method = post--%>
                                 <form action="/AddorCheckRedirectController" method="post">
                                     <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                                    <input type="hidden" name="action" value="addOne"/>
                                     <input hidden type="text" name="path" value="single" >
                                     <input hidden type="text" name="curProductId" value=${item.getId()} >
                                     <input hidden type="text" name="productId" value=${item.getId()} >
