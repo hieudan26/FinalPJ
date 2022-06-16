@@ -8,13 +8,15 @@
 <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%--    Them the meta de dam bao CSP--%>
 <%@ page isELIgnored="false" %>
 <%@ page import="Utils.CSRFUltils" %>
 <%
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 
@@ -22,7 +24,7 @@
     document.onreadystatechange = function () {
         var state = document.readyState;
         if (state == 'complete') {
-            fnInit("csrfToken", "<%= csrfToken %>");
+            fnInit("csrfTokenMioca", "<%= csrfToken %>");
         }
     };
 </script>
@@ -69,7 +71,7 @@
             <div class="card__wrapper">
                 <div class="card__container">
                     <form class="add-product__form" action="/admin/editproduct" method="post">
-                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                         <div class="add-product__row">
                             <input id="idproduct" name="idproduct" value="${requestScope.product.getId()}" hidden>
                             <div class="add-product__slider product-image" id="addProductSlider">

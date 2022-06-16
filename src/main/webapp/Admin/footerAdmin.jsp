@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--    Them the meta de dam bao CSP--%>
+
 </div>
 
 <script src="../Admin/assets/js/gsap/gsap.min.js"></script>

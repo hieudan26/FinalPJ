@@ -32,10 +32,41 @@ public class SortFilterAndLiveSearchAPI extends HttpServlet {
         String sortString = request.getParameter("sort");
         String startPosString = request.getParameter("startPos");
         String searching = request.getParameter("searching");
+
+        //fix buffer overflow
+        try (PrintWriter out = response.getWriter()) {
+            if (categoryIdString.length() > 10) {
+                out.println("");
+            }
+            if (colorIdString.length() > 10) {
+                out.println("");
+            }
+            if (tagIdString.length() > 10) {
+                out.println("");
+            }
+            if (minString.length() > 10) {
+                out.println("");
+            }
+            if (maxString.length() > 10) {
+                out.println("");
+            }
+            if (sortString.length() > 10) {
+                out.println("");
+            }
+            if (startPosString.length() > 10) {
+                out.println("");
+            }
+            if (searching.length() > 10) {
+                out.println("");
+            }
+        }
         int categoryId = Integer.parseInt(categoryIdString);
         int colorId = Integer.parseInt(colorIdString);
         int tagId = Integer.parseInt(tagIdString);
         int sort = Integer.parseInt(sortString);
+
+
+
         BigDecimal min = BigDecimal.valueOf(Double.parseDouble(minString));
         BigDecimal max = BigDecimal.valueOf(Double.parseDouble(maxString));
         int startPos = Integer.parseInt(startPosString);
@@ -69,6 +100,33 @@ public class SortFilterAndLiveSearchAPI extends HttpServlet {
         String sortString = request.getParameter("sort");
         String startPosString = request.getParameter("startPos");
         String searching = request.getParameter("searching");
+
+        try (PrintWriter out = response.getWriter()) {
+            if (categoryIdString.length() > 10) {
+                out.println("");
+            }
+            if (colorIdString.length() > 10) {
+                out.println("");
+            }
+            if (tagIdString.length() > 10) {
+                out.println("");
+            }
+            if (minString.length() > 10) {
+                out.println("");
+            }
+            if (maxString.length() > 10) {
+                out.println("");
+            }
+            if (sortString.length() > 10) {
+                out.println("");
+            }
+            if (startPosString.length() > 10) {
+                out.println("");
+            }
+            if (searching.length() > 10) {
+                out.println("");
+            }
+        }
         int categoryId = Integer.parseInt(categoryIdString);
         int colorId = Integer.parseInt(colorIdString);
         int tagId = Integer.parseInt(tagIdString);

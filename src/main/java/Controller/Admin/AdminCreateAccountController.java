@@ -24,7 +24,8 @@ public class AdminCreateAccountController extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CSRFUltils.doAction(req,resp);
+        if(!CSRFUltils.doAction(req,resp))
+            return;
         String message="";
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");

@@ -6,13 +6,16 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
+    <%--    Them the meta de dam bao CSP--%>
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="robots" content="index, follow"/>
@@ -115,7 +118,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/login" method="post">
-                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                         <input type="text" name="username" placeholder="Username" required/>
                                         <input type="password" name="password" placeholder="Password" required/>
                                         <div class="button-box">
@@ -133,7 +136,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/register" method="post">
-                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                         <input name="email" placeholder="Email" type="email" required/>
                                         <input type="text" name="username" placeholder="Username" required/>
                                         <input id="password-register" type="password" name="password" placeholder="Password" required/>
@@ -149,7 +152,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form action="/forgetpass" method="post">
-                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                         <input name="email" placeholder="Email" type="email" />
                                         <input id="passwordforget" type="password" name="password" placeholder="Password" required/>
                                         <input id="repasswordforget"  type="password" name="retypepassword" placeholder="Retype password" required/>
@@ -181,7 +184,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
-                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

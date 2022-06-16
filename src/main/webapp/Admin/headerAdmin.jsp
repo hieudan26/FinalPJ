@@ -7,12 +7,14 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html class="no-js" lang="en" data-theme="light">
 
 <head>
-    <meta charset="utf-8" />
+    <%--    Them the meta de dam bao CSP--%>
+        <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="MobileOptimized" content="320" />
     <meta name="HandheldFriendly" content="True" />

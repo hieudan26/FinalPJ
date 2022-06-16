@@ -5,13 +5,16 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
+    <%--    Them the meta de dam bao CSP--%>
+    <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="robots" content="index, follow" />
@@ -180,7 +183,7 @@
                             <div class="login_form_container">
                                 <div class="account_login_form">
                                     <form action="/myaccount" method="post">
-                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                         <div class="default-form-box mb-20">
                                             <label>First Name</label>
                                             <input required title="Wrong name We only accept character A-z and max 50 character" minlength="1" maxlength="50" type="text" name="firstname" value="<c:out value="${sessionScope.loginedUser.getFirstname()}"/>">
@@ -236,7 +239,7 @@
                             <div class="login_form_container">
                                 <div class="account_login_form">
                                     <form action="/updatepassword" method="post">
-                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                         <div class="default-form-box mb-20">
                                             <label>Current Password</label>
                                             <input required type="password" name="userpassword">
@@ -277,7 +280,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
-                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

@@ -4,12 +4,15 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
 
 <!--        <property name="hibernate.connection.password">db346e137ac64518c4e3df4391b3e00b182cc8aec63f3d2fc87502f03ae5dc33</property>-->
 <!--        <property name="hibernate.connection.url">jdbc:postgresql://ec2-23-21-229-200.compute-1.amazonaws.com:5432/dfia69dvo71k9t</property>-->
 <!--        <property name="hibernate.connection.username">zuknmylmfszzkt</property>-->
+
+<!--        <property name="hibernate.connection.password">taiwd123</property>-->
+<!--        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/mioca</property>-->
+<!--        <property name="hibernate.connection.username">postgres</property>-->
         <property name="hibernate.connection.password">123</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/bmw</property>
         <property name="hibernate.connection.username">postgres</property>

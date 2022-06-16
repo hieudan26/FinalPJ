@@ -7,14 +7,16 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-    <meta charset="UTF-8">
+    <%--    Them the meta de dam bao CSP--%>
+        <meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />    <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="robots" content="index, follow" />
     <title>Mioca - Handmade Goods eCommerce HTML Template</title>
@@ -45,6 +47,7 @@
     <!-- Main Style -->
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/singleproduct.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js"></script>
 </head>
 
 <body>
@@ -135,8 +138,9 @@
                     </div>
 
                     <%--FORM--%>
-                    <form action="AddorCheckRedirectController" method="get">
-                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                    <%--                    doi method trong form thành post--%>
+                    <form action="AddorCheckRedirectController" method="post">
+                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                         <input hidden type="text" name="path" value="single" >
                         <input hidden type="text" name="curProductId" value="${singleProductDTO.getId()}">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
@@ -297,7 +301,7 @@
                                 <div class="ratting-form">
                                     <%--FROM--%>
                                     <form id="frm_Review" action="ReviewController" method="post">
-                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                         <div class="star-box">
                                             <span>Your rating:</span>
                                             <div class="rating-container">
@@ -418,8 +422,19 @@
                                             </c:choose>
                                         </span>
                                 </div>
-                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
+<%--                                <button onclick="onClickAddToCart(${item.getId()}, ${item.getQuantity()}, ${item.getColorsId().get(0)})" title="Add To Cart" class=" add-to-cart">Add--%>
+<%--                                    To Cart</button>--%>
+
+                                    <%--                                thêm form với method = post--%>
+                                <form action="/AddorCheckRedirectController" method="post">
+                                    <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                                    <input hidden type="text" name="path" value="single" >
+                                    <input hidden type="text" name="curProductId" value=${item.getId()} >
+                                    <input hidden type="text" name="productId" value=${item.getId()} >
+                                    <input hidden type="text" name="quantity" value=1 >
+                                    <input hidden type="text" name="colorId" value=${item.getColorsId().get(0)} >
+                                    <button type="submit" title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -449,7 +464,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
-                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>
@@ -567,6 +582,8 @@
             event.preventDefault();
             alert("Please login. If you buy this product you can leave reviews for this product");
             return false;
+        } else {
+            document.getElementById("text_review").value = DOMPurify.sanitize(document.getElementById("text_review").value)
         }
     }
 
