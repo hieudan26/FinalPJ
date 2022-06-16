@@ -559,6 +559,7 @@
                 sort: sort,
                 searching: searching,
                 startPos: startPos,
+                csrfTokenMioca : "<%= csrfToken %>"
             },
             success: function(value) {
                 data = value;
@@ -639,6 +640,7 @@
                 sort: sort,
                 searching: searching,
                 startPos: startPos,
+                csrfTokenMioca : "<%= csrfToken %>",
             },
             success: function(value) {
                 let temp = "shop-list";
@@ -673,6 +675,7 @@
                     sort: sort,
                     searching: searching,
                     startPos: startPos,
+                    csrfTokenMioca : "<%= csrfToken %>",
                 },
                 success: function(value) {
                     let temp = "shop-list";
@@ -704,6 +707,7 @@
                 sort: sort,
                 searching: searching,
                 startPos: startPos,
+                csrfTokenMioca : "<%= csrfToken %>",
             },
             success: function(value) {
                 let temp = "shop-list";

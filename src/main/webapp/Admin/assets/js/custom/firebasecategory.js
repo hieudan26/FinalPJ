@@ -86,7 +86,7 @@ document.getElementById("send-edit").addEventListener("click", function() {
                         .then(async function (downloadURL) {
                             document.getElementById("urlImage-edit").value = downloadURL;
                             document.getElementById("send-edit").classList.remove("is-active");
-                            alert(document.getElementById("urlImage-edit").value );
+                            alert("Update Successfully");
                         });
                 },
             );

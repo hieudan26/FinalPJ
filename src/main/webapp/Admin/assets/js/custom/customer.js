@@ -371,7 +371,7 @@ function bancustom(id){
         type : "POST",
         data : {
             Id : id,
-            csrfToken : MyApp.csrfToken.value
+            csrfTokenMioca : MyApp.csrfToken.value
         },
         url : "/admin/customer",
         success: function(data, status) {
