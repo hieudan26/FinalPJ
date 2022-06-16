@@ -15,7 +15,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -24,7 +24,7 @@
     document.onreadystatechange = function () {
         var state = document.readyState;
         if (state == 'complete') {
-            fnInit("csrfToken", "<%= csrfToken %>");
+            fnInit("csrfTokenMioca", "<%= csrfToken %>");
         }
     };
 </script>
@@ -116,7 +116,7 @@
                     <div class="toolbox__right-row row row--xs flex-nowrap">
                         <div class="col col-lg-auto">
                             <form class="toolbox__search" method="GET">
-                                <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                 <div class="input-group input-group--white input-group--prepend">
                                     <div class="input-group__prepend">
                                         <svg class="icon-icon-search">

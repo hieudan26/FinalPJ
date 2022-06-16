@@ -57,7 +57,8 @@ public class AdminEditOrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CSRFUltils.doAction(req,resp);
+        if(!CSRFUltils.doAction(req,resp))
+            return;
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");

@@ -5,7 +5,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -214,7 +214,7 @@
                                                 </span>
                                                     </div>
                                                     <form action="/AddorCheckRedirectController" method="post">
-                                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                                         <input hidden type="text" name="path" value="shop" >
                                                         <input hidden type="text" name="redi" value=-1 >
                                                         <input hidden type="text" name="colorRedi" value=-1 >

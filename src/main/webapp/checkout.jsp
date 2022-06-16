@@ -5,7 +5,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -107,7 +107,7 @@
                     <h3>Billing Details</h3>
                     <div class="row">
                         <form action="/UpdateInfoController" method="post" id="form-1">
-                            <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                            <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                             <div class="col-lg-12">
                                 <div class="billing-info mb-4">
                                     <label>First Name</label>
@@ -290,7 +290,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
-                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

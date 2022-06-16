@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class CSRFUltils {
     public static String getToken() throws NoSuchAlgorithmException {
@@ -20,18 +22,18 @@ public class CSRFUltils {
     }
     public static Boolean doAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // lấy Anti CSRF token từ cookie
-        String csrfCookie = null;
+        List<String> csrfCookie = new ArrayList<>();
         for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("csrfToken")) {
-                csrfCookie = cookie.getValue();
+            if (cookie.getName().equals("csrfTokenMioca")) {
+                csrfCookie.add(cookie.getValue());
             }
         }
 
         // lấy Anti CSRF token từ field
-        String csrfField = request.getParameter("csrfToken");
+        String csrfField = request.getParameter("csrfTokenMioca");
 
         // Kiểm tra Anti CSRF token
-        if (csrfCookie == null || csrfField == null || !csrfCookie.equals(csrfField)) {
+        if (csrfCookie.isEmpty() || csrfField == null || !csrfCookie.contains(csrfField)) {
                 response.sendError(401);
                 return false;
         }

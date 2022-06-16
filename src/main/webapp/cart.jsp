@@ -5,7 +5,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -104,7 +104,7 @@
                                     <c:forEach var="product" items="${productDisplayCartDTOList}">
                                         <%--     thay doi phuong thuc thanh post va thay doi duong dan--%>
                                         <form id="formEditCart" action="<c:url value="/AddorCheckRedirectController" />" method="POST">
-                                            <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                            <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                             <input type="hidden" name="path" value="cart">
                                             <tr>
                                                 <td class="product-thumbnail">
@@ -229,7 +229,7 @@
                         <div class="modal-body">
                             <h2>Search Your Product</h2>
                             <form class="navbar-form position-relative" role="search">
-                                <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                                <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search here...">
                                 </div>

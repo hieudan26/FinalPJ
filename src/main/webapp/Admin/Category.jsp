@@ -15,7 +15,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -24,7 +24,7 @@
     document.onreadystatechange = function () {
         var state = document.readyState;
         if (state == 'complete') {
-            fnInit("csrfToken", "<%= csrfToken %>");
+            fnInit("csrfTokenMioca", "<%= csrfToken %>");
         }
     };
 </script>
@@ -170,7 +170,7 @@
             </div>
             <div class="table-wrapper" style="width:30%;  background-color: white; padding: 2rem;">
                 <form class="add-category__form" action="/admin/categories" method="post">
-                    <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                    <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                     <input id="method" name="method" value="edit" hidden >
                     <div class="row row--md">
                         <div class=" col-12 add-category__slider category-image" id="addcategorySliderEdit" style="display: flex; justify-content: center;">
@@ -276,7 +276,7 @@
                 <div class="modal__body">
                     <div class="modal__container">
                         <form class="add-category__form" action="/admin/categories" method="post">
-                            <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
+                            <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
                             <input id="method2" name="method" value="create" hidden >
                             <div class="row row--md">
                                 <div class=" col-12 add-category__slider category-image" id="addcategorySlider" style="display: flex; justify-content: center;">
