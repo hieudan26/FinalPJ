@@ -5,7 +5,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -214,7 +214,7 @@
                                                 </span>
                                                     </div>
                                                     <form action="/AddorCheckRedirectController" method="post">
-                                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                                         <input type="hidden" name="action" value="addOne"/>
                                                         <input hidden type="text" name="path" value="shop" >
                                                         <input hidden type="text" name="redi" value=-1 >
@@ -560,7 +560,7 @@
                 sort: sort,
                 searching: searching,
                 startPos: startPos,
-                csrfTokenMioca : "<%= csrfToken %>"
+                csrfToken : "<%= csrfToken %>"
             },
             success: function(value) {
                 data = value;
@@ -641,7 +641,7 @@
                 sort: sort,
                 searching: searching,
                 startPos: startPos,
-                csrfTokenMioca : "<%= csrfToken %>",
+                csrfToken : "<%= csrfToken %>",
             },
             success: function(value) {
                 let temp = "shop-list";
@@ -676,7 +676,7 @@
                     sort: sort,
                     searching: searching,
                     startPos: startPos,
-                    csrfTokenMioca : "<%= csrfToken %>",
+                    csrfToken : "<%= csrfToken %>",
                 },
                 success: function(value) {
                     let temp = "shop-list";
@@ -708,7 +708,7 @@
                 sort: sort,
                 searching: searching,
                 startPos: startPos,
-                csrfTokenMioca : "<%= csrfToken %>",
+                csrfToken : "<%= csrfToken %>",
             },
             success: function(value) {
                 let temp = "shop-list";

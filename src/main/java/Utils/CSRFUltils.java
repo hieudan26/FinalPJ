@@ -24,13 +24,13 @@ public class CSRFUltils {
         // lấy Anti CSRF token từ cookie
         List<String> csrfCookie = new ArrayList<>();
         for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("csrfTokenMioca")) {
+            if (cookie.getName().equals("csrfToken")) {
                 csrfCookie.add(cookie.getValue());
             }
         }
 
         // lấy Anti CSRF token từ field
-        String csrfField = request.getParameter("csrfTokenMioca");
+        String csrfField = request.getParameter("csrfToken");
 
         // Kiểm tra Anti CSRF token
         if (csrfCookie.isEmpty() || csrfField == null || !csrfCookie.contains(csrfField)) {

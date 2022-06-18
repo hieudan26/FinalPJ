@@ -5,7 +5,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -28,7 +28,7 @@
                               name="mc-embedded-subscribe-form" method="post"
                               action="#"
                         >
-                            <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                            <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                             <div id="mc_embed_signup_scroll" class="mc-form">
                                 <input class="email" type="email" required=""
                                        placeholder="Enter Your Mail Here......." name="EMAIL" value="">

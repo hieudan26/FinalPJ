@@ -7,7 +7,7 @@
     // generate a random CSRF token
     String csrfToken = CSRFUltils.getToken();
 // place the CSRF token in a cookie
-    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfTokenMioca", csrfToken);
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie("csrfToken", csrfToken);
     cookie.setHttpOnly(true);
     response.addCookie(cookie);
 %>
@@ -140,7 +140,7 @@
                     <%--FORM--%>
                     <%--                    doi method trong form thành post--%>
                     <form action="AddorCheckRedirectController" method="post">
-                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <input hidden type="text" name="path" value="single" >
                         <input hidden type="text" name="curProductId" value="${singleProductDTO.getId()}">
                         <input hidden type="text" name="productId" value="${singleProductDTO.getId()}" >
@@ -301,7 +301,7 @@
                                 <div class="ratting-form">
                                     <%--FROM--%>
                                     <form id="frm_Review" action="ReviewController" method="post">
-                                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                         <div class="star-box">
                                             <span>Your rating:</span>
                                             <div class="rating-container">
@@ -427,7 +427,7 @@
 
                                     <%--                                thêm form với method = post--%>
                                 <form action="/AddorCheckRedirectController" method="post">
-                                    <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                                    <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                                     <input type="hidden" name="action" value="addOne"/>
                                     <input hidden type="text" name="path" value="single" >
                                     <input hidden type="text" name="curProductId" value=${item.getId()} >
@@ -465,7 +465,7 @@
                 <div class="modal-body">
                     <h2>Search Your Product</h2>
                     <form class="navbar-form position-relative" role="search">
-                        <input type="hidden" name="csrfTokenMioca" value="<%= csrfToken %>"/>
+                        <input type="hidden" name="csrfToken" value="<%= csrfToken %>"/>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search here...">
                         </div>

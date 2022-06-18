@@ -128,7 +128,7 @@ function bancustom(id){
         type : "POST",
         data : {
             Id : id,
-            csrfTokenMioca : MyApp.csrfToken.value
+            csrfToken : MyApp.csrfToken.value
         },
         url : "/admin/review",
         success: function(data, status) {
